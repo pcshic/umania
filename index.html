@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- CSS -->
+	<link href="https://m80126colin.github.io/normalize/3.0.1/normalize.css" rel="stylesheet" media="screen">
+	<link href="https://m80126colin.github.io/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/style.css" rel="stylesheet" media="screen">
+	<title></title>
+</head>
+<body>
+	<!-- javascript import -->
+	<!-- DO NOT CHANGE THIS BLOCK -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://m80126colin.github.io/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="js/query.js"></script>
+	<script src="js/solver.js"></script>
+	<script src="js/config.js"></script>
+	<script type="text/javascript">
+		// 公告
+		$.getJSON(
+			'data/board.json',
+			'',
+			function(data) {
+				var height = '175px';
+				$('#result').append('\
+					<h2>公告</h2>\
+					<ul id="board" class="list-group"></ul>\
+					');
+				for (var i = 0; i < data.length; i++) {
+					var post = 'post' + i;
+					var postSel = '#' + post;
+					$('#board').append('\
+						<li id="' + post + '" class="list-group-item">\
+							<div class="media">\
+								<div class="media-body"></div>\
+							</div>\
+						</li>');
+					if (data[i]['img'] == undefined)
+						data[i]['img'] = 'img/blank.png';
+					$(postSel + ' .media').prepend('\
+						<a class="pull-right" href="' + data[i]['img'] + '">\
+							<img class="media-object" \
+								src="' + data[i]['img'] + '" \
+								height="' + height + '">\
+						</a>');
+					$(postSel + ' .media-body').append('\
+						<h4>版本 ' + data[i]['version'] + ' \
+							<small>' + data[i]['date'] + '</small>\
+						</h4>\
+						<ol></ol>');
+					var content = data[i]['content'];
+					for (var j = 0; j < content.length; j++) {
+						$('#' + post + ' ol').append('\
+							<li>' + content[j] + '</li>');
+					}
+				}
+			});
+	</script>
+	<!-- DO NOT CHANGE THIS BLOCK -->
+</body>
+</html>

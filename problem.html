@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- CSS -->
+	<link href="https://m80126colin.github.io/normalize/3.0.1/normalize.css" rel="stylesheet" media="screen">
+	<link href="https://m80126colin.github.io/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/style.css" rel="stylesheet" media="screen">
+	<title></title>
+</head>
+<body>
+	<!-- javascript import -->
+	<!-- DO NOT CHANGE THIS BLOCK -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://m80126colin.github.io/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="js/query.js"></script>
+	<script src="js/solver.js"></script>
+	<script src="js/config.js"></script>
+	<script type="text/javascript">
+		if (query['type'] && query['type'] == 'single') {
+			var prob = solver.probData[0];
+			var pid = prob.getPid();
+			var num = prob.getNumber();
+			var title = prob.getTitle();
+			var cate = Math.floor(num / 100);
+			// 開頭
+			$('#result').append('<div class="page-header"><h1>' + num + ' <small>' + title + '</small></h1></div>');
+			// 分隔
+			$('#result').append('<div class="row"><div id="info" class="' + col(8) + '"></div><div id="source" class="' + col(4) + '"></div></div>');
+			// 題目資訊
+			$('#info').append('<h3>題目資訊 <small>Information</small></h3>');
+			$('#info').append('<div id="info-one"></div>');
+			$('#info-one').append('<p>' + makeRow([
+					[2, '<strong>題目名稱</strong>'],	[10, title]
+				]) + '</p>');
+			$('#info-one').append('<p>' + makeRow([
+					[2, '<strong>題目編號</strong>'],	[2, num],
+					[2, '<strong>題目 ID</strong>'],	[2, pid]
+				]) + '</p>');
+			// 統計
+			$('#info').append('<h3>統計 <small>Statistics</small></h3>');
+			$('#info').append('<div id="info-two"></div>');
+			$('#info-two').append('<p>' + makeRow([
+					[2, '<strong>AC 數</strong>'],		[2, prob.getAC()],
+					[2, '<strong>WA 數</strong>'],		[2, prob.getWA()],
+					[2, '<strong>PE 數</strong>'],		[2, prob.getPE()],
+				]) + '</p>');
+			$('#info-two').append('<p>' + makeRow([
+					[2, '<strong>TLE 數</strong>'],		[2, prob.getTLE()],
+					[2, '<strong>OLE 數</strong>'],		[2, prob.getOLE()],
+					[2, '<strong>MLE 數</strong>'],		[2, prob.getMLE()],
+				]) + '</p>');
+			$('#info-two').append('<p>' + makeRow([
+					[2, '<strong>CE 數</strong>'],		[2, prob.getCE()],
+					[2, '<strong>RE 數</strong>'],		[2, prob.getRE()],
+					[2, '<strong>RF 數</strong>'],		[2, prob.getRF()],
+				]) + '</p>');
+			// UVa 原文
+			$('#source').append('<h3>原文 <small>Origin</small></h3>');
+			$('#source').append('<div id="source-one"></div>');
+			var color = ['btn-info', 'btn-warning'];
+			var view = ['UVa 原文', 'external'];
+			var src = ['http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=' + pid, 'http://uva.onlinejudge.org/external/' + cate + '/' + num + '.html'];
+			for (var i = 0; i < src.length; i++)
+				$('#source-one').append('<a href="' + src[i] + '" class="btn ' + color[i] + '" target="_blank">' + view[i] + '</a>');
+			// 題目翻譯
+			$('#source').append('<h3>翻譯 <small>Translations</small></h3>');
+			$('#source').append('<div id="source-two"></div>');
+			var trans = prob.getTranslate();
+			var color = {
+				'luckycat': 'btn-primary',
+				'ruby 兔': 'btn-success',
+				'unfortunate 狗': 'btn-danger'
+				};
+			for (var i = 0; i < trans.length; i++) {
+				var transDb = solver.transData[trans[i]];
+				var link = transDb['site'] + transDb['trans'][num];
+				$('#source-two').append('<a href="' + link + '" class="btn ' + color[trans[i]] + '" target="_blank">' + trans[i] + '</a>');
+			}
+			// 上傳紀錄
+			var subs = prob.getSubmit();
+			if (subs.length) {
+				$('#result').append('<div id="subs"></div>');
+				$('#subs').append('<h2>上傳紀錄 <small>Submissions</small></h2>');
+				$('#subs').append('<table id="subs" class="table table-condensed table-hover"><thead></thead><tbody></tbody></table>');
+				var tmp = ['上傳編號', '結果', '語言', '上傳時間', '執行時間(秒)', '排名'];
+				$('#subs thead').append('<tr><th>' + tmp.join('</th><th>') + '</th></tr>');
+				for (var i = 0; i < subs.length; i++) {
+					var sub = subs[i];
+					tmp = [	sub.getSid(),
+							sub.transVerdit(),
+							sub.transLang(),
+							sub.transTime(),
+							sub.transRuntime(),
+							sub.getRank()
+							];
+					$('#subs tbody').append('<tr><td>' + tmp.join('</td><td>') + '</td></tr>');
+				}
+			}
+		}
+		else {
+			var probs = solver.probData;
+			for (var i = 0; i < probs.length; i++) {
+				var prob = probs[i];
+				var num = prob.getNumber();
+				var cate = Math.floor(num / 100);
+				if (num % 100 == 0) {
+					$('#result').append('<div id="' + cate + '"></div>');
+					$('#' + cate).append('<h2>Volume ' + cate + '</h2>').append('<div id="part' + cate + '"></div>');
+				}
+				$('#part' + cate).append(prob.getStyle());
+			}
+		}
+		$('span[id=tooltip]').tooltip();
+	</script>
+	<!-- DO NOT CHANGE THIS BLOCK -->
+</body>
+</html>

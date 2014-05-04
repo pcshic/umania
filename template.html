@@ -1,0 +1,111 @@
+<div id="main" class="row">
+	<div class="col-sm-11 col-md-11 col-lg-11">
+		<div class="row">
+			<div class="col-sm-3 col-md-3 col-lg-3">
+				<div data-spy="affix">
+					<div id="options" class="side-block">
+						<ul class="nav nav-pills nav-stacked">
+							<li><a href="index.html">首頁</a></li>
+							<li><a href="problem.html">UVa 全題</a></li>
+							<li>
+								<a class="dropdown-toggle" data-toggle="dropdown">練習題 <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="practice.html?category=all">全部</a></li>
+									<li><a href="practice.html?category=基礎">基礎</a></li>
+									<li><a href="practice.html?category=第一部分">第一部分</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<div class="side-block">
+						<div class="nav-title">
+							<h3>帳號 <small>Account</small></h3>
+						</div>
+						<form id="nameform" class="form-inline" onsubmit="check('#nameform', {'name': 'user'});">
+							<div class="form-group" method="get">
+								<input type="text" name="user" class="form-control" placeholder="username ...">
+							</div>
+							<button type="submit" class="btn btn-default">確定</button>
+						</form>
+					</div>
+					<div class="side-block">
+						<div class="nav-title">
+							<h3>題目搜尋 <small>Search</small></h3>
+						</div>
+						<form action="problem.html" id="search" class="form-inline" onsubmit="check('#search', {'name': 'num'}, ['user', 'type', 'num']);">
+							<div class="form-group" method="get">
+								<input type="text" name="num" class="form-control" placeholder="輸入題號 ...">
+								<input type="hidden" name="type" value="single">
+							</div>
+							<button type="submit" class="btn btn-default">搜尋</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-9 col-md-9 col-lg-9">
+				<div id="head"></div>
+				<div id="body">
+					<div id="message"></div>
+					<div id="result"></div>
+				</div>
+				<div id="copyright">
+					<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/tw/"><img alt="創用 CC 授權條款" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/2.5/tw/88x31.png" /></a><br />本著作係採用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/tw/">創用 CC 姓名標示-非商業性-相同方式分享 2.5 台灣 授權條款</a>授權.
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var render = function() {
+		var opts = $('#options a[id!="dropdown-toggle"]');
+		var qry = (new Query()).getArgs(['user']);
+		for (var i = 0; i < opts.length; i++) {
+			var args = (new Query(opts[i].href)).addArgs(qry);
+			if (args != '') {
+				opts[i].href = opts[i].href.split('?')[0] + '?' + args;
+			}
+		}
+	}
+	render();
+	$('.navbar-brand').text($('title').text());
+	/* ***************************************************** */
+	/*                                                       */
+	/*	onsubmit:                                            */
+	/*		檢查 username                                    */
+	/*                                                       */
+	/* ***************************************************** */
+	var check = function(selForm, args, keys) {
+		var qry = new Query();
+		// 取出值並清空
+		for (var key in args) {
+			var sel = selForm + ' [' + key + '="' + args[key] + '"]';
+			var input = $(sel);
+			if (input.length != 0) {
+				var val = '' + input.val();
+				// 去掉首尾空白 + 縮空白
+				val = val.replace(/(^\s*)|(\s*$)/g,'').replace(/\s+/g, ' ');
+				input.val('');
+				var obj = {};
+				obj[args[key]] = val;
+				qry.addArgs(obj);
+			}
+		}
+		var para;
+		if (keys == undefined)
+			para = qry.getAllArgs();
+		else
+			para = qry.getArgs(keys);
+		for (var key in para) {
+			var input = $(selForm + ' [name="' + key + '"]');
+			if (input.length != 0)
+				input.val(para[key]);
+			else {
+				$('<input>').attr({
+					'type': 'hidden',
+					'name': key,
+					'value': para[key]
+				}).appendTo(selForm + ' .form-group');
+			}
+		}
+	}
+</script>
