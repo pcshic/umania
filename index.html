@@ -20,44 +20,64 @@
 	<script src="js/config.js"></script>
 	<script type="text/javascript">
 		// 公告
-		$.getJSON(
-			'data/board.json',
-			'',
-			function(data) {
-				var height = '175px';
-				$('#result').append('\
-					<h2>公告</h2>\
-					<ul id="board" class="list-group"></ul>\
-					');
-				for (var i = 0; i < data.length; i++) {
-					var post = 'post' + i;
-					var postSel = '#' + post;
-					$('#board').append('\
-						<li id="' + post + '" class="list-group-item">\
-							<div class="media">\
-								<div class="media-body"></div>\
-							</div>\
-						</li>');
-					if (data[i]['img'] == undefined)
-						data[i]['img'] = 'img/blank.png';
-					$(postSel + ' .media').prepend('\
-						<a class="pull-right" href="' + data[i]['img'] + '">\
-							<img class="media-object" \
-								src="' + data[i]['img'] + '" \
-								height="' + height + '">\
-						</a>');
-					$(postSel + ' .media-body').append('\
-						<h4>版本 ' + data[i]['version'] + ' \
-							<small>' + data[i]['date'] + '</small>\
-						</h4>\
-						<ol></ol>');
-					var content = data[i]['content'];
-					for (var j = 0; j < content.length; j++) {
-						$('#' + post + ' ol').append('\
-							<li>' + content[j] + '</li>');
-					}
+		$.getJSON('data/board.json', '', function(data) {
+			var decodeObj	= function(obj, args) {
+				var res		= {};
+				res.ver		= obj['version'];
+				res.date	= obj['date'];
+				res.cont	= obj['content'];
+				res.sum		= obj['summary'];
+				res.code	= obj['code'];
+				res.img 	= obj['img']) || 'img/blank.png';
+				res.args	= args;
+				return res;
+			}
+			var res =
+			'<div id="board">\
+				<h2>公告</h2><ul class="list-group">';
+			for (var i = 0; i < data.length; i++) {
+				var obj = decodeObj(data[i], {'h': '175px'});
+				res +=
+					'<li class="list-group-item">\
+					<div class="media">\
+						<a class="pull-right" href="">\
+						<img class="media-object" src="' + obj.img + '" height="' + obj.args.h + '">\
+						</a>\
+						<div class="media-body">';
+				if (obj.code) {
+					res +=
+						'<h3 class="page-header">版本 ' + obj.code + ' (' + obj.ver + ') <small>' + obj.date + '</small></h3>';
 				}
-			});
+				else {
+					res +=
+						'<h3 class="page-header">版本 ' + obj.ver + ' <small>' + obj.date + '</small></h3>';
+				}
+				if (obj.cont && obj.cont.length) {
+					res +=	'<ol><li>' + obj.cont.join('</li><li>') + '</li></ol>';
+				}
+				if (obj.sum && obj.sum.length) {
+					res +=	'<h4>子版本</h4>\
+							<table class="table table-hover">';
+					for (var j = 0; j < summary.length; j++) {
+						var sObj = decodeObj(summary[j], {'h': '50px'});
+						res += '<tr>\
+									<th>' + sObj.ver + '</th>\
+									<td>' + sObj.date + '</td>';
+						if (sObj && sObj.cont.length) {
+							res +=	'<td><ul><li>' + obj.cont.join('</li><li>') + '</li></ul></td>';
+						}
+						res +=		'<td><img src="' + sObj.img + '" height="' + sObj.args.h + '"></td>\
+								</tr>';
+					}
+					res +=	'</table>';
+				}
+				res +=		'</div>\
+						</div>\
+					</li>';
+			}
+			res += '</ul></div>';
+			$('#result').append(res);
+		});
 	</script>
 	<!-- DO NOT CHANGE THIS BLOCK -->
 </body>
