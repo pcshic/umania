@@ -23,7 +23,11 @@
 .main {
 }
 
+.paragraph {
+	text-indent: 10px;
+	margin: 10px;
+}
+
 .paragraph::first-letter {
 	font-size: 32px;
-	text-indent: 10px;
 }
