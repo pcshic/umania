@@ -37,24 +37,18 @@
 				<h2>公告</h2><ul class="list-group">';
 			for (var i = 0; i < data.length; i++) {
 				var obj = decodeObj(data[i], {'w': '350px'});
-				res +=
-					'<li class="list-group-item">\
-					<div class="media">\
-						<a class="pull-right" href="">';
+				res += '<li class="list-group-item">\
+							<div class="media">';
 				// Start img
-				res +=
-					'<img class="media-object" src="' + obj.img + '"';
+				res += '<img class="media-object \
+							pull-right" src="' + obj.img + '"';
 				if (obj.args.h)
-					res +=
-						' height="' + obj.args.h + '"';
+					res += ' height="' + obj.args.h + '"';
 				if (obj.args.w)
-					res +=
-						' width="' + obj.args.w + '"';
+					res += ' width="' + obj.args.w + '"';
 				res += '>';
 				// End img
-				res +=
-						'</a>\
-						<div class="media-body">';
+				res += '<div class="media-body">';
 				if (obj.code) {
 					res +=
 						'<h3 class="page-header">版本 ' + obj.code + ' (' + obj.ver + ') <small>' + obj.date + '</small></h3>';
@@ -77,8 +71,10 @@
 						if (sObj && sObj.cont.length) {
 							res +=	'<td><ul><li>' + sObj.cont.join('</li><li>') + '</li></ul></td>';
 						}
-						res +=		'<td><img src="' + sObj.img + '" height="' + sObj.args.h + '"></td>\
-								</tr>';
+						res += '<td>';
+						if (sObj.img != 'img/blank.png')
+							res += '<a href="' + sObj.img + '"><img src="' + sObj.img + '" height="' + sObj.args.h + '"></a>';
+						res += '</td></tr>';
 					}
 					res +=	'</table>';
 				}

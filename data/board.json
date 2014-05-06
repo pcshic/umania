@@ -4,12 +4,14 @@
 		"date": "2014/05/07",
 		"content": [
 			"更新公告格式"
-		]
+		],
+		"img": "img/v1.7.png"
 	},
 	{
 		"version": "1.5",
 		"date": "2014/02/18 - 2014/05/07",
 		"code": "Lion",
+		"description": "",
 		"summary": [
 			{
 				"version": "1.5",
@@ -57,6 +59,7 @@
 		"version": "1.0",
 		"date": "2014/01/28 - 2014/02/18",
 		"code": "Giraffe",
+		"description": "UVa Problem Solver 的創始版本，",
 		"summary": [
 			{
 				"version": "1.0",
