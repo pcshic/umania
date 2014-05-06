@@ -58,8 +58,8 @@
 				if (obj.sum && obj.sum.length) {
 					res +=	'<h4>子版本</h4>\
 							<table class="table table-hover">';
-					for (var j = 0; j < summary.length; j++) {
-						var sObj = decodeObj(summary[j], {'h': '50px'});
+					for (var j = 0; j < obj.sum.length; j++) {
+						var sObj = decodeObj(obj.sum[j], {'h': '50px'});
 						res += '<tr>\
 									<th>' + sObj.ver + '</th>\
 									<td>' + sObj.date + '</td>';
