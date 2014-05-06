@@ -28,15 +28,18 @@
 				res.cont	= obj['content'];
 				res.sum		= obj['summary'];
 				res.code	= obj['code'];
+				res.des		= obj['description'];
 				res.img 	= obj['img'] || 'img/blank.png';
 				res.args	= args;
 				return res;
 			}
+			var firstWidth = {'w': '300px'};
+			var secondHeight = {'h': '50px'};
 			var res =
 			'<div id="board">\
 				<h2>公告</h2><ul class="list-group">';
 			for (var i = 0; i < data.length; i++) {
-				var obj = decodeObj(data[i], {'w': '350px'});
+				var obj = decodeObj(data[i], firstWidth);
 				res += '<li class="list-group-item">\
 							<div class="media">';
 				// Start img
@@ -57,6 +60,9 @@
 					res +=
 						'<h3 class="page-header">版本 ' + obj.ver + ' <small>' + obj.date + '</small></h3>';
 				}
+				if (obj.des) {
+					res += '<div><p style="&::first-letter: { font-size: 36px; display: inline-block; }">' + obj.des + '</p></div>';
+				}
 				if (obj.cont && obj.cont.length) {
 					res +=	'<ol><li>' + obj.cont.join('</li><li>') + '</li></ol>';
 				}
@@ -64,7 +70,7 @@
 					res +=	'<h4>子版本</h4>\
 							<table class="table table-hover">';
 					for (var j = 0; j < obj.sum.length; j++) {
-						var sObj = decodeObj(obj.sum[j], {'h': '50px'});
+						var sObj = decodeObj(obj.sum[j], secondHeight);
 						res += '<tr>\
 									<th>' + sObj.ver + '</th>\
 									<td>' + sObj.date + '</td>';

@@ -3,8 +3,22 @@
 		"version": "1.7",
 		"date": "2014/05/07 -",
 		"code": "Elephant",
-		"content": [
-			"更新公告格式"
+		"description": "",
+		"summary": [
+			{
+				"version": "1.7",
+				"date": "2014/05/07",
+				"content": [
+					"更新公告格式",
+					"程式碼微調"
+				],
+				"img": "img/v1.7.png"
+			},
+			{
+				"version": "1.7.1",
+				"date": "2014/05/07",
+				"content": ["更新公告資料"]
+			}
 		],
 		"img": "img/v1.7.png"
 	},
@@ -60,7 +74,7 @@
 		"version": "1.0",
 		"date": "2014/01/28 - 2014/02/18",
 		"code": "Giraffe",
-		"description": "UVa Problem Solver 的創始版本，",
+		"description": "UVa Problem Solver 的創始版本。",
 		"summary": [
 			{
 				"version": "1.0",
