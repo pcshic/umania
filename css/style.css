@@ -1,20 +1,35 @@
-
-.side-block {
-	margin-left: 2rem;
-}
-
-#main {
+/* body */
+body {
 	margin-top: 5rem;
 }
 
+/* side-bar */
+#options {
+	margin-left: 2rem;
+}
+
+#banner {
+	display: block;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+/*
+	main block:
+		#head
+		#body
+			#message
+			#result
+*/
 #body {
 	margin-bottom: 7rem;
 }
-
+/*
 #copyright {
 	margin-top: 3rem;
 	margin-bottom: 3rem;
 }
+*/
 
 .btn {
 	margin: 0.2rem;
