@@ -1,16 +1,13 @@
 <div id="main" class="row">
-<div class="col-sm-11 col-md-11 col-lg-11">
+<div class="col-sm-12 col-md-12 col-lg-12">
 <div class="row">
 	<div class="col-sm-3 col-md-3 col-lg-3">
-		<div data-spy="affix">
-			<div id="options" class="side-block">
+		<div class="sidebar side-block" data-spy="affix">
 			<ul class="nav nav-pills nav-stacked">
-				<li class="disabled active">
-					<a id="banner" href=""></a>
-				</li>
+				<li class="active"><a id="banner" href="index.html"></a></li>
 				<li><a href="index.html">首頁</a></li>
 				<li><a href="problem.html">UVa 全題</a></li>
-				<li><a class="dropdown-toggle" data-toggle="dropdown">練習題 <b class="caret"></b></a>
+				<li><a class="dropdown-toggle" data-toggle="dropdown">講義練習題 <b class="caret"></b></a>
 				<ul class="dropdown-menu">
 				<li><a href="practice.html?category=all">全部</a></li>
 				<li><a href="practice.html?category=基礎">基礎</a></li>
@@ -20,32 +17,27 @@
 				<li><a href="submit.html">快速上傳</a></li>
 				<li><a href="battle.html">battle 模式</a></li>
 			</ul>
+			<div class="nav-title">
+				<h3>帳號 <small>Account</small></h3>
 			</div>
-			<div class="side-block">
-				<div class="nav-title">
-					<h3>帳號 <small>Account</small></h3>
+			<form id="nameform" class="form-inline" onsubmit="check('#nameform', {'name': 'user'});">
+				<div class="form-group" method="get">
+					<input type="text" name="user" class="form-control" placeholder="username ...">
 				</div>
-				<form id="nameform" class="form-inline" onsubmit="check('#nameform', {'name': 'user'});">
-					<div class="form-group" method="get">
-						<input type="text" name="user" class="form-control" placeholder="username ...">
-					</div>
-					<button type="submit" class="btn btn-default">確定</button>
-				</form>
+				<button type="submit" class="btn btn-default">確定</button>
+			</form>
+			<div class="nav-title">
+				<h3>題目搜尋 <small>Search</small></h3>
 			</div>
-			<div class="side-block">
-				<div class="nav-title">
-					<h3>題目搜尋 <small>Search</small></h3>
+			<form action="problem.html" id="search" class="form-inline" onsubmit="check('#search', {'name': 'num'}, ['user', 'type', 'num']);">
+				<div class="form-group" method="get">
+					<input type="text" name="num" class="form-control" placeholder="輸入題號 ...">
+					<input type="hidden" name="type" value="single">
 				</div>
-				<form action="problem.html" id="search" class="form-inline" onsubmit="check('#search', {'name': 'num'}, ['user', 'type', 'num']);">
-					<div class="form-group" method="get">
-						<input type="text" name="num" class="form-control" placeholder="輸入題號 ...">
-						<input type="hidden" name="type" value="single">
-					</div>
-					<button type="submit" class="btn btn-default">搜尋</button>
-				</form>
-			</div>
-			<div id="copyright" class="side-block">
-				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/tw/"><img alt="創用 CC 授權條款" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/2.5/tw/88x31.png" /></a><br />本著作係採用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/tw/">創用 CC 姓名標示-非商業性-相同方式分享 2.5 台灣 授權條款</a>授權.
+				<button type="submit" class="btn btn-default">搜尋</button>
+			</form>
+			<div id="copyright">
+				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/tw/"><img alt="創用 CC 授權條款" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/2.5/tw/88x31.png" /></a>
 			</div>
 		</div>
 	</div>
