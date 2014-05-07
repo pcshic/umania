@@ -1,8 +1,7 @@
-$('title, #banner').text('UVa Problem Solver');
-
 $.ajaxSettings.async = false;
 $.get('head.html', '', function(data) {
 	$('body').prepend(data);
+	$('title, #banner').text('UVa Problem Solver');
 });
 $.ajaxSettings.async = true;
 
