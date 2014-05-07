@@ -1,4 +1,4 @@
-$('title').text('UVa Problem Solver');
+$('title, #banner').text('UVa Problem Solver');
 
 $.ajaxSettings.async = false;
 $.get('head.html', '', function(data) {
