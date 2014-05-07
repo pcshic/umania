@@ -6,7 +6,7 @@
 			<ul id="options" class="nav nav-pills nav-stacked">
 				<li class="active"><a id="banner" href="index.html"></a></li>
 				<li><a href="index.html">首頁</a></li>
-				<li><a href="problem.html">UVa 全題</a></li>
+				<li><a href="problem.html?type=all">UVa 全題</a></li>
 				<li><a class="dropdown-toggle" data-toggle="dropdown">講義練習題 <b class="caret"></b></a>
 				<ul class="dropdown-menu">
 				<li><a href="practice.html?category=all">全部</a></li>
@@ -20,20 +20,17 @@
 			<div class="nav-title">
 				<h3>帳號 <small>Account</small></h3>
 			</div>
-			<form id="nameform" class="form-inline" onsubmit="check('#nameform', {'name': 'user'});">
-				<div class="form-group" method="get">
-					<input type="text" name="user" class="form-control" placeholder="username ...">
-				</div>
-				<button type="submit" class="btn btn-default">確定</button>
+			<div id="userMsg"></div>
+			<form id="newUser" class="form-inline">
+				<input type="text" name="user" class="form-control" placeholder="username ...">
+				<button class="btn btn-default">確定</button>
 			</form>
 			<div class="nav-title">
 				<h3>題目搜尋 <small>Search</small></h3>
 			</div>
-			<form action="problem.html" id="search" class="form-inline" onsubmit="check('#search', {'name': 'num'}, ['user', 'type', 'num']);">
-				<div class="form-group" method="get">
-					<input type="text" name="num" class="form-control" placeholder="輸入題號 ...">
-					<input type="hidden" name="type" value="single">
-				</div>
+			<form action="problem.html" id="search" class="form-inline" method="get">
+				<input type="text" name="num" class="form-control" placeholder="輸入題號 ...">
+				<input type="hidden" name="type" value="single">
 				<button type="submit" class="btn btn-default">搜尋</button>
 			</form>
 			<div id="copyright">
@@ -52,55 +49,25 @@
 </div>
 </div>
 <script type="text/javascript">
-	var render = function() {
-		var opts = $('#options a[id!="dropdown-toggle"]');
-		var qry = (new Query()).getArgs(['user']);
-		for (var i = 0; i < opts.length; i++) {
-			var args = (new Query(opts[i].href)).addArgs(qry);
-			if (args != '') {
-				opts[i].href = opts[i].href.split('?')[0] + '?' + args;
-			}
+	$('#newUser').submit(function(e) {
+		var input = $('input[name="user"]');
+		if (input.val().length != 0) {
+			// 去掉首尾空白 + 縮空白
+			var val = input.val().replace(/(^\s*)|(\s*$)/g,'').replace(/\s+/g, ' ');
+			if (ls[upsName] == undefined)
+				ls[upsName] = '{}';
+			var ups = JSON.parse(ls[upsName]);
+			if (ups.user == undefined)
+				ups.user = {};
+			if (ups.user[val] == undefined)
+				ups.user[val] = {};
+			ups.master = val;
+			ls[upsName] = JSON.stringify(ups);
 		}
-	}
-	render();
-	/* ***************************************************** */
-	/*                                                       */
-	/*	onsubmit:                                            */
-	/*		檢查 username                                    */
-	/*                                                       */
-	/* ***************************************************** */
-	var check = function(selForm, args, keys) {
-		var qry = new Query();
-		// 取出值並清空
-		for (var key in args) {
-			var sel = selForm + ' [' + key + '="' + args[key] + '"]';
-			var input = $(sel);
-			if (input.length != 0) {
-				var val = '' + input.val();
-				// 去掉首尾空白 + 縮空白
-				val = val.replace(/(^\s*)|(\s*$)/g,'').replace(/\s+/g, ' ');
-				input.val('');
-				var obj = {};
-				obj[args[key]] = val;
-				qry.addArgs(obj);
-			}
-		}
-		var para;
-		if (keys == undefined)
-			para = qry.getAllArgs();
-		else
-			para = qry.getArgs(keys);
-		for (var key in para) {
-			var input = $(selForm + ' [name="' + key + '"]');
-			if (input.length != 0)
-				input.val(para[key]);
-			else {
-				$('<input>').attr({
-					'type': 'hidden',
-					'name': key,
-					'value': para[key]
-				}).appendTo(selForm + ' .form-group');
-			}
-		}
+		e.preventDefault();
+		location.reload();
+	});
+	if (ups && ups.master) {
+		$('#userMsg').append('<div class="alert alert-success">當前使用者: <strong>' + ups.master + '</strong></div>');
 	}
 </script>

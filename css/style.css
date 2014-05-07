@@ -4,7 +4,6 @@
 body {
 	margin-top: 5rem;
 }
-
 #main {
 	width: 100%;
 }
@@ -56,19 +55,6 @@ body {
 	margin-bottom: 7rem;
 }
 
-
 .btn {
 	margin: 0.2rem;
-}
-
-.main {
-}
-
-.paragraph {
-	text-indent: 1rem;
-	margin: 2rem;
-}
-
-.paragraph::first-letter {
-	font-size: 3.2rem;
 }
