@@ -1,2 +1,3 @@
 # google drive config
 *.ini
+node_modules/
