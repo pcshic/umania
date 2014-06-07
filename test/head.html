@@ -1,0 +1,73 @@
+<div id="main" class="row">
+<div class="col-sm-12 col-md-12 col-lg-12">
+<div class="row">
+	<div class="col-sm-3 col-md-3 col-lg-3">
+		<div class="sidebar side-block" data-spy="affix">
+			<ul id="options" class="nav nav-pills nav-stacked">
+				<li class="active"><a id="banner" href="index.html"></a></li>
+				<li><a href="index.html">首頁</a></li>
+				<li><a href="problem.html?type=all">UVa 全題</a></li>
+				<li><a class="dropdown-toggle" data-toggle="dropdown">講義練習題 <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+				<li><a href="practice.html?category=all">全部</a></li>
+				<li><a href="practice.html?category=基礎">基礎</a></li>
+				<li><a href="practice.html?category=第一部分">第一部分</a></li>
+				</ul>
+				</li>
+				<li><a href="submit.html">快速上傳</a></li>
+				<li><a href="battle.html">battle 模式</a></li>
+			</ul>
+			<div class="nav-title">
+				<h3>帳號 <small>Account</small></h3>
+			</div>
+			<div id="userMsg"></div>
+			<form id="newUser" class="form-inline">
+				<input type="text" name="user" class="form-control" placeholder="username ...">
+				<button class="btn btn-default">確定</button>
+			</form>
+			<div class="nav-title">
+				<h3>題目搜尋 <small>Search</small></h3>
+			</div>
+			<form action="problem.html" id="search" class="form-inline" method="get">
+				<input type="text" name="num" class="form-control" placeholder="輸入題號 ...">
+				<input type="hidden" name="type" value="single">
+				<button type="submit" class="btn btn-default">搜尋</button>
+			</form>
+			<div id="copyright">
+				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/tw/"><img alt="創用 CC 授權條款" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/2.5/tw/88x31.png" /></a>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-9 col-md-9 col-lg-9">
+		<div id="head"></div>
+		<div id="body">
+			<div id="message"></div>
+			<div id="result"></div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+	$('#newUser').submit(function(e) {
+		var input = $('input[name="user"]');
+		if (input.val().length != 0) {
+			// 去掉首尾空白 + 縮空白
+			var val = input.val().replace(/(^\s*)|(\s*$)/g,'').replace(/\s+/g, ' ');
+			if (ls[upsName] == undefined)
+				ls[upsName] = '{}';
+			var ups = JSON.parse(ls[upsName]);
+			if (ups.user == undefined)
+				ups.user = {};
+			if (ups.user[val] == undefined)
+				ups.user[val] = {};
+			ups.master = val;
+			ls[upsName] = JSON.stringify(ups);
+		}
+		e.preventDefault();
+		location.reload();
+	});
+	if (ups && ups.master) {
+		$('#userMsg').append('<div class="alert alert-success">當前使用者: <strong>' + ups.master + '</strong></div>');
+	}
+</script>
