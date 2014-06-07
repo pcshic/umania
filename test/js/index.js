@@ -54,12 +54,13 @@ var getSubversionInfo = function(subinfo) {
 	return res;
 }
 
-var getSubversion = function(subver) {
+var getSubversion = function(subver, ver) {
 	var res = '';
 	if (subver) {
 		res += '\
-			<h4>子版本</h4>\
-			<table class="table table-hover">';
+			<h4>子版本 <span id="subver-folder" class="glyphicon glyphicon-folder-close" data-toggle="tooltip" data-placement="top" title="點開觀看子版本訊息"></span></h4>\
+			<table id="subver subver-' + ver + '" \
+				class="table table-hover">';
 			if (subver.length) {
 				for (var i = 0; i < subver.length; i++)
 					res += getSubversionInfo(subver[i]);
@@ -85,7 +86,7 @@ var getVersionInfo = function(info) {
 				res += getTitle(info.code, info.version, info.date);
 				res += getDescription(info.description);
 				res += getContent(info.content);
-				res += getSubversion(info.subversion);
+				res += getSubversion(info.subversion, info.version);
 	res += '\
 				</div>\
 			</div>\
@@ -93,14 +94,14 @@ var getVersionInfo = function(info) {
 	return res;
 }
 
-var getBoardList = function(list) {
+var getBoardList = function(list, compress) {
 	var res = '';
 	res += '<ul class="list-group">';
 	if (list.length) {
 		for (var i in list)
-			res += getVersionInfo(list[i]);
+			res += getVersionInfo(list[i], compress);
 	}
-	else res += getVersionInfo(list);
+	else res += getVersionInfo(list, compress);
 	res += '</ul>';
 	return res;
 }
@@ -124,5 +125,6 @@ $(function() {
 	$.get('data/board.yml', '', function (data) {
 		var board = YAML.parse(data);
 		$('#result').append(getBoard(board));
+		$('#subver-folder').tooltip();
 	});
 });
