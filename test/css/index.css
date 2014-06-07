@@ -1,6 +1,5 @@
 .paragraph {
 	text-indent: 1rem;
-	margin: 2rem;
 }
 
 .paragraph::first-letter {
