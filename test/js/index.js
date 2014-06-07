@@ -1,5 +1,4 @@
 var getImage = function(image, option) {
-	image = image || 'img/blank.png';
 	res = '<img src="' + image + '"';
 	for (var attr in option)
 		res += ' ' + attr + '="' + option[attr] + '"';
@@ -43,10 +42,13 @@ var getSubversionInfo = function(subinfo) {
 			<th>' + subinfo.version + '</th>\
 			<td>' + subinfo.date + '</td>\
 			<td>' + getContent(subinfo.content) + '</td>';
-	res += '<td>\
-				<a href="' + subinfo.image + '">' +
+	res += '<td>'
+			if (subinfo.image) {
+				res += '<a href="' + subinfo.image + '">' +
 				getImage(subinfo.image, { 'height': '50px' }) +
-				'</a>\
+				'</a>';
+			}
+	res += '\
 			</td>\
 		</tr>';
 	return res;
@@ -74,7 +76,7 @@ var getVersionInfo = function(info) {
 	res += '\
 		<li class="list-group-item">\
 			<div class="media">';
-			res += getImage(info.image, {
+			res += getImage(info.image || 'img/blank.png', {
 				'class': 'media-object pull-right',
 				'width': '300px'
 			});
