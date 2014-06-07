@@ -58,9 +58,8 @@ var getSubversion = function(subver, ver) {
 	var res = '';
 	if (subver) {
 		res += '\
-			<h4>子版本 <span id="subver-folder" class="glyphicon glyphicon-folder-close" data-toggle="tooltip" data-placement="top" title="點開觀看子版本訊息"></span></h4>\
-			<table id="subver subver-' + ver + '" \
-				class="table table-hover">';
+			<h4>子版本 <span class="glyphicon glyphicon-folder-close subver-folder" data-toggle="tooltip" data-placement="top" title="點開觀看子版本訊息"></span></h4>\
+			<table class="table table-hover subver subver-' + ver + '">';
 			if (subver.length) {
 				for (var i = 0; i < subver.length; i++)
 					res += getSubversionInfo(subver[i]);
@@ -125,7 +124,7 @@ $(function() {
 	$.get('data/board.yml', '', function (data) {
 		var board = YAML.parse(data);
 		$('#result').append(getBoard(board));
-		$('#subver-folder').tooltip();
-		$('#subver').hide();
+		$('.subver-folder').tooltip();
+		$('.subver').hide();
 	});
 });
