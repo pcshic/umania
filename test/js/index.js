@@ -126,5 +126,6 @@ $(function() {
 		var board = YAML.parse(data);
 		$('#result').append(getBoard(board));
 		$('#subver-folder').tooltip();
+		$('#subver').hide();
 	});
 });
