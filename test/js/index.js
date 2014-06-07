@@ -93,20 +93,28 @@ var getVersionInfo = function(info) {
 	return res;
 }
 
+var getBoardList = function(list) {
+	var res = '';
+	res += '<ul class="list-group">';
+	if (list.length) {
+		for (var i in list)
+			res += getVersionInfo(list[i]);
+	}
+	else res += getVersionInfo(list);
+	res += '</ul>';
+	return res;
+}
+
 var getBoard = function(board) {
 	var res = '';
 	if (board) {
 		res += '\
 			<div id="board">\
-				<h1>公告</h1>\
-				<ul class="list-group">';
-				if (board.length) {
-					for (var i in board)
-						res += getVersionInfo(board[i]);
-				}
-				else res += getVersionInfo(board);
+				<h1>現在版本</h1>';
+		res += getBoardList(board.current);
+		res += '<h1>歷史版本</h1>';
+		res += getBoardList(board.history);
 		res += '\
-				</ul>\
 			</div>';
 	}
 	return res;

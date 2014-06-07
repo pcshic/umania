@@ -1,7 +1,9 @@
-- version: 2.0.x
+current:
+  version: 2.0.x
   code: Zebra
   date: 未定
   description: 即將公布。
+history:
 - version: 1.7.x
   code: Elephant
   date: 2014/05/07 -
