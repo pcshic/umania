@@ -19,7 +19,7 @@ var getTitle = function(code, version, date) {
 var getDescription = function(des) {
 	res = '';
 	if (des)
-		res += '<div><p class="paragraph">' + des + '</p></div>';
+		res += '<p class="paragraph">' + des + '</p>';
 	return res;
 }
 
