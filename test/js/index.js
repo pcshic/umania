@@ -113,8 +113,12 @@ var getBoard = function(board) {
 			<div id="board">\
 				<h1>現在版本</h1>';
 		res += getBoardList(board.current, false);
-		res += '<h1>歷史版本</h1>';
-		res += getBoardList(board.history, true);
+		res += '<h1>歷史版本 \
+					[<a id="hisTrigger">展開</a>]\
+				</h1>';
+		res += '<div id="history">' +
+					getBoardList(board.history, true) +
+				'<div>';
 		res += '\
 			</div>';
 	}
@@ -125,8 +129,9 @@ $(function() {
 	$.get('data/board.yml', '', function (data) {
 		var board = YAML.parse(data);
 		$('#result').append(getBoard(board));
-		$('.folder').tooltip();
-		$('.folder').click(function (e) {
+		$('.folder')
+		.tooltip()
+		.click(function (e) {
 			var args = {
 				'hideClass': 'glyphicon-folder-close',
 				'showClass': 'glyphicon-folder-open',
@@ -150,5 +155,14 @@ $(function() {
 		$('.subver-close')
 		.click()
 		.removeClass('subver-close');
+		$('#hisTrigger')
+		.click(function (e) {
+			var str = '展開';
+			if ($(this).val() == '展開')
+				str = '隱藏';
+			$(this).val(str);
+			$('history').toggle();
+		})
+		.click();
 	});
 });
