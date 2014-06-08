@@ -142,6 +142,7 @@ $(function() {
 			$(this)
 			.removeClass(args.hideClass)
 			.addClass(args.showClass)
+			.tooltip('hide')
 			.attr('data-original-title', args.titleMsg)
 			.tooltip('fixTitle');
 			$($(this).attr('my-target')).toggle();
