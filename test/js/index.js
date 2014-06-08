@@ -59,7 +59,7 @@ var getSubversion = function(subver, code, compress) {
 	var id = 'subver-' + code;
 	if (subver) {
 		res += '\
-			<h4>子版本 <span id="folder" class="glyphicon glyphicon-folder-open' + ((compress)?' subver-close':'') + '" data-toggle="tooltip" data-placement="top" my-target="#' + id + '" title="點此隱藏子版本訊息"></span></h4>\
+			<h4>子版本 <span class="glyphicon glyphicon-folder-open folder' + ((compress)?' subver-close':'') + '" data-toggle="tooltip" data-placement="top" my-target="#' + id + '" title="點此隱藏子版本訊息"></span></h4>\
 			<table id="' + id + '" class="table table-hover">';
 			if (subver.length) {
 				for (var i = 0; i < subver.length; i++)
@@ -121,31 +121,12 @@ var getBoard = function(board) {
 	return res;
 }
 
-var setupFolder = function () {
-	/*
-	$('.').click(function (e) {
-		str = $(this).text();
-		if (str == 'show') {
-			$('#work').show();
-			$(this).text('hidden');
-		}
-		else {
-			$('#work').hide();
-			$(this).text('show');
-		}
-		e.preventDefault();
-	});
-	$('.subver-folder').tooltip();
-	$('.subver-close').hide();
-	*/
-}
-
 $(function() {
 	$.get('data/board.yml', '', function (data) {
 		var board = YAML.parse(data);
 		$('#result').append(getBoard(board));
-		$('span#folder').tooltip();
-		$('span#folder').click(function (e) {
+		$('.folder').tooltip('show');
+		$('.folder').click(function (e) {
 			var args = {
 				'hideClass': 'glyphicon-folder-close',
 				'showClass': 'glyphicon-folder-open',
@@ -161,9 +142,14 @@ $(function() {
 			$(this)
 			.removeClass(args.hideClass)
 			.addClass(args.showClass)
-			.attr('title', args.titleMsg);
+			.tooltip('hide')
+			.attr('data-original-title', args.titleMsg)
+			.tooltip('fixTitle')
+			.tooltip('show');
 			$($(this).attr('my-target')).toggle();
-			$(this).tooltip();
 		});
+		$('.subver-close')
+		.toggle()
+		.removeClass('subver-close');
 	});
 });
