@@ -144,7 +144,7 @@ $(function() {
 	$.get('data/board.yml', '', function (data) {
 		var board = YAML.parse(data);
 		$('#result').append(getBoard(board));
-		$('#folder').click(function (e) {
+		$('span#folder').click(function (e) {
 			var args = {
 				'hideClass': 'glyphicon-folder-close',
 				'showClass': 'glyphicon-folder-open',
@@ -162,7 +162,7 @@ $(function() {
 			.addClass(showClass)
 			.attr('title', titleMsg);
 			$($(this).attr('my-target')).toggle();
-			$('#folder').tooltip();
 		});
+		$('span#folder').tooltip();
 	});
 });
