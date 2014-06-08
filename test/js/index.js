@@ -54,12 +54,12 @@ var getSubversionInfo = function(subinfo) {
 	return res;
 }
 
-var getSubversion = function(subver, ver, compress) {
+var getSubversion = function(subver, code, compress) {
 	var res = '';
-	var id = 'subver-' + ver;
+	var id = 'subver-' + code;
 	if (subver) {
 		res += '\
-			<h4>子版本 <span id="folder" class="glyphicon glyphicon-folder-open" data-toggle="tooltip" data-placement="top" my-target="#' + id + '" title="點此隱藏子版本訊息"></span></h4>\
+			<h4>子版本 <span id="folder" class="glyphicon glyphicon-folder-open' + ((compress)?' subver-close':'') + '" data-toggle="tooltip" data-placement="top" my-target="#' + id + '" title="點此隱藏子版本訊息"></span></h4>\
 			<table id="' + id + '" class="table table-hover">';
 			if (subver.length) {
 				for (var i = 0; i < subver.length; i++)
@@ -86,7 +86,7 @@ var getVersionInfo = function(info, compress) {
 				res += getTitle(info.code, info.version, info.date);
 				res += getDescription(info.description);
 				res += getContent(info.content);
-				res += getSubversion(info.subversion, info.version, compress);
+				res += getSubversion(info.subversion, info.code, compress);
 	res += '\
 				</div>\
 			</div>\
@@ -162,10 +162,8 @@ $(function() {
 			.removeClass(args.hideClass)
 			.addClass(args.showClass)
 			.attr('title', args.titleMsg);
-			console.log($(this).attr('my-target'));
 			$($(this).attr('my-target')).toggle();
 			$(this).tooltip();
 		});
-		console.log('FFUUUUUUUUUUUUUUUUUUUU');
 	});
 });
