@@ -114,7 +114,7 @@ var getBoard = function(board) {
 				<h1>現在版本</h1>';
 		res += getBoardList(board.current, false);
 		res += '<h1>歷史版本 \
-					[<a id="hisTrigger">展開</a>]\
+					<small>[<a id="hisTrigger">展開</a>]</small>\
 				</h1>';
 		res += '<div id="history">' +
 					getBoardList(board.history, true) +
@@ -160,8 +160,8 @@ $(function() {
 			var str = '展開';
 			if ($(this).val() == '展開')
 				str = '隱藏';
-			$(this).val(str);
-			$('history').toggle();
+			$(this).text(str);
+			$('#history').toggle();
 		})
 		.click();
 	});
