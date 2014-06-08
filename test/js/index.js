@@ -144,6 +144,9 @@ $(function() {
 	$.get('data/board.yml', '', function (data) {
 		var board = YAML.parse(data);
 		$('#result').append(getBoard(board));
+		console.log('ACK!');
+		$('span#folder').tooltip();
+		console,log('WHAT!!!');
 		$('span#folder').click(function (e) {
 			var args = {
 				'hideClass': 'glyphicon-folder-close',
@@ -163,6 +166,6 @@ $(function() {
 			.attr('title', titleMsg);
 			$($(this).attr('my-target')).toggle();
 		});
-		$('span#folder').tooltip();
+		console.log('FFUUUUUUUUUUUUUUUUUUUU');
 	});
 });
