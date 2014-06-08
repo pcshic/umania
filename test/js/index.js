@@ -149,7 +149,7 @@ $(function() {
 			$($(this).attr('my-target')).toggle();
 		});
 		$('.subver-close')
-		.toggle()
+		.click()
 		.removeClass('subver-close');
 	});
 });
