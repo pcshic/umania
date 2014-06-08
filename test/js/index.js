@@ -54,12 +54,16 @@ var getSubversionInfo = function(subinfo) {
 	return res;
 }
 
-var getSubversion = function(subver, ver) {
+var getSubversion = function(subver, ver, compress) {
 	var res = '';
 	if (subver) {
 		res += '\
-			<h4>子版本 <span class="glyphicon glyphicon-folder-close subver-folder" data-toggle="tooltip" data-placement="top" title="點開觀看子版本訊息"></span></h4>\
-			<table class="table table-hover subver subver-' + ver + '">';
+			<h4>子版本 <span class="glyphicon glyphicon-folder-' +
+				((compress)? 'close': 'open') +
+				' subver-folder" data-toggle="tooltip" data-placement="top" title="點開觀看子版本訊息"></span></h4>\
+			<table class="table table-hover subver-' +
+				((compress)? 'close': 'open') +
+				' subver-' + ver + '">';
 			if (subver.length) {
 				for (var i = 0; i < subver.length; i++)
 					res += getSubversionInfo(subver[i]);
@@ -71,7 +75,7 @@ var getSubversion = function(subver, ver) {
 	return res;
 }
 
-var getVersionInfo = function(info) {
+var getVersionInfo = function(info, compress) {
 	var res = '';
 	res += '\
 		<li class="list-group-item">\
@@ -85,7 +89,7 @@ var getVersionInfo = function(info) {
 				res += getTitle(info.code, info.version, info.date);
 				res += getDescription(info.description);
 				res += getContent(info.content);
-				res += getSubversion(info.subversion, info.version);
+				res += getSubversion(info.subversion, info.version, compress);
 	res += '\
 				</div>\
 			</div>\
@@ -111,9 +115,9 @@ var getBoard = function(board) {
 		res += '\
 			<div id="board">\
 				<h1>現在版本</h1>';
-		res += getBoardList(board.current);
+		res += getBoardList(board.current, false);
 		res += '<h1>歷史版本</h1>';
-		res += getBoardList(board.history);
+		res += getBoardList(board.history, true);
 		res += '\
 			</div>';
 	}
@@ -125,6 +129,6 @@ $(function() {
 		var board = YAML.parse(data);
 		$('#result').append(getBoard(board));
 		$('.subver-folder').tooltip();
-		$('.subver').hide();
+		$('.subver-close').hide();
 	});
 });

@@ -3,6 +3,11 @@ current:
     code: Zebra
     date: 未定
     description: 即將公布。
+    subversion:
+    - version: 2.0.0
+      date: 2014/06
+      content:
+      - hahahahaha
 history:
   - version: 1.7.x
     code: Elephant
