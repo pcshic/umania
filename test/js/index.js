@@ -146,7 +146,7 @@ $(function() {
 		$('#result').append(getBoard(board));
 		console.log('ACK!');
 		$('span#folder').tooltip();
-		console,log('WHAT!!!');
+		console.log('WHAT!!!');
 		$('span#folder').click(function (e) {
 			var args = {
 				'hideClass': 'glyphicon-folder-close',
