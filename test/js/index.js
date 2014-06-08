@@ -161,9 +161,9 @@ $(function() {
 				};
 			}
 			$(this)
-			.removeClass(hideClass)
-			.addClass(showClass)
-			.attr('title', titleMsg);
+			.removeClass(args.hideClass)
+			.addClass(args.showClass)
+			.attr('title', args.titleMsg);
 			$($(this).attr('my-target')).toggle();
 		});
 		console.log('FFUUUUUUUUUUUUUUUUUUUU');
