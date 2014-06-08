@@ -125,7 +125,7 @@ $(function() {
 	$.get('data/board.yml', '', function (data) {
 		var board = YAML.parse(data);
 		$('#result').append(getBoard(board));
-		$('.folder').tooltip('show');
+		$('.folder').tooltip();
 		$('.folder').click(function (e) {
 			var args = {
 				'hideClass': 'glyphicon-folder-close',
@@ -145,7 +145,7 @@ $(function() {
 			.tooltip('hide')
 			.attr('data-original-title', args.titleMsg)
 			.tooltip('fixTitle')
-			.tooltip('show');
+			.tooltip();
 			$($(this).attr('my-target')).toggle();
 		});
 		$('.subver-close')
