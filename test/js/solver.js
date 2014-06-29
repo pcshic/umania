@@ -153,7 +153,7 @@ Problem.prototype.getStyle	= function(args) {
 	if (args.indexOf('t') >= 0) {
 		var trans = prob.getTranslate();
 		for (var i = 0; i < trans.length; i++) {
-			res += '<span id="tooltip" class="glyphicon glyphicon-transfer" data-toggle="tooltip" data-original-title="' + trans[i] + '"></span>';
+			res += '<span class="tooltip glyphicon glyphicon-transfer" data-toggle="tooltip" data-original-title="' + trans[i] + '"></span>';
 		}
 	}
 	// 設定章節

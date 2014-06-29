@@ -34,8 +34,8 @@ if (query.type) {
 [2, '<strong>WA 數</strong>'],		[2, prob.getWA()],
 [2, '<strong>PE 數</strong>'],		[2, prob.getPE()]],
 [[2, '<strong>TLE 數</strong>'],	[2, prob.getTLE()],
-[2, '<strong>OLE 數</strong>'],	[2, prob.getOLE()],
-[2, '<strong>MLE 數</strong>'],	[2, prob.getMLE()]],
+[2, '<strong>OLE 數</strong>'],		[2, prob.getOLE()],
+[2, '<strong>MLE 數</strong>'],		[2, prob.getMLE()]],
 [[2, '<strong>CE 數</strong>'],		[2, prob.getCE()],
 [2, '<strong>RE 數</strong>'],		[2, prob.getRE()],
 [2, '<strong>RF 數</strong>'],		[2, prob.getRF()]]

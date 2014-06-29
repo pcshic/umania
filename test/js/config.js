@@ -13,8 +13,8 @@ var col = function(sm, md, lg) {
 	return res.join(' ');
 }
 var postRender = function() {
-	$('#tooltip').tooltip();
-	$('#popover').popover();
+	$('.tooltip').tooltip();
+	$('.popover').popover();
 }
 
 /*
