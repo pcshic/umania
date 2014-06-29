@@ -153,14 +153,14 @@ Problem.prototype.getStyle	= function(args) {
 	if (args.indexOf('t') >= 0) {
 		var trans = prob.getTranslate();
 		for (var i = 0; i < trans.length; i++) {
-			res += '<span class="tooltip glyphicon glyphicon-transfer" data-toggle="tooltip" data-original-title="' + trans[i] + '"></span>';
+			res += '<span class="glyphicon glyphicon-transfer" data-toggle="tooltip" data-original-title="' + trans[i] + '"></span>';
 		}
 	}
 	// 設定章節
 	if (args.indexOf('c') >= 0) {
 		var tags = prob.getCategory();
 		for (var i = 0; i < tags.length; i++) {
-			res += '<span id="tooltip" class="glyphicon glyphicon-tag" data-toggle="tooltip" data-original-title="' + tags[i] + '"></span>';
+			res += '<span class="glyphicon glyphicon-tag" data-toggle="tooltip" data-original-title="' + tags[i] + '"></span>';
 		}
 	}
 	// 結尾
