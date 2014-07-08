@@ -1,11 +1,18 @@
 // ==================================================================
 //
-//	Query 物件
+//	UVaSolver 物件
 //
 // ==================================================================
-var Query = function(href) {
+var UVaSolver = {}
+
+// ==================================================================
+//
+//	UVaSolver.Query 類別
+//
+// ==================================================================
+UVaSolver.Query = function(href) {
 	var query = this;
-	if (href == undefined)
+	if (typeof(href) === 'undefined')
 		href = window.location.href;
 	query.vars = {};
 	if (href.indexOf('?') >= 0) {
@@ -16,66 +23,79 @@ var Query = function(href) {
 		}
 	}
 }
-Query.prototype = {
-	encodeStep:	function(data) {
-		return data.toString().replace(/\s/g, '+');
-	},
-	decodeStep:	function(data) {
-		return decodeURI(data).replace(/\+/g,' ');
-	},
-	toString:	function() {
-		var res = [];
-		var query = this;
-		for (var key in query.vars) {
-			var value = query.encodeStep(query.vars[key]);
-			res.push([key, value].join('='));
-		}
-		return res.join('&');
-	},
-	addArgs:	function(args) {
-		var query = this;
-		for (var key in args) {
-			if (args[key] != undefined)
-				query.vars[key] = args[key];
-		}
-		return query;
-	},
-	removeArgs:	function(keys) {
-		var query = this;
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
-			delete query.vars[key];
-		}
-		return query;
-	},
-	keepArgs:	function(keys) {
-		var rev = {};
-		var query = this;
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
-			rev[key] = true;
-		}
-		for (var key in query.vars) {
-			if (rev[key] != true)
-				delete query.vars[key];
-		}
-		return query;
-	},
-	getArg:		function(key) {
-		return this.vars[key];
-	},
-	getArgs:	function(keys) {
-		return this.keepArgs(keys).getAllArgs();
-	},
-	getAllArgs:	function() {
-		var res = {};
-		var query = this;
-		for (var key in query.vars) {
-			res[key] = query.vars[key];
-		}
-		return res;
-	}
+/* ***************************************************** */
+/*                                                       */
+/*	Query.prototype                                      */
+/*                                                       */
+/* ***************************************************** */
+QueryProto = UVaSolver.Query.prototype;
+QueryProto.StringToUri	= function(data) {
+	return data.toString().replace(/\s/g, '+');
 }
+QueryProto.UriToString	= function(data) {
+	return decodeURI(data).replace(/\+/g, ' ');
+}
+QueryProto.addArgs		= function(args) {
+	var query = this;
+	for (var key in args)
+		if (typeof(args[key]) !== undefined)
+			query.vars[key] = args[key];
+	return query;
+}
+QueryProto.removeArgs	= function(keys) {
+	var query = this;
+	for (var i = 0; i < keys.length; i++) {
+		var key = keys[i];
+		delete query.vars[key];
+	}
+	return query;
+}
+QueryProto.getSubQuery	= function(keys) {
+	var res = new UVaSolver.Query(''),
+		args = {},
+		query = this;
+	for (var i = 0; i < keys.length; i++) {
+		var key = keys[i];
+		args[key] = query.vars[key];
+	}
+	res.addArgs(args);
+	return res;
+}
+QueryProto.getAllArgs	= function() {
+	var res = {};
+	var query = this;
+	for (var key in query.vars) {
+		res[key] = query.vars[key];
+	}
+	return res;
+}
+QueryProto.toString		= function() {
+	var res = [];
+	var query = this;
+	for (var key in query.vars) {
+		var value = query.StringToUri(query.vars[key]);
+		res.push([key, value].join('='));
+	}
+	return res.join('&');
+}
+// -----------------------------------------------------
+QueryProto.encodeStep	= function(data) {
+	return this.StringToUri(data);
+}
+QueryProto.decodeStep	= function(data) {
+	return this.UriToString(data);
+}
+QueryProto.keepArgs		= function(keys) {
+	return this.getSubQuery(keys);
+}
+QueryProto.getArg		= function(key) {
+	return this.getSubQuery([key]).getAllArgs();
+}
+QueryProto.getArgs		= function(keys) {
+	return this.getSubQuery(keys).getAllArgs();
+}
+delete QueryProto;
+
 // ==================================================================
 //
 //
@@ -87,10 +107,10 @@ var none = function(obj) {
 
 // ==================================================================
 //
-//	
+//	UVaSolver.Util 物件
 //
 // ==================================================================
-var Util			= function() {}
+UVaSolver.Util = {}
 Util.transLang		= function(type) { return Util.lang[type]; }
 Util.transVerdit	= function(verd) { return Util.verdit[verd]; }
 Util.lang			= [
@@ -509,7 +529,7 @@ $.ajaxSettings.async = true;
 /*
 	get query
 */
-var query = (new Query()).getAllArgs();
+var query = (new UVaSolver.Query()).getAllArgs();
 var args = {
 	'type':		query['type'],
 	'num':		query['num'],
