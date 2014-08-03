@@ -260,7 +260,7 @@ ProbProto.getStyle		= function(args) {
 	var res = '';
 	var prob = this;
 	var val = prob.getNumber();
-	var query = (new Query()).addArgs({
+	var query = (new UVaSolver.Query()).addArgs({
 			'type': 'single',
 			'num': val
 		}).getSubQuery(['user', 'type', 'num']);
