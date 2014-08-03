@@ -19,7 +19,7 @@ UVaSolver.Query = function(href) {
 		var hashes = href.slice(href.indexOf('?') + 1).split('&');
 		for(var i = 0; i < hashes.length; i++) {
 			var hash = hashes[i].split('=');
-			query.vars[hash[0]] = query.decodeStep(hash[1]);
+			query.vars[hash[0]] = query.UriToString(hash[1]);
 		}
 	}
 }
@@ -111,12 +111,16 @@ var none = function(obj) {
 //
 // ==================================================================
 UVaSolver.Util = {}
-Util.transLang		= function(type) { return Util.lang[type]; }
-Util.transVerdit	= function(verd) { return Util.verdit[verd]; }
-Util.lang			= [
+UVaSolver.Util.transLang	= function(type) {
+	return Util.lang[type];
+}
+UVaSolver.Util.transVerdit	= function(verd) {
+	return Util.verdit[verd];
+}
+UVaSolver.Util.lang			= [
 	'', 'ANSI C', 'Java', 'C++', 'Pascal', 'C++11'
 ];
-Util.verdit			= {
+UVaSolver.Util.verdit		= {
 	0:	'沒有資料',
 	10:	'系統錯誤 (System Error)',
 	15:	'無法評定 (Cannot be Judged)',
@@ -131,7 +135,7 @@ Util.verdit			= {
 	80:	'格式錯誤 (Presentation Error)',
 	90:	'正確 (Accepted)',
 };
-Util.btnStyle		= {
+UVaSolver.Util.btnStyle		= {
 	0: 'default',	10: 'info',		15: 'info',		20: 'info',
 	30: 'warning',	35: 'info',		40: 'primary',	45: 'primary',
 	50: 'primary',	60: 'primary',	70: 'danger',	80: 'warning',
@@ -140,27 +144,28 @@ Util.btnStyle		= {
 
 // ==================================================================
 //
-//	Submit 物件
+//	UVaSolver.Submit 類別
 //
 // ==================================================================
-var Submit		= function(data) {
+UVaSolver.Submit = function(data) {
 	this.sub	= data;
 	this.sub[4]	= new Date(this.sub[4] * 1000);
 }
-Submit.prototype.getSid			= function() { return this.sub[0]; }
-Submit.prototype.getPid			= function() { return this.sub[1]; }
-Submit.prototype.getVerdit		= function() { return this.sub[2]; }
-Submit.prototype.getRuntime		= function() { return this.sub[3]; }
-Submit.prototype.getTime		= function() { return this.sub[4]; }
-Submit.prototype.getLang		= function() { return this.sub[5]; }
-Submit.prototype.getRank		= function() { return this.sub[6]; }
-Submit.prototype.transVerdit	= function() {
-	return Util.transVerdit(this.sub[2]);
+var SubmitProto = UVaSolver.Submit.prototype;
+SubmitProto.getSid			= function() { return this.sub[0]; }
+SubmitProto.getPid			= function() { return this.sub[1]; }
+SubmitProto.getVerdit		= function() { return this.sub[2]; }
+SubmitProto.getRuntime		= function() { return this.sub[3]; }
+SubmitProto.getTime			= function() { return this.sub[4]; }
+SubmitProto.getLang			= function() { return this.sub[5]; }
+SubmitProto.getRank			= function() { return this.sub[6]; }
+SubmitProto.transVerdit		= function() {
+	return UVaSolver.Util.transVerdit(this.sub[2]);
 }
-Submit.prototype.transLang		= function() {
-	return Util.transLang(this.sub[5]);
+SubmitProto.transLang		= function() {
+	return UVaSolver.Util.transLang(this.sub[5]);
 }
-Submit.prototype.transRuntime	= function() {
+SubmitProto.transRuntime	= function() {
 	var res = '0.';
 	for (var i = 100; i > 1; i /= 10) {
 		if (this.sub[3] < i)
@@ -169,16 +174,21 @@ Submit.prototype.transRuntime	= function() {
 	res += this.sub[3];
 	return res;
 }
-Submit.prototype.transTime		= function() {
+SubmitProto.transTime		= function() {
 	var date = this.sub[4];
 	var tmp = -date.getTimezoneOffset();
 	var aff = ['', '', 'GMT' + ((tmp < 0)? '-': '+')];
 	if (tmp < 0) tmp = -tmp;
 	var sep = ['-', ':', ''];
 	var time = [
-		[date.getFullYear(),	date.getMonth() + 1,	date.getDate()],
-		[date.getHours(),		date.getMinutes(),		date.getSeconds()],
-		[Math.floor(tmp / 60),	tmp % 60]
+		[date.getFullYear(),
+		 date.getMonth() + 1,
+		 date.getDate()],
+		[date.getHours(),
+		 date.getMinutes(),
+		 date.getSeconds()],
+		[Math.floor(tmp / 60),
+		 tmp % 60]
 	];
 	for (var i in time) {
 		for (var j in time[i]) {
@@ -190,12 +200,14 @@ Submit.prototype.transTime		= function() {
 	}
 	return time.join(' ');
 }
+delete SubmitProto;
+
 // ==================================================================
 //
-//	Problem 物件
+//	UVaSolver.Problem 類別
 //
 // ==================================================================
-var Problem = function(data) {
+UVaSolver.Problem = function(data) {
 	var problem = this;
 	if (data['pid'] != undefined) {
 		var attr = [
@@ -216,45 +228,46 @@ var Problem = function(data) {
 						0,		// rank
 						[]);	// translate
 }
-Problem.prototype.getPid	= function() { return this.prob[0]; }
-Problem.prototype.getNumber	= function() { return this.prob[1]; }
-Problem.prototype.getTitle	= function() { return this.prob[2]; }
-Problem.prototype.getCE		= function() { return this.prob[10]; }
-Problem.prototype.getRF		= function() { return this.prob[11]; }
-Problem.prototype.getRE		= function() { return this.prob[12]; }
-Problem.prototype.getOLE	= function() { return this.prob[13]; }
-Problem.prototype.getTLE	= function() { return this.prob[14]; }
-Problem.prototype.getMLE	= function() { return this.prob[15]; }
-Problem.prototype.getWA		= function() { return this.prob[16]; }
-Problem.prototype.getPE		= function() { return this.prob[17]; }
-Problem.prototype.getAC		= function() { return this.prob[18]; }
-Problem.prototype.getCategory = function() { return this.prob[21]; }
-Problem.prototype.getSubmit	= function() { return this.prob[22]; }
-Problem.prototype.getVerdit	= function() { return this.prob[23]; }
-Problem.prototype.getTime	= function() { return this.prob[24]; }
-Problem.prototype.getRank	= function() { return this.prob[25]; }
-Problem.prototype.getTranslate = function() { return this.prob[26]; }
-Problem.prototype.setVerdit	= function(verd) {
+var ProbProto = UVaSolver.Problem.prototype;
+ProbProto.getPid		= function() { return this.prob[0]; }
+ProbProto.getNumber		= function() { return this.prob[1]; }
+ProbProto.getTitle		= function() { return this.prob[2]; }
+ProbProto.getCE			= function() { return this.prob[10]; }
+ProbProto.getRF			= function() { return this.prob[11]; }
+ProbProto.getRE			= function() { return this.prob[12]; }
+ProbProto.getOLE		= function() { return this.prob[13]; }
+ProbProto.getTLE		= function() { return this.prob[14]; }
+ProbProto.getMLE		= function() { return this.prob[15]; }
+ProbProto.getWA			= function() { return this.prob[16]; }
+ProbProto.getPE			= function() { return this.prob[17]; }
+ProbProto.getAC			= function() { return this.prob[18]; }
+ProbProto.getCategory	= function() { return this.prob[21]; }
+ProbProto.getSubmit		= function() { return this.prob[22]; }
+ProbProto.getVerdit		= function() { return this.prob[23]; }
+ProbProto.getTime		= function() { return this.prob[24]; }
+ProbProto.getRank		= function() { return this.prob[25]; }
+ProbProto.getTranslate	= function() { return this.prob[26]; }
+ProbProto.setVerdit		= function(verd) {
 	this.prob[23] = verd;
 }
-Problem.prototype.setTime	= function(stmp) {
+ProbProto.setTime		= function(stmp) {
 	this.prob[24] = stmp;
 }
-Problem.prototype.setRank	= function(rank) {
+ProbProto.setRank		= function(rank) {
 	this.prob[25] = rank;
 }
-Problem.prototype.getStyle	= function(args) {
+ProbProto.getStyle		= function(args) {
 	var res = '';
 	var prob = this;
 	var val = prob.getNumber();
 	var query = (new Query()).addArgs({
 			'type': 'single',
 			'num': val
-		}).keepArgs(['user', 'type', 'num']);
+		}).getSubQuery(['user', 'type', 'num']);
 	if (args == undefined)
 		args = 'tc';
 	// 設定題號顏色
-	var btnAttr = 'btn-' + Util.btnStyle[ prob.getVerdit() ];
+	var btnAttr = 'btn-' + UVaSolver.Util.btnStyle[ prob.getVerdit() ];
 	res += '<a id="uva' + val + '" href="problem.html?' + query + '" type="button" class="btn ' + btnAttr + '" target="_blank">' + val + ' ';
 	// 設定翻譯
 	if (args.indexOf('t') >= 0) {
@@ -274,10 +287,11 @@ Problem.prototype.getStyle	= function(args) {
 	res += '</a>'
 	return res;
 }
+delete ProbProto;
 
 // ==================================================================
 //
-//	Solver 物件
+//	UVaSolver.Solver 物件
 //
 // ==================================================================
 /*
@@ -290,7 +304,7 @@ var title = [
 	'Memory Limit Exceeded','Wrong Answer',			'Presentation Error',
 	'Accepted',				'時間限制(毫秒)',		'狀態'];
 */
-var Solver = function(args) {
+UVaSolver.Solver = function(args) {
 	/* ***************************************************** */
 	/*                                                       */
 	/*	開頭設置變數、常數                                   */
@@ -386,17 +400,16 @@ var Solver = function(args) {
 	}
 	loadData(args);
 	$.ajaxSettings.async = true;
-
-	// ==================================================================
-	//
-	//	處理 probData
-	//
-	// ==================================================================
+	/* ***************************************************** */
+	/*                                                       */
+	/*	處理 probData                                        */
+	/*                                                       */
+	/* ***************************************************** */
 	if (solver.probData != undefined) {
 		var probs = solver.probData;
 		// 建立 Problem 物件
 		for (var i = 0; i < probs.length; i++) {
-			probs[i] = new Problem(probs[i]);
+			probs[i] = new UVaSolver.Problem(probs[i]);
 		}
 		// 依照 problem number 遞增排序
 		probs.sort(function(left, right) {
@@ -409,12 +422,11 @@ var Solver = function(args) {
 			reNum[prob.getNumber()] = prob;
 		}
 	}
-
-	// ==================================================================
-	//
-	//	建立題單對應分類
-	//
-	// ==================================================================
+	/* ***************************************************** */
+	/*                                                       */
+	/*	建立題單對應分類                                     */
+	/*                                                       */
+	/* ***************************************************** */
 	if (solver.dbData != undefined) {
 		var db = solver.dbData;
 		for (var cate in db) {
@@ -432,12 +444,11 @@ var Solver = function(args) {
 			}
 		}
 	}
-
-	// ==================================================================
-	//
-	//	設定翻譯
-	//
-	// ==================================================================
+	/* ***************************************************** */
+	/*                                                       */
+	/*	設定翻譯                                             */
+	/*                                                       */
+	/* ***************************************************** */
 	if (solver.transData != undefined) {
 		for (var name in solver.transData) {
 			var trans = solver.transData[name]['trans'];
@@ -459,7 +470,7 @@ var Solver = function(args) {
 		var subs = solver.userData['subs'];
 		// 建立 Submit 物件
 		for (var i = 0; i < subs.length; i++) {
-			subs[i] = new Submit(subs[i]);
+			subs[i] = new UVaSolver.Submit(subs[i]);
 		}
 		// 對時間遞減排序
 		subs.sort(function(left, right) {
@@ -538,4 +549,4 @@ var args = {
 	'user':		ups.master,
 	'trans':	true
 };
-var solver = new Solver(args);
+var solver = new UVaSolver.Solver(args);
