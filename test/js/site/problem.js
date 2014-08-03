@@ -113,7 +113,7 @@ if (query.type) {
 			}
 		}
 	}
-	else {
+	else if (query.type == 'all') {
 		var probs = solver.probData;
 		for (var i = 0; i < probs.length; i++) {
 			var prob = probs[i];

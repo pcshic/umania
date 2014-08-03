@@ -73,12 +73,8 @@ QueryProto.getAllArgs	= function() {
 QueryProto.toString		= function() {
 	var res = [];
 	var query = this;
-	DEBUG = query;
-	console.log(JSON.stringify(query.vars));
 	for (var key in query.vars) {
-		console.log(key, query.vars[key]);
 		var value = query.StringToUri(query.vars[key]);
-		console.log('done', key)
 		res.push([key, value].join('='));
 	}
 	return res.join('&');
