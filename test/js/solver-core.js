@@ -78,22 +78,6 @@ QueryProto.toString		= function() {
 	}
 	return res.join('&');
 }
-// -----------------------------------------------------
-QueryProto.encodeStep	= function(data) {
-	return this.StringToUri(data);
-}
-QueryProto.decodeStep	= function(data) {
-	return this.UriToString(data);
-}
-QueryProto.keepArgs		= function(keys) {
-	return this.getSubQuery(keys);
-}
-QueryProto.getArg		= function(key) {
-	return this.getSubQuery([key]).getAllArgs();
-}
-QueryProto.getArgs		= function(keys) {
-	return this.getSubQuery(keys).getAllArgs();
-}
 delete QueryProto;
 
 // ==================================================================
