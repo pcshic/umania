@@ -196,10 +196,10 @@ UVaSolver.Problem = function(data) {
   var problem = this;
   if (data['pid'] != undefined) {
     var attr = [
-      'pid',    'num',    'title',  'dacu',    'mrun',
-      'mmem',    'nover',  'sube',    'noj',    'inq',
-      'ce',    'rf',    're',    'ole',    'tle',
-      'mle',    'wa',    'pe',    'ac',    'rtl',
+      'pid',   'num',    'title',  'dacu',  'mrun',
+      'mmem',  'nover',  'sube',   'noj',   'inq',
+      'ce',    'rf',     're',     'ole',   'tle',
+      'mle',   'wa',     'pe',     'ac',    'rtl',
       'status'];
     problem.prob = [];
     for (var i = 0; i < attr.length; i++)
@@ -248,7 +248,7 @@ ProbProto.getStyle      = function(args) {
   var query = (new UVaSolver.Query()).addArgs({
       'type': 'single',
       'num': val
-    }).getSubQuery(['user', 'type', 'num']);
+    }).getSubQuery(['type', 'num']);
   if (args == undefined)
     args = 'tc';
   // 設定題號顏色
