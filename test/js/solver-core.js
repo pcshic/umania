@@ -4,6 +4,7 @@
 //
 // ==================================================================
 var UVaSolver = {}
+var DEBUG;
 
 // ==================================================================
 //
@@ -72,6 +73,7 @@ QueryProto.getAllArgs	= function() {
 QueryProto.toString		= function() {
 	var res = [];
 	var query = this;
+	DEBUG = query;
 	console.log(JSON.stringify(query.vars));
 	for (var key in query.vars) {
 		console.log(key, query.vars[key]);
