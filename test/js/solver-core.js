@@ -74,7 +74,9 @@ QueryProto.toString		= function() {
 	var query = this;
 	console.log(JSON.stringify(query.vars));
 	for (var key in query.vars) {
+		console.log(key, query.vars[key]);
 		var value = query.StringToUri(query.vars[key]);
+		console.log('done', key)
 		res.push([key, value].join('='));
 	}
 	return res.join('&');
