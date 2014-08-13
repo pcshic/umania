@@ -379,8 +379,8 @@ UVaSolver.Solver = function(args) {
         function (data) { solver.dbData = YAML.parse(data); });
     }
     if (args['trans']) {
-      $.getJSON('data/translate.yml', '',
-        function (data) { solver.transData = YAML.parse(data); console.log(solver.transData); });
+      $.get('data/translate.yml', '',
+        function (data) { solver.transData = YAML.parse(data); });
     }
   }
   loadData(args);
