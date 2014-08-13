@@ -380,7 +380,7 @@ UVaSolver.Solver = function(args) {
     }
     if (args['trans']) {
       $.getJSON('data/translate.yml', '',
-        function (data) { solver.transData = YAML.parse(data); });
+        function (data) { solver.transData = YAML.parse(data); console.log(solver.transData); });
     }
   }
   loadData(args);
