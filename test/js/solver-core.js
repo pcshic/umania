@@ -342,12 +342,12 @@ UVaSolver.Solver = function(args) {
   /*                                                       */
   /* ***************************************************** */
   var loadData = function(args) {
-    var apiUrl      = 'http://uhunt.felix-halim.net/api';
-    var probUrl      = apiUrl + '/p';
-    var probNumUrl    = apiUrl + '/p/num';
-    var nameToPidUrl  = apiUrl + '/uname2uid';
-    var subUserUrl    = apiUrl + '/subs-user';
-    var subUserProbUrl  = apiUrl + '/subs-nums';
+    var apiUrl           = 'http://uhunt.felix-halim.net/api';
+    var probUrl          = apiUrl + '/p';
+    var probNumUrl       = apiUrl + '/p/num';
+    var nameToPidUrl     = apiUrl + '/uname2uid';
+    var subUserUrl       = apiUrl + '/subs-user';
+    var subUserProbUrl   = apiUrl + '/subs-nums';
     $.ajaxSettings.async = false;
     if (args['user']) {
       $.getJSON(nameToPidUrl + '/' + args['user'], '',
@@ -445,12 +445,11 @@ UVaSolver.Solver = function(args) {
       }
     }
   }
-
-  // ==================================================================
-  //
-  //  設定上傳分類
-  //
-  // ==================================================================
+  /* ***************************************************** */
+  /*                                                       */
+  /*  設定上傳分類                                         */
+  /*                                                       */
+  /* ***************************************************** */
   if (solver.userData != undefined) {
     var subs = solver.userData['subs'];
     // 建立 Submit 物件
