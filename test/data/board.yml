@@ -1,17 +1,17 @@
 current:
   - version: 2.0.x
     code: Zebra
-    date: 未定
+    date: 2014/08/14 -
     description: 即將公布。
     subversion:
     - version: 2.0.0
-      date: 2014/07
+      date: 2014/08/14
       content:
       - hahahahaha
 history:
   - version: 1.7.x
     code: Elephant
-    date: 2014/05/07 -
+    date: 2014/05/07 - 2014/08/14
     image: img/v1.7.png
     description: Elephant 版本在 2014 年 5 月 7 日公布，為 Zebra 和 Lion 之間的過渡版本。由重新調整版面開始，逐步改寫內部程式構造，優化整個網站。
     subversion:

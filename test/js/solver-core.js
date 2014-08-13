@@ -351,36 +351,36 @@ UVaSolver.Solver = function(args) {
     $.ajaxSettings.async = false;
     if (args['user']) {
       $.getJSON(nameToPidUrl + '/' + args['user'], '',
-        function(data) { solver.userId = data; });
+        function (data) { solver.userId = data; });
     }
     if (args['type'] == 'all' || args['type'] == 'part') {
       if (args['prob']) {
         $.getJSON(probUrl, '',
-          function(data) { solver.probData = data; });
+          function (data) { solver.probData = data; });
       }
       if (solver.userId != 0) {
         $.getJSON(subUserUrl + '/' + solver.userId, '',
-          function(data) { solver.userData = data; });
+          function (data) { solver.userData = data; });
       }
     }
     else if (args['type'] == 'single') {
       if (args['num']) {
         $.getJSON(probNumUrl + '/' + args['num'], '',
-          function(data) { solver.probData = [data]; });
+          function (data) { solver.probData = [data]; });
       }
       if (solver.userId != 0) {
         var tmp = solver.userId + '/' + args['num'] + '/0';
         $.getJSON(subUserProbUrl + '/' + tmp, '',
-          function(data) { solver.userData = data[solver.userId]; });
+          function (data) { solver.userData = data[solver.userId] });
       }
     }
     if (args['database']) {
-      $.getJSON('data/database.json', '',
-        function(data) { solver.dbData = data; });
+      $.get('data/database.yml', '',
+        function (data) { solver.dbData = YAML.parse(data); });
     }
     if (args['trans']) {
-      $.getJSON('data/translate.json', '',
-        function(data) { solver.transData = data; });
+      $.getJSON('data/translate.yml', '',
+        function (data) { solver.transData = YAML.parse(data); });
     }
   }
   loadData(args);
