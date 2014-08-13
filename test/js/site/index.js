@@ -106,7 +106,7 @@ var getBoard = function(board) {
   if (board) {
     res += '<div id="board"><h1>現在版本</h1>' +
       getBoardList(board.current, false) +
-      '<h1>歷史版本<small>[<a id="hisTrigger">展開</a>]</small></h1><div id="history">' +
+      '<h1>歷史版本<small>[<a id="hisTrigger">隱藏</a>]</small></h1><div id="history">' +
       getBoardList(board.history, true) +
       '</div></div>';
   }
@@ -165,9 +165,9 @@ $(function() {
     .removeClass('subver-close');
     $('#hisTrigger')
     .click(function (e) {
-      var str = '展開';
-      if ($(this).text() == '展開')
-        str = '隱藏';
+      var str = '隱藏';
+      if ($(this).text() == '隱藏')
+        str = '展開';
       $(this).text(str);
       $('#history').toggle();
     })
