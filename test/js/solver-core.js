@@ -378,11 +378,9 @@ UVaSolver.Solver = function(args) {
       $.get('data/database.yml', '',
         function (data) { solver.dbData = YAML.parse(data); });
     }
-    console.log('ARRIVE!!');
     if (args['trans']) {
-      console.log('ACKK!!');
       $.get('data/translate.yml', '',
-        function (data) { solver.transData = YAML.parse(data); console.log('GET!'); });
+        function (data) { solver.transData = YAML.parse(data); });
     }
     $.ajaxSettings.async = true;
   }
