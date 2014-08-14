@@ -97,10 +97,10 @@ var none = function(obj) {
 // ==================================================================
 UVaSolver.Util = {}
 UVaSolver.Util.transLang    = function(type) {
-  return Util.lang[type];
+  return UVaSolver.Util.lang[type];
 }
 UVaSolver.Util.transVerdit  = function(verd) {
-  return Util.verdit[verd];
+  return UVaSolver.Util.verdit[verd];
 }
 UVaSolver.Util.lang         = [
   '', 'ANSI C', 'Java', 'C++', 'Pascal', 'C++11'
