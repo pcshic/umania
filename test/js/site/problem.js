@@ -6,7 +6,7 @@ for (var i = 0; i < probs.length; i++) {
   var prob = probs[i],
       num = prob.getNumber(),
       cate = Math.floor(num / 100);
-  if (typeof(collect[cate]) == undefined)
+  if (typeof(collect[cate]) == 'undefined')
     collect[cate] = [];
   collect[cate].push(prob.getStyle());
 }
