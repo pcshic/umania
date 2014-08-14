@@ -1,10 +1,10 @@
-<div id="main" class="row">
+<nav id="main" class="row">
   <div class="col-sm-3 col-md-3 col-lg-3">
     <div class="sidebar side-block" data-spy="affix">
       <ul id="options" class="nav nav-pills nav-stacked">
         <li class="active"><a id="banner" href="index.html"></a></li>
         <li><a href="index.html">首頁</a></li>
-        <li><a href="problem.html?type=all">UVa 全題</a></li>
+        <li><a href="problem.html">UVa 全題</a></li>
         <li><a class="dropdown-toggle" data-toggle="dropdown">講義練習題 <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="practice.html?category=all">全部</a></li>
@@ -43,9 +43,9 @@
       <div id="result"></div>
     </div>
   </div>
-</div>
+</nav>
 <script type="text/javascript">
-  $('#newUser').submit(function(e) {
+  $('#newUser').submit(function (e) {
     var input = $('input[name="user"]');
     if (input.val().length != 0) {
       // 去掉首尾空白 + 縮空白
