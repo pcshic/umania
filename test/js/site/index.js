@@ -65,17 +65,19 @@ var getSubversion = function(subver, code, compress) {
 }
 
 var getVersionInfo = function(info, compress) {
-  var res = '<li class="list-group-item"><div class="media">' +
-    getImage(info.image || 'img/blank.png', {
-      'class': 'media-object pull-right',
-      'width': '300px'
-    }) +
+  var res =
+    '<li class="list-group-item"><article class="media">' +
+      getImage(info.image || 'img/blank.png', {
+        'class': 'media-object pull-right',
+        'width': '300px'
+      }) +
     '<div class="media-body">' +
-    getTitle(info.code, info.version, info.date) +
-    getDescription(info.description) +
-    getContent(info.content) +
-    getSubversion(info.subversion, info.code, compress) +
-    '</div></div></li>';
+    '<header class="version-title">' + getTitle(info.code, info.version, info.date) + '</header>' +
+    '<div class="version-body">' +
+      getDescription(info.description) +
+      getContent(info.content) +
+      getSubversion(info.subversion, info.code, compress) +
+    '</div></div></article></li>';
   return res;
 }
 /* ***************************************************** */
@@ -104,11 +106,10 @@ var getBoardList = function(list, compress) {
 var getBoard = function(board) {
   var res = '';
   if (board) {
-    res += '<div id="board"><h1>現在版本</h1>' +
-      getBoardList(board.current, false) +
-      '<h1>歷史版本<small>[<a id="hisTrigger">隱藏</a>]</small></h1><div id="history">' +
-      getBoardList(board.history, true) +
-      '</div></div>';
+    res +=
+    '<section id="current-version"><header><h1>現在版本</h1></header>' + getBoardList(board.current, false) + '</section>' +
+    '<section id="history-version"><header><h1>歷史版本 <small>[<a id="hisTrigger">隱藏</a>]</small></h1></header><div id="history-list">' + getBoardList(board.history, true) + '</div>' +
+    '</section>';
   }
   return res;
 }
@@ -118,7 +119,7 @@ var getBoard = function(board) {
 /*  開始初始化公告欄                                     */
 /*                                                       */
 /* ***************************************************** */
-$(function() {
+$(function () {
   $.get('data/board.yml', '', function (data) {
     var board = YAML.parse(data);
     /* ***************************************************** */
@@ -169,7 +170,7 @@ $(function() {
       if ($(this).text() == '隱藏')
         str = '展開';
       $(this).text(str);
-      $('#history').toggle();
+      $('#history-list').toggle();
     })
     .click();
   });
