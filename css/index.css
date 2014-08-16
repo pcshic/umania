@@ -1,8 +1,0 @@
-.paragraph {
-	text-indent: 1rem;
-	margin: 2rem;
-}
-
-.paragraph::first-letter {
-	font-size: 3.2rem;
-}
