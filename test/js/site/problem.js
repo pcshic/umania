@@ -4,7 +4,7 @@ var probs    = solver.probData,
 
 for (var i = 0; i < probs.length; i++) {
   var prob = probs[i],
-      num = prob.getNumber(),
+      num  = prob.getNumber(),
       cate = Math.floor(num / 100);
   if (typeof(collect[cate]) == 'undefined')
     collect[cate] = [];

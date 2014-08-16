@@ -245,15 +245,11 @@ ProbProto.getStyle      = function(args) {
   var res = '';
   var prob = this;
   var val = prob.getNumber();
-  var query = (new UVaSolver.Query()).addArgs({
-      'type': 'single',
-      'num': val
-    }).getSubQuery(['type', 'num']);
-  if (args == undefined)
-    args = 'tc';
+  var query = (new UVaSolver.Query()).addArgs({'num': val}).getSubQuery(['num']);
+  if (args == undefined) args = 'tc';
   // 設定題號顏色
-  var btnAttr = 'btn-' + UVaSolver.Util.btnStyle[ prob.getVerdit() ];
-  res += '<a id="uva' + val + '" href="problem.html?' + query + '" type="button" class="btn ' + btnAttr + '" target="_blank">' + val + ' ';
+  var btnAttr = 'btn-' + UVaSolver.Util.btnStyle[prob.getVerdit()];
+  res += '<a id="uva' + val + '" href="list.html?' + query + '" type="button" class="btn ' + btnAttr + '" target="_blank">' + val + ' ';
   // 設定翻譯
   if (args.indexOf('t') >= 0) {
     var trans = prob.getTranslate();
@@ -281,13 +277,13 @@ delete ProbProto;
 // ==================================================================
 /*
 var title = [
-  'id',          '編號',          '標題',
-  'DACU',          'Best Runtime',      'Best Memory',
-  'No Verdict Given',    'Submission Error',    'Can\'t be Judged',
-  'In Queue',        'Compilation Error',  'Restricted Function',
-  'Runtime Error',    'Output Limit Exceeded','Time Limit Exceeded',
+  'id',                '編號',          '標題',
+  'DACU',              'Best Runtime',      'Best Memory',
+  'No Verdict Given',  'Submission Error',    'Can\'t be Judged',
+  'In Queue',          'Compilation Error',  'Restricted Function',
+  'Runtime Error',     'Output Limit Exceeded','Time Limit Exceeded',
   'Memory Limit Exceeded','Wrong Answer',      'Presentation Error',
-  'Accepted',        '時間限制(毫秒)',    '狀態'];
+  'Accepted',          '時間限制(毫秒)',    '狀態'];
 */
 UVaSolver.Solver = function(args) {
   /* ***************************************************** */
