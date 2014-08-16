@@ -14,7 +14,7 @@ var makeRowTable = function(rows) {
   return res;
 }
 
-var prob   = solver.probData[0],
+var prob   = solver.reverseNumber(query['num']),
     pid    = prob.getPid(),
     num    = prob.getNumber(),
     title  = prob.getTitle(),

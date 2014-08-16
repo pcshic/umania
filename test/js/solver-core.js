@@ -293,11 +293,11 @@ UVaSolver.Solver = function(args) {
   /* ***************************************************** */
   var solver = this;
   // 變數
-  solver.userId = 0;
-  solver.probData = undefined;
-  solver.dbData = undefined;
-  solver.userData = undefined;
-  solver.transData = undefined;
+  solver.userId     = 0;
+  solver.probData   = undefined;
+  solver.dbData     = undefined;
+  solver.userData   = undefined;
+  solver.transData  = undefined;
 
   /* ***************************************************** */
   /*                                                       */
