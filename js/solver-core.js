@@ -151,13 +151,7 @@ SubmitProto.transLang     = function() {
   return UVaSolver.Util.transLang(this.sub[5]);
 }
 SubmitProto.transRuntime  = function() {
-  var res = '0.';
-  for (var i = 100; i > 1; i /= 10) {
-    if (this.sub[3] < i)
-      res += '0';
-  }
-  res += this.sub[3];
-  return res;
+  return this.sub[3] / 1000;
 }
 SubmitProto.transTime     = function() {
   var date = this.sub[4];
