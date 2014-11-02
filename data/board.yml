@@ -17,7 +17,7 @@
     - "改變 yml 資料格式"
   - version: "2.1.1"
     date: "2014/11/02"
-    contnet:
+    content:
     - "修正題目無法閱覽的 bug"
 - version: "1.7.x"
   code: "Elephant"
