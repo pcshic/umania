@@ -101,7 +101,7 @@ var UspBoard = function (data) {
 /* ***************************************************** */
 $(function () {
   $.get('data/board.yml', '', function (data) {
-    var board = new UspBoard(YAML.parse(data));
+    var board = new UpsBoard(YAML.parse(data));
     /* ***************************************************** */
     /*                                                       */
     /*  初始化佈告欄排版                                     */
