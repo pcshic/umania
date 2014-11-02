@@ -85,7 +85,7 @@ var UspBoard = function (data) {
     if (board && board.length) {
       res += '<section id="versions" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';
       for (var i in board) {
-        res += getVersionInfo(board[i]);
+        res += getVersion(board[i]);
       }
       res += '</section>';
     }
