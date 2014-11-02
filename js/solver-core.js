@@ -243,7 +243,7 @@ ProbProto.getStyle      = function(args) {
   if (args == undefined) args = 'tc';
   // 設定題號顏色
   var btnAttr = 'btn-' + UVaSolver.Util.btnStyle[prob.getVerdit()];
-  res += '<a id="uva' + val + '" href="list.html?' + query + '" type="button" class="btn ' + btnAttr + '" target="_blank">' + val + ' ';
+  res += '<a id="uva' + val + '" href="problem.html?' + query + '" type="button" class="btn ' + btnAttr + '" target="_blank">' + val + ' ';
   // 設定翻譯
   if (args.indexOf('t') >= 0) {
     var trans = prob.getTranslate();
