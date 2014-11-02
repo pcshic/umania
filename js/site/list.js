@@ -21,7 +21,7 @@ var getHeader = function(cate) {
 }
 
 var getVolume = function(cate) {
-  return '<div id="' + tags[cate] + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-' + tags[cate] + '">' + collect[cate].join('') + '</div>';
+  return '<div id="' + tags[cate] + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-' + tags[cate] + '"><div class="panel-body">' + collect[cate].join('') + '</div></div>';
 }
 
 res += '<section id="uva-problems" class="panel-group" role="tablist" aria-multiselectable="true">';
