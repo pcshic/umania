@@ -1,7 +1,8 @@
 - version: "2.0.x"
   code: "Zebra"
   date: "2014/08/17 -"
-  description: "即將公布。"
+  image: "img/v2.1.png"
+  description: "Zebra 版本的核心在改寫後，於 2014 年 8 月 17 日公布。"
   subversion:
   - version: "2.0.0"
     date: "2014/08/17"
