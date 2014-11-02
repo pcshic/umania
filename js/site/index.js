@@ -60,7 +60,6 @@ var UspBoard = function (data) {
   }
 
   var getTitle = function(info, code) {
-    var code = ;
     return '<header class="panel-heading" role="tab" id="heading-' + code + '"><h2 class="panel-title collapsed" aria-controls="collapse-' + code + '" aria-expanded="true" href="#collapse-' + code + '" data-parent="#accordion" data-toggle="collapse"><span class="glyphicon glyphicon-send"></span> ' + info.code + ' (' + info.version + ') <small>' + info.date + '</small></h2></header>';
   }
 
