@@ -1,4 +1,4 @@
-var UspBoard = function (data) {
+var UpsBoard = function (data) {
   var UpsBoard = this;
   UpsBoard.board_info = data;
 
