@@ -11,7 +11,7 @@
     date: "2014/11/02"
     content:
     - 改良公告格式
-    - 新增講義練習提
+    - 新增講義練習題
     - 修復時間顯示 bug
 - version: "1.7.x"
   code: "Elephant"
