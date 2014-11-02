@@ -1,4 +1,5 @@
 var UspBoard = function (data) {
+  var UpsBoard = this;
   UpsBoard.board_info = data;
 
   /* ***************************************************** */
@@ -79,7 +80,7 @@ var UspBoard = function (data) {
   /*                                                       */
   /* ***************************************************** */
   var getBoard = function() {
-    var board = this.board_info;
+    var board = UpsBoard.board_info;
     var res = '';
     if (board && board.length) {
       res += '<section id="versions" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';
