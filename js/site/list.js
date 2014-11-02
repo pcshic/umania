@@ -1,5 +1,6 @@
 var probs    = solver.probData,
     collect  = {},
+    tags     = {},
     res      = '';
 
 for (var i = 0; i < probs.length; i++) {
@@ -12,8 +13,22 @@ for (var i = 0; i < probs.length; i++) {
 }
 
 for (var cate in collect) {
-  res += '<section id="volume' + cate + '"><h2>Volume ' + cate + '</h2><div>' + collect[cate].join('') + '</div></section>';
+  tags[cate] = 'volume-' + cate;
 }
+
+var getHeader = function(cate) {
+  return '<header class="panel-heading" role="tab" id="heading-' + tags[cate] + '"><h2 class="panel-title" data-toggle="collapse" data-parent="#uva-problems" href="#' + tags[cate] + '" aria-expanded="false" aria-controls="' + tags[cate] + '" class="collapsed">Volume ' + cate + '</h2></header>';
+}
+
+var getVolume = function(cate) {
+  return '<div id="' + tags[cate] + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-' + tags[cate] + '">' + collect[cate].join('') + '</div>';
+}
+
+res += '<section id="uva-problems" class="panel-group" role="tablist" aria-multiselectable="true">';
+for (var cate in collect) {
+  res += '<article class="panel panel-default">' + getHeader(cate) + getVolume(cate) + '</article>';
+}
+res += '</section>';
 $('#result').append(res);
 
 postRender();

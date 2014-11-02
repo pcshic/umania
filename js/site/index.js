@@ -144,6 +144,5 @@ $(function () {
     $('.subver-close')
     .click()
     .removeClass('subver-close');
-    $($('.collapse')[0]).collapse('toggle');
   });
 });

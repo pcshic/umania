@@ -23,19 +23,19 @@ var prob   = solver.reverseNumber(query['num']),
 // 題目資訊
 var info  = [
 [[2, '<strong>題目名稱</strong>'],  [10, title]],
-[[2, '<strong>題目編號</strong>'],  [2, num],
-[2, '<strong>題目 ID</strong>'],  [2, pid]]
+[[2, '<strong>題目編號</strong>'],  [ 2,   num],
+ [2, '<strong>題目 ID</strong>'],   [ 2,   pid]]
   ],
   stat  = [
-[[2, '<strong>AC 數</strong>'],    [2, prob.getAC()],
-[2, '<strong>WA 數</strong>'],    [2, prob.getWA()],
-[2, '<strong>PE 數</strong>'],    [2, prob.getPE()]],
-[[2, '<strong>TLE 數</strong>'],  [2, prob.getTLE()],
-[2, '<strong>OLE 數</strong>'],    [2, prob.getOLE()],
-[2, '<strong>MLE 數</strong>'],    [2, prob.getMLE()]],
-[[2, '<strong>CE 數</strong>'],    [2, prob.getCE()],
-[2, '<strong>RE 數</strong>'],    [2, prob.getRE()],
-[2, '<strong>RF 數</strong>'],    [2, prob.getRF()]]
+[[2, '<strong>AC 數</strong>'],     [2, prob.getAC()],
+ [2, '<strong>WA 數</strong>'],     [2, prob.getWA()],
+ [2, '<strong>PE 數</strong>'],     [2, prob.getPE()]],
+[[2, '<strong>TLE 數</strong>'],    [2, prob.getTLE()],
+ [2, '<strong>OLE 數</strong>'],    [2, prob.getOLE()],
+ [2, '<strong>MLE 數</strong>'],    [2, prob.getMLE()]],
+[[2, '<strong>CE 數</strong>'],     [2, prob.getCE()],
+ [2, '<strong>RE 數</strong>'],     [2, prob.getRE()],
+ [2, '<strong>RF 數</strong>'],     [2, prob.getRF()]]
   ];
 // 原文參數
 var uvastyle  = ['btn-info', 'btn-warning'],
