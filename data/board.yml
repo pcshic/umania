@@ -15,6 +15,10 @@
     - "新增講義練習題"
     - "修復時間顯示 bug"
     - "改變 yml 資料格式"
+  - version: "2.1.1"
+    date: "2014/11/02"
+    contnet:
+    - "修正題目無法閱覽的 bug"
 - version: "1.7.x"
   code: "Elephant"
   date: "2014/05/07 - 2014/08/17"
