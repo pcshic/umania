@@ -20,6 +20,10 @@
     date: "2014/11/02"
     content:
     - "修正題目無法閱覽的 bug"
+  - version: "2.1.2"
+    date: "2014/11/09"
+    content:
+    - "改變部分題單的顯示模式"
 - version: "1.7.x"
   code: "Elephant"
   date: "2014/05/07 - 2014/08/17"
