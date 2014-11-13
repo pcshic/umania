@@ -47,7 +47,7 @@ var trans    = prob.getTranslate(),
   'luckycat': 'btn-primary',
   'ruby 兔': 'btn-success',
   'unfortunate 狗': 'btn-danger',
-  'Unfortunate 狗': 'btn-info'
+  'Unfortunate 狗': 'btn-primary'
   };
 // 開頭
 res += '<div class="page-header">\
