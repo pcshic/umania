@@ -427,10 +427,21 @@ UVaSolver.Solver = function(args) {
   if (solver.transData != undefined) {
     for (var name in solver.transData) {
       var trans = solver.transData[name]['trans'];
-      for (var num in trans) {
-        var prob = reNum[num];
-        if (prob != undefined) {
-          prob.getTranslate().push(name);
+      if (name != 'Unfortunate 狗') {
+        for (var num in trans) {
+          var prob = reNum[num];
+          if (prob != undefined) {
+            prob.getTranslate().push(name);
+          }
+        }
+      }
+      else {
+        for (var i = 0; i < trans.length; i++) {
+          var num  = trans[i];
+          var prob = reNum[num];
+          if (prob != undefined) {
+            prob.getTranslate().push(name);
+          }
         }
       }
     }

@@ -46,7 +46,8 @@ var trans    = prob.getTranslate(),
   transtyle  = {
   'luckycat': 'btn-primary',
   'ruby 兔': 'btn-success',
-  'unfortunate 狗': 'btn-danger'
+  'unfortunate 狗': 'btn-danger',
+  'Unfortunate 狗': 'btn-info'
   };
 // 開頭
 res += '<div class="page-header">\
@@ -75,9 +76,15 @@ res += '</div>';
 res += '<h3>翻譯 <small>Translations</small></h3>\
     <div>';
 for (var i = 0; i < trans.length; i++) {
-  var transDb  = solver.transData[trans[i]],
-    link  = transDb['site'] +
-          transDb['trans'][num];
+  var link, transDb;
+  transDb = solver.transData[trans[i]];
+  link    = transDb['site'];
+  if (trans[i] != 'Unfortunate 狗') {
+    link += transDb['trans'][num];
+  }
+  else {
+    link += Math.floor(num / 100) + '/p' + num + '/';
+  }
   res += '<a href="' + link + '" class="btn ' + transtyle[trans[i]] + '" target="_blank">' + trans[i] + '</a>';
 }
 res += '</div>';
