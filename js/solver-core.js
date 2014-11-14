@@ -548,9 +548,6 @@ var col = function(sm, md, lg) {
     res.push(['col', type[i], num[i]].join('-'));
   return res.join(' ');
 }
-var postRender = function() {
-  $('[data-toggle="tooltip"]').tooltip();
-}
 
 /*
   load UPS Custom
