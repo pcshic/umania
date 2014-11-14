@@ -315,11 +315,12 @@ UVaSolver.Solver = function(args) {
   /*    'trans'     - true                                 */
   /*                                                       */
   /* ***************************************************** */
-  if (args          == undefined) args          = {};
-  if (args.type     == undefined) args.type     = 'all';
-  if (args.prob     == undefined) args.prob     = true;
-  if (args.database == undefined) args.database = true;
-  if (args.trans    == undefined) args.trans    = true;
+  if (typeof(args)         == 'undefined') args          = {};
+  if (typeof(args.type)    == 'undefined') args.type     = 'all';
+  if (typeof(args.prob)    == 'undefined') args.prob     = true;
+  if (typeof(args.database)== 'undefined') args.database = true;
+  if (typeof(args.user)    == 'undefined') args.user     = undefined;
+  if (typeof(args.trans)   == 'undefined') args.trans    = true;
 
   /* ***************************************************** */
   /*                                                       */
@@ -364,7 +365,7 @@ UVaSolver.Solver = function(args) {
       if (args.num) {
         loadDataJSON({
           url:      [probNumUrl, args.num].join('/'),
-          callback: function (d) { solver.probData = [d] })
+          callback: function (d) { solver.probData = [d]; })
         });
       }
       if (solver.userId != 0) {
