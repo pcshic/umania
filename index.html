@@ -10,8 +10,8 @@
   <link href="css/style.css" rel="stylesheet" media="screen">
   <title>UVa Problem Solver</title>
 </head>
-<body data-spy="scroll" data-target="#menu">
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<body>
+  <nav id="menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#banner">
@@ -23,7 +23,7 @@
         <a class="navbar-brand" href="index.html">UVa Problem Solver</a>
       </div>
       <div class="collapse navbar-collapse" id="banner">
-        <ul class="nav navbar-nav" id="menu" role="tablist">
+        <ul class="nav navbar-nav" role="tablist">
           <li><a href="#practice">講義練習題</a></li>
           <li><a href="#problem-set">UVa 全題</a></li>
           <li><a href="#version-info">版本沿革</a></li>
@@ -42,15 +42,15 @@
       </div>
     </div>
   </nav>
-  <div class="container">
+  <div data-spy="scroll" data-target="#menu" class="container">
     <div id="userMsg"></div>
     <div id="practice"></div>
     <div id="problem-set"></div>
     <div id="version-info"></div>
-    <footer>
-      <div id="copyright"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/tw/"><img alt="創用 CC 授權條款" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/2.5/tw/88x31.png" /></a></div>
-    </footer>
   </div>
+  <footer>
+    <div id="copyright"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/tw/"><img alt="創用 CC 授權條款" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/2.5/tw/88x31.png" /></a></div>
+  </footer>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/yaml.js"></script>
