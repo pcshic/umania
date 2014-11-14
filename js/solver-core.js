@@ -566,7 +566,6 @@ var ups    = JSON.parse(ls[upsName]);
 */
 $.ajaxSettings.async = false;
 $.get('layout.html', '', function (data) {
-  $('body').prepend(data);
   $('title, #banner').text('UVa Problem Solver');
 });
 $.ajaxSettings.async = true;
