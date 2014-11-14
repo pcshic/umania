@@ -308,29 +308,30 @@ UVaSolver.Solver = function(args) {
   /* ***************************************************** */
   /*                                                       */
   /*  設定 args 預設值:                                    */
-  /*    'type'    - 'all'                              */
-  /*    'prob'    - true                               */
-  /*    'database'  - true                               */
-  /*    'user'    - undefined                          */
-  /*    'trans'    - true                               */
+  /*    'type'      - 'all'                                */
+  /*    'prob'      - true                                 */
+  /*    'database'  - true                                 */
+  /*    'user'      - undefined                            */
+  /*    'trans'     - true                                 */
   /*                                                       */
   /* ***************************************************** */
-  if (args == undefined)
-    args = {};
-  if (args.type == undefined)
-    args.type = 'all';
-  if (args.prob == undefined)
-    args.prob = true;
-  if (args.database == undefined)
-    args.database = true;
-  if (args.trans == undefined)
-    args.trans = true;
+  if (args          == undefined) args          = {};
+  if (args.type     == undefined) args.type     = 'all';
+  if (args.prob     == undefined) args.prob     = true;
+  if (args.database == undefined) args.database = true;
+  if (args.trans    == undefined) args.trans    = true;
 
   /* ***************************************************** */
   /*                                                       */
   /*  初始化原始資料                                       */
   /*                                                       */
   /* ***************************************************** */
+  var loadDataYML  = function(options) {
+    $.get(options.url, '', options.callback);
+  }
+  var loadDataJSON = function(options) {
+    $.getJSON(options.url, '', options.callback);
+  }
   var loadData = function(args) {
     var apiUrl           = 'http://uhunt.felix-halim.net/api';
     var probUrl          = apiUrl + '/p';
@@ -339,38 +340,51 @@ UVaSolver.Solver = function(args) {
     var subUserUrl       = apiUrl + '/subs-user';
     var subUserProbUrl   = apiUrl + '/subs-nums';
     $.ajaxSettings.async = false;
-    if (args['user']) {
-      $.getJSON(nameToPidUrl + '/' + args['user'], '',
-        function (data) { solver.userId = data; });
+    if (args.user) {
+      loadDataJSON({
+        url:      [nameToPidUrl, args.user].join('/'),
+        callback: function (d) { solver.userId = d }
+      });
     }
-    if (args['type'] == 'all' || args['type'] == 'part') {
-      if (args['prob']) {
-        $.getJSON(probUrl, '',
-          function (data) { solver.probData = data; });
+    if (args.type === 'all' || args.type === 'part') {
+      if (args.prob) {
+        loadDataJSON({
+          url:      probUrl,
+          callback: function (d) { solver.probData = d }
+        });
       }
       if (solver.userId != 0) {
-        $.getJSON(subUserUrl + '/' + solver.userId, '',
-          function (data) { solver.userData = data; });
+        loadDataJSON({
+          url:      [subUserUrl, solver.userId].join('/'),
+          callback: function (d) { solver.userData = d }
+        });
       }
     }
-    else if (args['type'] == 'single') {
-      if (args['num']) {
-        $.getJSON(probNumUrl + '/' + args['num'], '',
-          function (data) { solver.probData = [data]; });
+    else if (args.type === 'single') {
+      if (args.num) {
+        loadDataJSON({
+          url:      [probNumUrl, args.num].join('/'),
+          callback: function (d) { solver.probData = [d] })
+        });
       }
       if (solver.userId != 0) {
-        var tmp = solver.userId + '/' + args['num'] + '/0';
-        $.getJSON(subUserProbUrl + '/' + tmp, '',
-          function (data) { solver.userData = data[solver.userId] });
+        loadDataJSON({
+          url: [subUserProbUrl, solver.userId, args.num, '0'].join('/'),
+          callback: function (d) { solver.userData = d[solver.userId] })
+        });
       }
     }
-    if (args['database']) {
-      $.get('data/database.yml', '',
-        function (data) { solver.dbData = YAML.parse(data); });
+    if (args.database) {
+      loadDataYML({
+        url:      'data/database.yml',
+        callback: function (d) { solver.dbData = YAML.parse(d) })
+      });
     }
-    if (args['trans']) {
-      $.get('data/translate.yml', '',
-        function (data) { solver.transData = YAML.parse(data); });
+    if (args.trans) {
+      loadDataYML({
+        url:      'data/translate.yml',
+        callback:  function (d) { solver.transData = YAML.parse(d) })
+      });
     }
     $.ajaxSettings.async = true;
   }
@@ -387,13 +401,13 @@ UVaSolver.Solver = function(args) {
       probs[i] = new UVaSolver.Problem(probs[i]);
     }
     // 依照 problem number 遞增排序
-    probs.sort(function(left, right) {
-      return left.getNumber() - right.getNumber();
+    probs.sort(function (L, R) {
+      return L.getNumber() - R.getNumber();
     });
     // 建立 id, number 對應表
     for (var i = 0; i < probs.length; i++) {
       var prob = probs[i];
-      rePid[prob.getPid()] = prob;
+      rePid[prob.getPid()]    = prob;
       reNum[prob.getNumber()] = prob;
     }
   }
