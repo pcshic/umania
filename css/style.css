@@ -4,17 +4,6 @@
 body {
   margin-top: 7rem;
 }
-#main {
-  width: 100%;
-}
-
-/*
-  side-block:
-*/
-.side-block {
-  margin-left: 1rem;
-  padding-right: 4rem;
-}
 
 #copyright {
   text-align: center;
