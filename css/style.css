@@ -2,7 +2,7 @@
   body
 */
 body {
-  margin-top: 2rem;
+  margin-top: 7rem;
 }
 #main {
   width: 100%;
@@ -14,11 +14,6 @@ body {
 .side-block {
   margin-left: 1rem;
   padding-right: 4rem;
-}
-
-#banner {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 
 #copyright {
