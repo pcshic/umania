@@ -87,7 +87,7 @@ delete QueryProto;
 //
 // ==================================================================
 var none = function(obj) {
-  return obj == undefined || obj == '';
+  return typeof(obj) === 'undefined' || obj == null;
 }
 
 // ==================================================================
@@ -188,7 +188,7 @@ delete SubmitProto;
 // ==================================================================
 UVaSolver.Problem = function(data) {
   var problem = this;
-  if (data['pid'] != undefined) {
+  if ( none(data.pid) == false) {
     var attr = [
       'pid',   'num',    'title',  'dacu',  'mrun',
       'mmem',  'nover',  'sube',   'noj',   'inq',
@@ -200,41 +200,37 @@ UVaSolver.Problem = function(data) {
       problem.prob.push(data[attr[i]]);
   }
   else problem.prob = data;
-  problem.prob.push(  [],    // category
-            [],    // submit
-            0,    // verdit
-            0,    // last stamp
-            0,    // rank
-            []);  // translate
+  problem.prob.push(
+    [],    // category
+    [],    // submit
+    0,     // verdit
+    0,     // last stamp
+    0,     // rank
+    []     // translate
+  );
 }
 var ProbProto = UVaSolver.Problem.prototype;
-ProbProto.getPid        = function() { return this.prob[0]; }
-ProbProto.getNumber     = function() { return this.prob[1]; }
-ProbProto.getTitle      = function() { return this.prob[2]; }
-ProbProto.getCE         = function() { return this.prob[10]; }
-ProbProto.getRF         = function() { return this.prob[11]; }
-ProbProto.getRE         = function() { return this.prob[12]; }
-ProbProto.getOLE        = function() { return this.prob[13]; }
-ProbProto.getTLE        = function() { return this.prob[14]; }
-ProbProto.getMLE        = function() { return this.prob[15]; }
-ProbProto.getWA         = function() { return this.prob[16]; }
-ProbProto.getPE         = function() { return this.prob[17]; }
-ProbProto.getAC         = function() { return this.prob[18]; }
-ProbProto.getCategory   = function() { return this.prob[21]; }
-ProbProto.getSubmit     = function() { return this.prob[22]; }
-ProbProto.getVerdit     = function() { return this.prob[23]; }
-ProbProto.getTime       = function() { return this.prob[24]; }
-ProbProto.getRank       = function() { return this.prob[25]; }
-ProbProto.getTranslate  = function() { return this.prob[26]; }
-ProbProto.setVerdit     = function(verd) {
-  this.prob[23] = verd;
-}
-ProbProto.setTime       = function(stmp) {
-  this.prob[24] = stmp;
-}
-ProbProto.setRank       = function(rank) {
-  this.prob[25] = rank;
-}
+ProbProto.getPid        = function() { return this.prob[0] }
+ProbProto.getNumber     = function() { return this.prob[1] }
+ProbProto.getTitle      = function() { return this.prob[2] }
+ProbProto.getCE         = function() { return this.prob[10] }
+ProbProto.getRF         = function() { return this.prob[11] }
+ProbProto.getRE         = function() { return this.prob[12] }
+ProbProto.getOLE        = function() { return this.prob[13] }
+ProbProto.getTLE        = function() { return this.prob[14] }
+ProbProto.getMLE        = function() { return this.prob[15] }
+ProbProto.getWA         = function() { return this.prob[16] }
+ProbProto.getPE         = function() { return this.prob[17] }
+ProbProto.getAC         = function() { return this.prob[18] }
+ProbProto.getCategory   = function() { return this.prob[21] }
+ProbProto.getSubmit     = function() { return this.prob[22] }
+ProbProto.getVerdit     = function() { return this.prob[23] }
+ProbProto.getTime       = function() { return this.prob[24] }
+ProbProto.getRank       = function() { return this.prob[25] }
+ProbProto.getTranslate  = function() { return this.prob[26] }
+ProbProto.setVerdit     = function(verd) { this.prob[23] = verd }
+ProbProto.setTime       = function(stmp) { this.prob[24] = stmp }
+ProbProto.setRank       = function(rank) { this.prob[25] = rank }
 ProbProto.getStyle      = function(args) {
   var res = '';
   var prob = this;
@@ -271,13 +267,14 @@ delete ProbProto;
 // ==================================================================
 /*
 var title = [
-  'id',                '編號',          '標題',
-  'DACU',              'Best Runtime',      'Best Memory',
-  'No Verdict Given',  'Submission Error',    'Can\'t be Judged',
-  'In Queue',          'Compilation Error',  'Restricted Function',
-  'Runtime Error',     'Output Limit Exceeded','Time Limit Exceeded',
-  'Memory Limit Exceeded','Wrong Answer',      'Presentation Error',
-  'Accepted',          '時間限制(毫秒)',    '狀態'];
+  'id',                    '編號',                  '標題',
+  'DACU',                  'Best Runtime',          'Best Memory',
+  'No Verdict Given',      'Submission Error',      'Can\'t be Judged',
+  'In Queue',              'Compilation Error',     'Restricted Function',
+  'Runtime Error',         'Output Limit Exceeded', 'Time Limit Exceeded',
+  'Memory Limit Exceeded', 'Wrong Answer',          'Presentation Error',
+  'Accepted',              '時間限制(毫秒)',        '狀態'
+];
 */
 UVaSolver.Solver = function(args) {
   /* ***************************************************** */
@@ -315,12 +312,12 @@ UVaSolver.Solver = function(args) {
   /*    'trans'     - true                                 */
   /*                                                       */
   /* ***************************************************** */
-  if (typeof(args)         === 'undefined') args          = {};
-  if (typeof(args.type)    === 'undefined') args.type     = 'all';
-  if (typeof(args.prob)    === 'undefined') args.prob     = true;
-  if (typeof(args.database)=== 'undefined') args.database = true;
-  if (typeof(args.user)    === 'undefined') args.user     = undefined;
-  if (typeof(args.trans)   === 'undefined') args.trans    = true;
+  if ( none(args) )          args          = {};
+  if ( none(args.type) )     args.type     = 'all';
+  if ( none(args.prob) )     args.prob     = true;
+  if ( none(args.database) ) args.database = true;
+  if ( none(args.user) )     args.user     = undefined;
+  if ( none(args.trans) )    args.trans    = true;
 
   /* ***************************************************** */
   /*                                                       */
@@ -395,7 +392,7 @@ UVaSolver.Solver = function(args) {
   /*  處理 probData                                        */
   /*                                                       */
   /* ***************************************************** */
-  if (typeof(solver.probData) !== 'undefined') {
+  if ( !none(solver.probData) ) {
     var probs = solver.probData;
     // 建立 Problem 物件
     for (var i = 0; i < probs.length; i++) {
@@ -417,33 +414,33 @@ UVaSolver.Solver = function(args) {
   /*  建立題單對應分類                                     */
   /*                                                       */
   /* ***************************************************** */
-  if (solver.dbData != undefined) {
+  if ( !none(solver.dbData) ) {
     var db = solver.dbData;
-    for (var cate in db) {
-      for (var chap in db[cate]) {
-        for (var sect in db[cate][chap]) {
-          var pNum = db[cate][chap][sect];
-          if (pNum.exercises || pNum.others) {
-            for (var i = 0; i < pNum.exercises.length; i++) {
-              var prob = reNum[ pNum.exercises[i] ];
+    for (var part in db) {
+      for (var chap in db[part]) {
+        for (var sect in db[part][chap]) {
+          var probs = db[part][chap][sect];
+          if ( !none(probs.exercises) || !none(probs.others) ) {
+            for (var i = 0; i < probs.exercises.length; i++) {
+              var prob = reNum[ probs.exercises[i] ];
               if (prob != undefined) {
-                var res = cate + ' ' + chap + ' ' + sect;
+                var res = part + ' ' + chap + ' ' + sect;
                 prob.getCategory().push(res);
               }
             }
-            for (var i = 0; i < pNum.others.length; i++) {
-              var prob = reNum[ pNum.others[i] ];
+            for (var i = 0; i < probs.others.length; i++) {
+              var prob = reNum[ probs.others[i] ];
               if (prob != undefined) {
-                var res = cate + ' ' + chap + ' ' + sect;
+                var res = part + ' ' + chap + ' ' + sect;
                 prob.getCategory().push(res);
               }
             }
           }
           else {
-            for (var i = 0; i < pNum.length; i++) {
-              var prob = reNum[ pNum[i] ];
+            for (var i = 0; i < probs.length; i++) {
+              var prob = reNum[ probs[i] ];
               if (prob != undefined) {
-                var res = cate + ' ' + chap + ' ' + sect;
+                var res = part + ' ' + chap + ' ' + sect;
                 prob.getCategory().push(res);
               }
             }
