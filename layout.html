@@ -1,16 +1,26 @@
 <div id="main" class="container">
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-      <li class="active"><a href="index.html"></a></li>
-      <form id="newUser" class="form-inline">
-        <input type="text" name="user" class="form-control" placeholder="username ...">
-        <button class="btn btn-default">確定</button>
-      </form>
-      <form action="list.html" id="search" class="form-inline" method="get">
-        <input type="text" name="num" class="form-control" placeholder="輸入題號 ...">
-        <input type="hidden" name="type" value="single">
-        <button type="submit" class="btn btn-default">搜尋</button>
-      </form>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a id="banner" class="navbar-brand" href="index.html"></a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <form id="newUser" class="form-inline">
+          <input type="text" name="user" class="form-control" placeholder="username ...">
+          <button class="btn btn-default">確定</button>
+        </form>
+        <form action="list.html" id="search" class="form-inline" method="get">
+          <input type="text" name="num" class="form-control" placeholder="輸入題號 ...">
+          <input type="hidden" name="type" value="single">
+          <button type="submit" class="btn btn-default">搜尋</button>
+        </form>
+      </div>
     </div>
   </nav>
   <div id="userMsg"></div>
