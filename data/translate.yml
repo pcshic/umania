@@ -1132,13 +1132,10 @@ unfortunate 狗:
     11975: "2013/07/11975-tele-loto.html"
     12187: "2013/07/12187-brothers.html"
     12190: "2013/07/12190-electric-bill.html"
-    12243: "2012/11/12243-flowers-flourish-from-france.html"
-    12279: "2012/11/12279-emoogle-balance.html"
     12291: "2013/07/12291-polyomino-composer.html"
     12319: "2013/08/12319-edgetowns-traffic-jams.html"
     12498: "2013/07/12498-ants-shopping-mall.html"
     12515: "2013/07/12515-movie-police.html"
-    12575: "2012/12/12575-sin-cos-problem.html"
 Unfortunate 狗:
   site: "http://unfortunate-dog.github.io/articles/"
   trans:
@@ -1231,4 +1228,6 @@ Unfortunate 狗:
   - 11793
   - 12086
   - 12100
+  - 12243
   - 12279
+  - 12575
