@@ -83,7 +83,7 @@ var UpsBoard = function (data) {
     var board = UpsBoard.board_info;
     var res = '';
     if (board && board.length) {
-      res += '<section id="versions" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';
+      res += '<section id="versions" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"><header class="page-header"><h2>版本沿革</h2></header>';
       for (var i in board) {
         res += getVersion(board[i]);
       }
