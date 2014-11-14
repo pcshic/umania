@@ -460,7 +460,7 @@ UVaSolver.Solver = function(args) {
               }
             }
           }
-          probs = coll;
+          db[part][chap][sect] = coll;
         }
       }
     }
