@@ -402,7 +402,7 @@ UVaSolver.Solver = function(args) {
       probs[i] = new UVaSolver.Problem(probs[i]);
     }
     // 依照 problem number 遞增排序
-    probs.sort(getNumber());
+    probs.sort(this.getNumber());
     // 建立 id, number 對應表
     for (var i = 0; i < probs.length; i++) {
       var prob = probs[i];
