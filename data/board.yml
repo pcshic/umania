@@ -1,4 +1,4 @@
-- version: "2.0.x"
+- version: "2.0.x - 2.1.x"
   code: "Zebra"
   date: "2014/08/17 -"
   image: "img/v2.1.png"
@@ -20,6 +20,14 @@
     date: "2014/11/02"
     content:
     - "修正題目無法閱覽的 bug"
+  - version: "2.1.2"
+    date: "2014/11/09"
+    content:
+    - "改變部分題單的顯示模式"
+  - version: "2.1.5"
+    date: "2014/11/13"
+    content:
+    - "新增新翻譯: Unfortunate 狗"
 - version: "1.7.x"
   code: "Elephant"
   date: "2014/05/07 - 2014/08/17"
