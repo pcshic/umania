@@ -96,10 +96,10 @@ var UpsBoard = function (data) {
 
 /* ***************************************************** */
 /*                                                       */
-/*  開始初始化公告欄                                     */
+/*  初始化公告欄                                         */
 /*                                                       */
 /* ***************************************************** */
-$(function () {
+var loadBoard = function() {
   $.get('data/board.yml', '', function (data) {
     var board = new UpsBoard(YAML.parse(data));
     /* ***************************************************** */
@@ -145,4 +145,8 @@ $(function () {
     .click()
     .removeClass('subver-close');
   });
+}
+
+$(function () {
+  loadBoard();
 });

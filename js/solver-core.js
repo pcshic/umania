@@ -562,15 +562,6 @@ if (ls[upsName] == undefined)
 var ups    = JSON.parse(ls[upsName]);
 
 /*
-  load head.html
-*/
-$.ajaxSettings.async = false;
-$.get('layout.html', '', function (data) {
-  $('title, #banner').text('UVa Problem Solver');
-});
-$.ajaxSettings.async = true;
-
-/*
   get query
 */
 var query = (new UVaSolver.Query()).getAllArgs();
