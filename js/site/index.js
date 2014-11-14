@@ -61,7 +61,7 @@ var UpsBoard = function (data) {
   }
 
   var getTitle = function(info, code) {
-    return '<header class="panel-heading" role="tab" id="heading-' + code + '"><h2 class="panel-title collapsed" aria-controls="collapse-' + code + '" aria-expanded="false" href="#collapse-' + code + '" data-parent="#versions" data-toggle="collapse"><span class="glyphicon glyphicon-send"></span> ' + info.code + ' (' + info.version + ') <small>' + info.date + '</small></h2></header>';
+    return '<header class="panel-heading" role="tab" id="heading-' + code + '"><h2 class="panel-title collapsed" aria-controls="collapse-' + code + '" aria-expanded="false" href="#collapse-' + code + '" data-parent="#versions" data-toggle="collapse"><span class="glyphicon glyphicon-send"></span> ' + info.code + '<span class="visible-md-inline visible-lg-inline"> (' + info.version + ')</span><small class="visible-md-inline visible-lg-inline"> ' + info.date + '</small></h2></header>';
   }
 
   var getVersionBody = function(info, code) {
