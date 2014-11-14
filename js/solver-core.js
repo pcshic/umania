@@ -188,7 +188,7 @@ delete SubmitProto;
 // ==================================================================
 UVaSolver.Problem = function(data) {
   var problem = this;
-  if ( none(data.pid) == false) {
+  if ( !none(data.pid) ) {
     var attr = [
       'pid',   'num',    'title',  'dacu',  'mrun',
       'mmem',  'nover',  'sube',   'noj',   'inq',
@@ -228,6 +228,7 @@ ProbProto.getVerdit     = function() { return this.prob[23] }
 ProbProto.getTime       = function() { return this.prob[24] }
 ProbProto.getRank       = function() { return this.prob[25] }
 ProbProto.getTranslate  = function() { return this.prob[26] }
+ProbProto.setCategory   = function(cate) { this.prob[21].push(cate) }
 ProbProto.setVerdit     = function(verd) { this.prob[23] = verd }
 ProbProto.setTime       = function(stmp) { this.prob[24] = stmp }
 ProbProto.setRank       = function(rank) { this.prob[25] = rank }
@@ -239,7 +240,13 @@ ProbProto.getStyle      = function(args) {
   if (args == undefined) args = 'tc';
   // 設定題號顏色
   var btnAttr = 'btn-' + UVaSolver.Util.btnStyle[prob.getVerdit()];
-  res += '<a id="uva' + val + '" href="problem.html?' + query + '" type="button" class="btn ' + btnAttr + '" target="_blank">' + val + ' ';
+  res += '<a id="uva' + val + '" href="problem.html?' + query + '" type="button" class="btn ' + btnAttr + '" target="_blank">';
+  var tags = prob.getCategory(), flag = false;
+  for (var i = 0; i < tags.length; i++)
+    if (tags[i][1]) flag = true;
+  if (flag) res += '<strong>' + val + '</strong>';
+  else res += val;
+  res += ' ';
   // 設定翻譯
   if (args.indexOf('t') >= 0) {
     var trans = prob.getTranslate();
@@ -251,7 +258,7 @@ ProbProto.getStyle      = function(args) {
   if (args.indexOf('c') >= 0) {
     var tags = prob.getCategory();
     for (var i = 0; i < tags.length; i++) {
-      res += '<span class="glyphicon glyphicon-tag" data-toggle="tooltip" data-original-title="' + tags[i] + '"></span>';
+      res += '<span class="glyphicon glyphicon-tag" data-toggle="tooltip" data-original-title="' + tags[i][0] + '"></span>';
     }
   }
   // 結尾
@@ -419,32 +426,41 @@ UVaSolver.Solver = function(args) {
     for (var part in db) {
       for (var chap in db[part]) {
         for (var sect in db[part][chap]) {
-          var probs = db[part][chap][sect];
+          var probs = db[part][chap][sect],
+              cate  = [part, chap, sect].join(' '),
+              coll  = [];
           if ( !none(probs.exercises) || !none(probs.others) ) {
-            for (var i = 0; i < probs.exercises.length; i++) {
-              var prob = reNum[ probs.exercises[i] ];
-              if (prob != undefined) {
-                var res = part + ' ' + chap + ' ' + sect;
-                prob.getCategory().push(res);
+            if (!none(probs.exercises)) {
+              var list = probs.exercises;
+              for (var i = 0; i < list.length; i++) {
+                var prob = reNum[ list[i] ];
+                if ( !none(prob) ) {
+                  prob.setCategory([cate, true]);
+                  coll.push(prob);
+                }
               }
             }
-            for (var i = 0; i < probs.others.length; i++) {
-              var prob = reNum[ probs.others[i] ];
-              if (prob != undefined) {
-                var res = part + ' ' + chap + ' ' + sect;
-                prob.getCategory().push(res);
+            if (!none(probs.others)) {
+              var list = probs.others;
+              for (var i = 0; i < list.length; i++) {
+                var prob = reNum[ list[i] ];
+                if ( !none(prob) ) {
+                  prob.setCategory([cate, false]);
+                  coll.push(prob);
+                }
               }
             }
           }
           else {
             for (var i = 0; i < probs.length; i++) {
               var prob = reNum[ probs[i] ];
-              if (prob != undefined) {
-                var res = part + ' ' + chap + ' ' + sect;
-                prob.getCategory().push(res);
+              if ( !none(prob) ) {
+                prob.setCategory([cate, false]);
+                coll.push(prob);
               }
             }
           }
+          probs = coll;
         }
       }
     }
