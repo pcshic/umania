@@ -460,6 +460,9 @@ UVaSolver.Solver = function(args) {
               }
             }
           }
+          coll.sort(function (L, R) {
+            return L.getNumber() - R.getNumber();
+          });
           solver.dbData[part][chap][sect] = coll;
         }
       }
