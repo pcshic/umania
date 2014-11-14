@@ -408,11 +408,29 @@ UVaSolver.Solver = function(args) {
       for (var chap in db[cate]) {
         for (var sect in db[cate][chap]) {
           var pNum = db[cate][chap][sect];
-          for (var i = 0; i < pNum.length; i++) {
-            var prob = reNum[ pNum[i] ];
-            if (prob != undefined) {
-              var res = cate + ' ' + chap + ' ' + sect;
-              prob.getCategory().push(res);
+          if (pNum.exercises || pNum.others) {
+            for (var i = 0; i < pNum.exercises.length; i++) {
+              var prob = reNum[ pNum.exercises[i] ];
+              if (prob != undefined) {
+                var res = cate + ' ' + chap + ' ' + sect;
+                prob.getCategory().push(res);
+              }
+            }
+            for (var i = 0; i < pNum.others.length; i++) {
+              var prob = reNum[ pNum.others[i] ];
+              if (prob != undefined) {
+                var res = cate + ' ' + chap + ' ' + sect;
+                prob.getCategory().push(res);
+              }
+            }
+          }
+          else {
+            for (var i = 0; i < pNum.length; i++) {
+              var prob = reNum[ pNum[i] ];
+              if (prob != undefined) {
+                var res = cate + ' ' + chap + ' ' + sect;
+                prob.getCategory().push(res);
+              }
             }
           }
         }
