@@ -315,12 +315,12 @@ UVaSolver.Solver = function(args) {
   /*    'trans'     - true                                 */
   /*                                                       */
   /* ***************************************************** */
-  if (typeof(args)         == 'undefined') args          = {};
-  if (typeof(args.type)    == 'undefined') args.type     = 'all';
-  if (typeof(args.prob)    == 'undefined') args.prob     = true;
-  if (typeof(args.database)== 'undefined') args.database = true;
-  if (typeof(args.user)    == 'undefined') args.user     = undefined;
-  if (typeof(args.trans)   == 'undefined') args.trans    = true;
+  if (typeof(args)         === 'undefined') args          = {};
+  if (typeof(args.type)    === 'undefined') args.type     = 'all';
+  if (typeof(args.prob)    === 'undefined') args.prob     = true;
+  if (typeof(args.database)=== 'undefined') args.database = true;
+  if (typeof(args.user)    === 'undefined') args.user     = undefined;
+  if (typeof(args.trans)   === 'undefined') args.trans    = true;
 
   /* ***************************************************** */
   /*                                                       */
@@ -395,16 +395,14 @@ UVaSolver.Solver = function(args) {
   /*  處理 probData                                        */
   /*                                                       */
   /* ***************************************************** */
-  if (solver.probData != undefined) {
+  if (typeof(solver.probData) !== 'undefined') {
     var probs = solver.probData;
     // 建立 Problem 物件
     for (var i = 0; i < probs.length; i++) {
       probs[i] = new UVaSolver.Problem(probs[i]);
     }
     // 依照 problem number 遞增排序
-    probs.sort(function (L, R) {
-      return L.getNumber() - R.getNumber();
-    });
+    probs.sort(getNumber());
     // 建立 id, number 對應表
     for (var i = 0; i < probs.length; i++) {
       var prob = probs[i];
