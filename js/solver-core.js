@@ -365,26 +365,26 @@ UVaSolver.Solver = function(args) {
       if (args.num) {
         loadDataJSON({
           url:      [probNumUrl, args.num].join('/'),
-          callback: function (d) { solver.probData = [d]; })
+          callback: function (d) { solver.probData = [d] }
         });
       }
       if (solver.userId != 0) {
         loadDataJSON({
           url: [subUserProbUrl, solver.userId, args.num, '0'].join('/'),
-          callback: function (d) { solver.userData = d[solver.userId] })
+          callback: function (d) { solver.userData = d[solver.userId] }
         });
       }
     }
     if (args.database) {
       loadDataYML({
         url:      'data/database.yml',
-        callback: function (d) { solver.dbData = YAML.parse(d) })
+        callback: function (d) { solver.dbData = YAML.parse(d) }
       });
     }
     if (args.trans) {
       loadDataYML({
         url:      'data/translate.yml',
-        callback:  function (d) { solver.transData = YAML.parse(d) })
+        callback:  function (d) { solver.transData = YAML.parse(d) }
       });
     }
     $.ajaxSettings.async = true;
