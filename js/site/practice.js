@@ -39,7 +39,11 @@ if (query['category']) {
 						$(blockSelect).append('<div id="' + tmpSectId + '" class="' + col(3) + '"></div>');
 					}
 				}
-				$(sectSelect).append('<h4>' + sect + '</h4>');
+				var tmp = '<h4>' + sect;
+				if (typeof(db[part][chap]['title']) !== 'undefined')
+					tmp += ' ' + db[part][chap]['title'];
+				tmp += '</h4>';
+				$(sectSelect).append(tmp);
 				var probs = db[part][chap][sect]['volume'];
 				for (var i = 0; i < probs.length; i++) {
 					var prob = probs[i];
