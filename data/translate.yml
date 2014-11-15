@@ -1079,8 +1079,6 @@ unfortunate 狗:
     12190: "2013/07/12190-electric-bill.html"
     12291: "2013/07/12291-polyomino-composer.html"
     12319: "2013/08/12319-edgetowns-traffic-jams.html"
-    12498: "2013/07/12498-ants-shopping-mall.html"
-    12515: "2013/07/12515-movie-police.html"
 Unfortunate 狗:
   site: "http://unfortunate-dog.github.io/articles/"
   trans:
@@ -1147,6 +1145,7 @@ Unfortunate 狗:
   - 160
   - 161
   - 162
+  - 186
   - 417
   - 537
   - 599
@@ -1175,4 +1174,6 @@ Unfortunate 狗:
   - 12100
   - 12243
   - 12279
+  - 12498
+  - 12515
   - 12575
