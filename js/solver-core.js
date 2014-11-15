@@ -430,7 +430,7 @@ UVaSolver.Solver = function(args) {
               }
             }
           }
-          solver.dbData[part][cate][sect]['volume'] = vol;
+          solver.dbData[part][chap][sect]['volume'] = vol;
         }
       }
     }
