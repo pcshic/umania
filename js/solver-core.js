@@ -255,7 +255,7 @@ ProbProto.getStyle      = function(args) {
   if (args.indexOf('c') >= 0) {
     var tags = prob.getCategory();
     for (var i = 0; i < tags.length; i++) {
-      res += '<span class="glyphicon glyphicon-tag" data-toggle="tooltip" data-original-title="' + tags[i] + '"></span>';
+      res += '<span class="glyphicon glyphicon-tag" data-toggle="tooltip" data-original-title="' + tags[i][0] + '"></span>';
     }
   }
   // 結尾
@@ -404,17 +404,33 @@ UVaSolver.Solver = function(args) {
   /* ***************************************************** */
   if (solver.dbData != undefined) {
     var db = solver.dbData;
-    for (var cate in db) {
-      for (var chap in db[cate]) {
-        for (var sect in db[cate][chap]) {
-          var pNum = db[cate][chap][sect];
-          for (var i = 0; i < pNum.length; i++) {
-            var prob = reNum[ pNum[i] ];
-            if (prob != undefined) {
-              var res = cate + ' ' + chap + ' ' + sect;
-              prob.getCategory().push(res);
+    for (var part in db) {
+      for (var chap in db[part]) {
+        for (var sect in db[part][chap]) {
+          var probs = db[part][chap][sect],
+              cate  = [part, chap, sect].join(' '),
+              vol   = [];
+          if (probs.exercises) {
+            var nums = probs.exercises;
+            for (var i = 0; i < nums.length; i++) {
+              var prob = reNum[ nums[i] ];
+              if (prob != undefined) {
+                prob.getCategory().push([cate, true]);
+                vol.push(prob);
+              }
             }
           }
+          if (probs.others) {
+            var nums = probs.others;
+            for (var i = 0; i < nums.length; i++) {
+              var prob = reNum[ nums[i] ];
+              if (prob != undefined) {
+                prob.getCategory().push([cate, false]);
+                vol.push(prob);
+              }
+            }
+          }
+          solver.dbData[part][cate][sect]['volume'] = vol;
         }
       }
     }

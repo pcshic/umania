@@ -38,9 +38,9 @@ if (query['category']) {
 					}
 				}
 				$(sectSelect).append('<h4>' + sect + '</h4>');
-				var probs = db[part][chap][sect];
+				var probs = db[part][chap][sect]['volume'];
 				for (var i = 0; i < probs.length; i++) {
-					var prob = solver.reverseNumber(probs[i]);
+					var prob = probs[i];
 					$(sectSelect).append(prob.getStyle('t'));
 				}
 				sid++;
