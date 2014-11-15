@@ -40,8 +40,8 @@ if (query['category']) {
 					}
 				}
 				var tmp = '<h4>' + sect;
-				if (typeof(db[part][chap]['title']) !== 'undefined')
-					tmp += ' ' + db[part][chap]['title'];
+				if (typeof(db[part][chap][sect]['title']) !== 'undefined')
+					tmp += ' ' + db[part][chap][sect]['title'];
 				tmp += '</h4>';
 				$(sectSelect).append(tmp);
 				var probs = db[part][chap][sect]['volume'];
