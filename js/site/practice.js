@@ -25,6 +25,8 @@ if (query['category']) {
 			$(chapSelect).append('<h3>' + chap + '</h3>');
 			var sid = 0;
 			for (var sect in db[part][chap]) {
+				if (sect == 'title')
+					continue ;
 				var sectId = 'section' + sid;
 				var sectSelect = chapSelect + ' #' + sectId;
 				if (sid % 4 == 0) {
