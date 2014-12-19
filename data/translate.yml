@@ -618,7 +618,6 @@ ruby 兔:
     347: "2011/11/347-run.html"
     352: "2010/08/352-seasonal-war.html"
     353: "2011/11/353-pesky-palindromes.html"
-    362: "2011/11/362-18000-seconds-remaining.html"
     371: "2010/08/371-ackermann-functions.html"
     377: "2011/11/377-cowculations.html"
     379: "2011/11/379-hi-q.html"
@@ -711,8 +710,6 @@ ruby 兔:
     10490: "2011/07/10490-mr-azad-and-his-son.html"
     10523: "2011/05/input-n-1-0.html"
     10579: "2010/08/10579-fibonacci-numbers.html"
-    10600: "2011/08/10600-acm-contest-and-blackout.html"
-    10611: "2011/08/10611-playboy-chimp.html"
     10642: "2011/07/10642-can-you-solve-it.html"
     10656: "2011/08/10656-maximum-sum-ii.html"
     10703: "2011/07/10703-free-spots.html"
@@ -870,7 +867,6 @@ ruby 兔:
     11925: "2011/09/11925-generating-permutations.html"
     11926: "2011/09/11925-generating-permutations_24.html"
     11933: "2011/06/11933-splitting-numbers.html"
-    11934: "2011/06/11934-magic-formula.html"
     11935: "2011/09/11935-through-desert.html"
     11936: "2011/06/11936-lazy-lumberjacks.html"
     11945: "2011/09/11945-financial-management.html"
@@ -1000,7 +996,6 @@ unfortunate 狗:
     11155: "2013/07/11155-be-efficient.html"
     11158: "2013/07/11158-elegant-permuted-sum.html"
     11174: "2013/07/11174-stand-in-line.html"
-    11201: "2013/07/11201-problem-of-crazy-linguist_23.html"
     11203: "2013/07/11203-can-you-decide-it-for-me.html"
     11230: "2013/07/11230-annoying-painting-tool.html"
     11241: "2013/07/11241-humidex.html"
@@ -1099,6 +1094,7 @@ Unfortunate 狗:
   - 186
   - 231
   - 357
+  - 362
   - 417
   - 437
   - 481
@@ -1135,6 +1131,8 @@ Unfortunate 狗:
   - 10465
   - 10469
   - 10534
+  - 10600
+  - 10611
   - 10635
   - 10664
   - 10685
@@ -1149,6 +1147,7 @@ Unfortunate 狗:
   - 11151
   - 11172
   - 11173
+  - 11201
   - 11210
   - 11310
   - 11456
@@ -1164,6 +1163,7 @@ Unfortunate 狗:
   - 11790
   - 11792
   - 11793
+  - 11934
   - 11942
   - 12002
   - 12086
