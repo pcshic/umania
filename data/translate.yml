@@ -22,7 +22,6 @@ luckycat:
     264: "q264.htm"
     270: "q270.htm"
     271: "q271.htm"
-    272: "q272.htm"
     273: "q273.htm"
     275: "q275.htm"
     290: "q290.htm"
@@ -44,11 +43,9 @@ luckycat:
     353: "q353.htm"
     355: "q355.htm"
     356: "q356.htm"
-    369: "q369.htm"
-    374: "q374.htm"
+    357: "q357.htm"
     375: "q375.htm"
     378: "q378.htm"
-    382: "q382.htm"
     386: "q386.htm"
     389: "q389.htm"
     392: "q392.htm"
@@ -57,19 +54,17 @@ luckycat:
     409: "q409.htm"
     412: "q412.htm"
     417: "q417.htm"
-    424: "q424.htm"
     429: "q429.htm"
     435: "q435.htm"
+    437: "q437.htm"
     438: "q438.htm"
     439: "q439.htm"
     441: "q441.htm"
     442: "q442.htm"
     443: "q443.htm"
-    445: "q445.htm"
     446: "q446.htm"
     451: "q451.htm"
     455: "q455.htm"
-    458: "q458.htm"
     459: "q459.htm"
     465: "q465.htm"
     471: "q471.htm"
@@ -77,6 +72,7 @@ luckycat:
     476: "q476.htm"
     477: "q477.htm"
     478: "q478.htm"
+    481: "q481.htm"
     482: "q482.htm"
     483: "q483.htm"
     484: "q484.htm"
@@ -87,8 +83,10 @@ luckycat:
     490: "q490.htm"
     492: "q492.htm"
     493: "q493.htm"
+    494: "q494.htm"
     495: "q495.htm"
     496: "q496.htm"
+    497: "q497.htm"
     498: "q498.htm"
     514: "q514.htm"
     516: "q516.htm"
@@ -105,6 +103,7 @@ luckycat:
     555: "q555.htm"
     557: "q557.htm"
     558: "q558.htm"
+    562: "q562.htm"
     565: "q565.htm"
     568: "q568.htm"
     571: "q571.htm"
@@ -116,6 +115,7 @@ luckycat:
     580: "q580.htm"
     583: "q583.htm"
     587: "q587.htm"
+    591: "q591.htm"
     598: "q598.htm"
     602: "q602.htm"
     608: "q608.htm"
@@ -123,6 +123,7 @@ luckycat:
     615: "q615.htm"
     619: "q619.htm"
     623: "q623.htm"
+    624: "q624.htm"
     626: "q626.htm"
     639: "q639.htm"
     640: "q640.htm"
@@ -131,6 +132,7 @@ luckycat:
     665: "q665.htm"
     668: "q668.htm"
     673: "q673.htm"
+    674: "q674.htm"
     679: "q679.htm"
     681: "q681.htm"
     686: "q686.htm"
@@ -185,19 +187,24 @@ luckycat:
     10023: "q10023.htm"
     10025: "q10025.htm"
     10026: "q10026.htm"
+    10032: "q10032.htm"
     10034: "q10034.htm"
     10035: "q10035.htm"
+    10036: "q10036.htm"
     10037: "q10037.htm"
     10038: "q10038.htm"
     10041: "q10041.htm"
     10042: "q10042.htm"
     10048: "q10048.htm"
     10049: "q10049.htm"
+    10055: "q10055.htm"
     10056: "q10056.htm"
     10057: "q10057.htm"
     10062: "q10062.htm"
     10063: "q10063.htm"
+    10066: "q10066.htm"
     10067: "q10067.htm"
+    10071: "q10071.htm"
     10074: "q10074.htm"
     10078: "q10078.htm"
     10079: "q10079.htm"
@@ -222,6 +229,8 @@ luckycat:
     10127: "q10127.htm"
     10128: "q10128.htm"
     10129: "q10129.htm"
+    10130: "q10130.htm"
+    10131: "q10131.htm"
     10137: "q10137.htm"
     10139: "q10139.htm"
     10140: "q10140.htm"
@@ -230,6 +239,7 @@ luckycat:
     10147: "q10147.htm"
     10150: "q10150.htm"
     10152: "q10152.htm"
+    10154: "q10154.htm"
     10157: "q10157.htm"
     10161: "q10161.htm"
     10162: "q10162.htm"
@@ -246,6 +256,7 @@ luckycat:
     10188: "q10188.htm"
     10189: "q10189.htm"
     10191: "q10191.htm"
+    10192: "q10192.htm"
     10193: "q10193.htm"
     10195: "q10195.htm"
     10196: "q10196.htm"
@@ -297,6 +308,7 @@ luckycat:
     10305: "q10305.htm"
     10310: "q10310.htm"
     10311: "q10311.htm"
+    10313: "q10313.htm"
     10315: "q10315.htm"
     10323: "q10323.htm"
     10324: "q10324.htm"
@@ -306,6 +318,7 @@ luckycat:
     10328: "q10328.htm"
     10329: "q10329.htm"
     10330: "q10330.htm"
+    10334: "q10334.htm"
     10336: "q10336.htm"
     10338: "q10338.htm"
     10340: "q10340.htm"
@@ -330,6 +343,7 @@ luckycat:
     10397: "q10397.htm"
     10400: "q10400.htm"
     10404: "q10404.htm"
+    10405: "q10405.htm"
     10407: "q10407.htm"
     10408: "q10408.htm"
     10409: "q10409.htm"
@@ -339,6 +353,8 @@ luckycat:
     10433: "q10433.htm"
     10443: "q10443.htm"
     10450: "q10450.htm"
+    10465: "q10465.htm"
+    10469: "q10469.htm"
     10473: "q10473.htm"
     10474: "q10474.htm"
     10484: "q10484.htm"
@@ -358,6 +374,7 @@ luckycat:
     10527: "q10527.htm"
     10530: "q10530.htm"
     10533: "q10533.htm"
+    10534: "q10534.htm"
     10539: "q10539.htm"
     10549: "q10549.htm"
     10550: "q10550.htm"
@@ -378,9 +395,11 @@ luckycat:
     10625: "q10625.htm"
     10627: "q10627.htm"
     10633: "q10633.htm"
+    10635: "q10635.htm"
     10637: "q10637.htm"
     10649: "q10649.htm"
     10655: "q10655.htm"
+    10664: "q10664.htm"
     10673: "q10673.htm"
     10678: "q10678.htm"
     10680: "q10680.htm"
@@ -422,12 +441,14 @@ luckycat:
     10883: "q10883.htm"
     10891: "q10891.htm"
     10892: "q10892.htm"
+    10898: "q10898.htm"
     10903: "q10903.htm"
     10905: "q10905.htm"
     10911: "q10911.htm"
     10912: "q10912.htm"
     10916: "q10916.htm"
     10917: "q10917.htm"
+    10918: "q10918.htm"
     10919: "q10919.htm"
     10922: "q10922.htm"
     10924: "q10924.htm"
@@ -443,7 +464,9 @@ luckycat:
     10976: "q10976.htm"
     10986: "q10986.htm"
     10994: "q10994.htm"
+    11000: "q11000.htm"
     11001: "q11001.htm"
+    11003: "q11003.htm"
     11005: "q11005.htm"
     11012: "q11012.htm"
     11015: "q11015.htm"
@@ -454,6 +477,7 @@ luckycat:
     11039: "q11039.htm"
     11045: "q11045.htm"
     11059: "q11059.htm"
+    11069: "q11069.htm"
     11070: "q11070.htm"
     11081: "q11081.htm"
     11084: "q11084.htm"
@@ -464,7 +488,9 @@ luckycat:
     11129: "q11129.htm"
     11138: "q11138.htm"
     11150: "q11150.htm"
+    11151: "q11151.htm"
     11152: "q11152.htm"
+    11172: "q11172.htm"
     11183: "q11183.htm"
     11185: "q11185.htm"
     11187: "q11187.htm"
@@ -489,6 +515,7 @@ luckycat:
     11296: "q11296.htm"
     11300: "q11300.htm"
     11309: "q11309.htm"
+    11310: "q11310.htm"
     11332: "q11332.htm"
     11351: "q11351.htm"
     11352: "q11352.htm"
@@ -504,6 +531,7 @@ luckycat:
     11428: "q11428.htm"
     11436: "q11436.htm"
     11450: "q11450.htm"
+    11456: "q11456.htm"
     11462: "q11462.htm"
     11464: "q11464.htm"
     11479: "q11479.htm"
@@ -537,6 +565,7 @@ luckycat:
     11728: "q11728.htm"
     11730: "q11730.htm"
     11743: "q11743.htm"
+    11764: "q11764.htm"
     11818: "q11818.htm"
     11838: "q11838.htm"
     11875: "q11875.htm"
@@ -545,6 +574,7 @@ luckycat:
     11908: "q11908.htm"
     11909: "q11909.htm"
     11936: "q11936.htm"
+    11942: "q11942.htm"
     11946: "q11946.htm"
     11947: "q11947.htm"
     11955: "q11955.htm"
@@ -573,6 +603,8 @@ luckycat:
     12416: "q12416.htm"
     12439: "q12439.htm"
     12442: "q12442.htm"
+    12455: "q12455.htm"
+    12459: "q12459.htm"
     12461: "q12461.htm"
     12468: "q12468.htm"
     12602: "q12602.htm"
@@ -580,6 +612,25 @@ luckycat:
 ruby 兔:
   site: "http://rubyacm.blogspot.tw/"
   trans:
+    109: "2010/08/109-scud-busters.html"
+    110: "2010/08/110-meta-loopless-sorts.html"
+    117: "2010/08/117-postal-worker-rings-once.html"
+    119: "2010/08/119-greedy-gift-givers.html"
+    121: "2010/08/121-pipe-fitters.html"
+    123: "2011/05/123-searching-quickly.html"
+    125: "2011/05/125-numbering-paths.html"
+    126: "2011/10/126-errant-physicist.html"
+    129: "2011/10/129-krypton-factor.html"
+    139: "2011/10/139-telephone-tangles.html"
+    140: "2011/05/140-bandwidth.html"
+    141: "2011/05/141-spot-game.html"
+    143: "2010/08/143-orchard-trees.html"
+    144: "2011/05/144-student-grants.html"
+    148: "2011/10/148-anagram-checker.html"
+    151: "2010/08/151-power-crisis.html"
+    152: "2011/05/152-trees-crowd.html"
+    156: "2010/08/156-ananagrams.html"
+    159: "2011/10/159-word-crosses.html"
     164: "2011/05/164-string-computer.html"
     165: "2010/08/165-stamps.html"
     197: "2010/08/197-cube.html"
@@ -602,7 +653,6 @@ ruby 兔:
     288: "2011/10/288-arithmetic-operations-with-large.html"
     296: "2011/10/296-safebreaker.html"
     297: "2011/05/297-quadtrees.html"
-    299: "2010/08/299-train-swapping.html"
     300: "2010/09/300-maya-calendar.html"
     301: "2011/11/301-transportation.html"
     312: "2011/11/312-crosswords-ii.html"
@@ -617,6 +667,7 @@ ruby 兔:
     347: "2011/11/347-run.html"
     352: "2010/08/352-seasonal-war.html"
     353: "2011/11/353-pesky-palindromes.html"
+    362: "2011/11/362-18000-seconds-remaining.html"
     371: "2010/08/371-ackermann-functions.html"
     377: "2011/11/377-cowculations.html"
     379: "2011/11/379-hi-q.html"
@@ -626,7 +677,6 @@ ruby 兔:
     393: "2011/11/393-doors.html"
     397: "2011/11/397-equation-elation.html"
     400: "2010/08/400-unix-ls.html"
-    401: "2010/07/401-palindromes.html"
     408: "2010/08/408-uniform-generator.html"
     413: "2011/09/413-up-and-down-sequences.html"
     414: "2010/08/414-machined-surfaces.html"
@@ -649,6 +699,7 @@ ruby 兔:
     474: "2011/05/474-heads-tails-probability.html"
     499: "2010/07/499-whats-frequency-kenneth.html"
     507: "2011/08/507-jill-rides-again.html"
+    531: "2011/08/531-compromise.html"
     539: "2011/08/539-settlers-of-catan.html"
     542: "2011/08/542-france-98.html"
     545: "2011/05/545-heads.html"
@@ -663,6 +714,7 @@ ruby 兔:
     686: "2010/07/686-goldbachs-conjecture-ii.html"
     701: "2011/06/701-archeologists-dilemma.html"
     705: "2011/10/705-slash-maze.html"
+    711: "2011/10/711-dividing-up.html"
     732: "2011/10/732-anagrams-by-stack.html"
     737: "2011/10/737-gleaming-cubes.html"
     739: "2011/07/739-soundex-indexing.html"
@@ -682,6 +734,7 @@ ruby 兔:
     871: "2011/10/871-counting-cells-in-blob.html"
     895: "2011/07/895-word-problem.html"
     897: "2011/10/897-anagrammatic-primes.html"
+    900: "2010/08/900-brick-wall-patterns.html"
     902: "2011/07/902-password-search.html"
     914: "2011/07/914-jumping-champion.html"
     920: "2011/12/920-sunny-mountains.html"
@@ -690,6 +743,7 @@ ruby 兔:
     948: "2011/05/948-fibonaccimal-base.html"
     967: "2011/10/967-circular.html"
     974: "2011/07/974-kaprekar-numbers.html"
+    990: "2011/12/990-diving-for-gold.html"
     991: "2011/07/991-safe-salutations.html"
     10019: "2010/07/10019-funny-encryption-method.html"
     10033: "2010/08/10033-interpreter.html"
@@ -709,6 +763,8 @@ ruby 兔:
     10490: "2011/07/10490-mr-azad-and-his-son.html"
     10523: "2011/05/input-n-1-0.html"
     10579: "2010/08/10579-fibonacci-numbers.html"
+    10600: "2011/08/10600-acm-contest-and-blackout.html"
+    10611: "2011/08/10611-playboy-chimp.html"
     10642: "2011/07/10642-can-you-solve-it.html"
     10656: "2011/08/10656-maximum-sum-ii.html"
     10703: "2011/07/10703-free-spots.html"
@@ -722,6 +778,8 @@ ruby 兔:
     11044: "2011/05/11044-searching-for-nessy.html"
     11055: "2011/07/11055-homogeneous-squares.html"
     11115: "2011/07/11115-uncle-jack.html"
+    11137: "2011/07/11137-ingenuous-cubrency.html"
+    11151: "2011/07/11151-longest-palindrome.html"
     11152: "2011/07/11152-colourful-flowers.html"
     11192: "2011/06/11192-group-reverse.html"
     11202: "2011/12/11202-least-possible-effort.html"
@@ -780,6 +838,7 @@ ruby 兔:
     11513: "2011/10/11513-9-puzzle.html"
     11515: "2011/10/11515-cranes.html"
     11516: "2011/08/11516-wifi.html"
+    11517: "2011/08/11517-exact-change.html"
     11518: "2011/08/11518-dominos-2.html"
     11519: "2011/10/11519-logo-2.html"
     11520: "2011/05/11520-fill-square.html"
@@ -866,8 +925,10 @@ ruby 兔:
     11925: "2011/09/11925-generating-permutations.html"
     11926: "2011/09/11925-generating-permutations_24.html"
     11933: "2011/06/11933-splitting-numbers.html"
+    11934: "2011/06/11934-magic-formula.html"
     11935: "2011/09/11935-through-desert.html"
     11936: "2011/06/11936-lazy-lumberjacks.html"
+    11942: "2011/06/11942-lumberjack-sequencing.html"
     11945: "2011/09/11945-financial-management.html"
     11946: "2011/06/11946-code-number.html"
     11947: "2011/09/11947-cancer-or-scorpio.html"
@@ -896,6 +957,7 @@ ruby 兔:
     11995: "2011/09/11995-i-can-guess-data-structure.html"
     11997: "2011/06/11997-k-smallest-sums.html"
     12001: "2011/07/12001-uva-panel-discussion.html"
+    12002: "2011/07/12002-happy-birthday.html"
     12003: "2011/07/12003-array-transformer.html"
     12004: "2011/07/12004-bubble-sort.html"
     12005: "2011/07/12005-find-solutions.html"
@@ -958,6 +1020,7 @@ unfortunate 狗:
     10022: "2013/07/10022-delta-wave.html"
     10086: "2013/07/10086-test-rods.html"
     10172: "2013/07/10172-lonesome-cargo-distributor.html"
+    10306: "2013/01/10306-e-coins.html"
     10350: "2013/09/10350-liftless-eme.html"
     10475: "2013/07/10475-help-leaders.html"
     10522: "2013/07/10522-height-to-area.html"
@@ -995,6 +1058,7 @@ unfortunate 狗:
     11155: "2013/07/11155-be-efficient.html"
     11158: "2013/07/11158-elegant-permuted-sum.html"
     11174: "2013/07/11174-stand-in-line.html"
+    11201: "2013/07/11201-problem-of-crazy-linguist_23.html"
     11203: "2013/07/11203-can-you-decide-it-for-me.html"
     11230: "2013/07/11230-annoying-painting-tool.html"
     11241: "2013/07/11241-humidex.html"
@@ -1023,6 +1087,8 @@ unfortunate 狗:
     12190: "2013/07/12190-electric-bill.html"
     12291: "2013/07/12291-polyomino-composer.html"
     12319: "2013/08/12319-edgetowns-traffic-jams.html"
+    12498: "2013/07/12498-ants-shopping-mall.html"
+    12515: "2013/07/12515-movie-police.html"
 Unfortunate 狗:
   site: "http://unfortunate-dog.github.io/articles/"
   trans:
@@ -1089,76 +1155,36 @@ Unfortunate 狗:
   - 160
   - 161
   - 162
-  - 166
-  - 186
   - 231
-  - 357
-  - 362
+  - 272
+  - 299
+  - 369
+  - 374
+  - 382
+  - 401
   - 417
-  - 437
-  - 481
+  - 424
+  - 445
+  - 458
+  - 483
+  - 488
   - 494
-  - 497
-  - 531
   - 537
-  - 562
-  - 591
   - 599
-  - 624
-  - 637
-  - 641
-  - 674
-  - 711
   - 759
-  - 900
-  - 990
-  - 10032
-  - 10036
-  - 10055
-  - 10066
-  - 10071
-  - 10130
-  - 10131
-  - 10154
   - 10167
-  - 10192
   - 10260
   - 10264
-  - 10306
-  - 10313
-  - 10334
-  - 10405
   - 10415
   - 10427
-  - 10465
-  - 10469
-  - 10534
-  - 10600
-  - 10611
-  - 10635
-  - 10664
   - 10685
   - 10738
-  - 10898
   - 10908
-  - 10918
-  - 11000
-  - 11003
-  - 11054
-  - 11069
-  - 11137
-  - 11151
-  - 11172
   - 11173
-  - 11201
   - 11210
-  - 11310
-  - 11456
-  - 11517
   - 11525
   - 11597
   - 11727
-  - 11764
   - 11785
   - 11786
   - 11787
@@ -1166,15 +1192,8 @@ Unfortunate 狗:
   - 11790
   - 11792
   - 11793
-  - 11934
-  - 11942
-  - 12002
   - 12086
   - 12100
   - 12243
   - 12279
-  - 12455
-  - 12459
-  - 12498
-  - 12515
   - 12575
