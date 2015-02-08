@@ -59,7 +59,6 @@ luckycat:
     264: "q264.htm"
     270: "q270.htm"
     271: "q271.htm"
-    272: "q272.htm"
     273: "q273.htm"
     275: "q275.htm"
     290: "q290.htm"
@@ -82,11 +81,8 @@ luckycat:
     355: "q355.htm"
     356: "q356.htm"
     357: "q357.htm"
-    369: "q369.htm"
-    374: "q374.htm"
     375: "q375.htm"
     378: "q378.htm"
-    382: "q382.htm"
     386: "q386.htm"
     389: "q389.htm"
     392: "q392.htm"
@@ -95,7 +91,6 @@ luckycat:
     409: "q409.htm"
     412: "q412.htm"
     417: "q417.htm"
-    424: "q424.htm"
     429: "q429.htm"
     435: "q435.htm"
     437: "q437.htm"
@@ -104,11 +99,9 @@ luckycat:
     441: "q441.htm"
     442: "q442.htm"
     443: "q443.htm"
-    445: "q445.htm"
     446: "q446.htm"
     451: "q451.htm"
     455: "q455.htm"
-    458: "q458.htm"
     459: "q459.htm"
     465: "q465.htm"
     471: "q471.htm"
@@ -685,7 +678,6 @@ ruby 兔:
     218: "2011/10/218-moth-eradication.html"
     222: "2011/11/222-budget-travel.html"
     227: "2011/10/227-puzzle.html"
-    231: "2011/05/10267-graphical-editor_20.html"
     232: "2011/10/232-crossword-answers.html"
     247: "2011/10/247-calling-circles.html"
     255: "2011/10/255-correct-move.html"
@@ -698,7 +690,6 @@ ruby 兔:
     288: "2011/10/288-arithmetic-operations-with-large.html"
     296: "2011/10/296-safebreaker.html"
     297: "2011/05/297-quadtrees.html"
-    299: "2010/08/299-train-swapping.html"
     300: "2010/09/300-maya-calendar.html"
     301: "2011/11/301-transportation.html"
     312: "2011/11/312-crosswords-ii.html"
@@ -723,7 +714,6 @@ ruby 兔:
     393: "2011/11/393-doors.html"
     397: "2011/11/397-equation-elation.html"
     400: "2010/08/400-unix-ls.html"
-    401: "2010/07/401-palindromes.html"
     408: "2010/08/408-uniform-generator.html"
     413: "2011/09/413-up-and-down-sequences.html"
     414: "2010/08/414-machined-surfaces.html"
@@ -1202,7 +1192,20 @@ Unfortunate 狗:
   - 160
   - 161
   - 162
+  - 231
+  - 272
+  - 299
+  - 369
+  - 374
+  - 382
+  - 401
   - 417
+  - 424
+  - 445
+  - 458
+  - 483
+  - 488
+  - 494
   - 537
   - 599
   - 759
