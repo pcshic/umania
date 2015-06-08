@@ -338,7 +338,10 @@ UVaSolver.Solver = function(args) {
     var nameToPidUrl     = apiUrl + '/uname2uid';
     var subUserUrl       = apiUrl + '/subs-user';
     var subUserProbUrl   = apiUrl + '/subs-nums';
-    $.ajaxSettings.async = false;
+    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+        options.async = false;
+    });
+    // $.ajaxSettings.async = false;
     if (args['user']) {
       $.getJSON(nameToPidUrl + '/' + args['user'], '',
         function (data) { solver.userId = data; });
@@ -372,7 +375,10 @@ UVaSolver.Solver = function(args) {
       $.get('data/translate.yml', '',
         function (data) { solver.transData = YAML.parse(data); });
     }
-    $.ajaxSettings.async = true;
+    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+        options.async = true;
+    });
+    // $.ajaxSettings.async = true;
   }
   loadData(args);
   /* ***************************************************** */
