@@ -1,14 +1,13 @@
- /*
- * # Semantic UI - 1.8.1
- * https://github.com/Semantic-Org/Semantic-UI
- * http://www.semantic-ui.com/
+/*!
+ * # Semantic UI x.x - Icon
+ * http://github.com/semantic-org/semantic-ui/
  *
- * Copyright 2014 Contributors
+ *
+ * Copyright 2015 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
-
 
 
 /*******************************
@@ -18,7 +17,7 @@
 @font-face {
   font-family: 'Icons';
   src: url("../themes/default/assets/fonts/icons.eot");
-  src: url("../themes/default/assets/fonts/icons.eot?#iefix") format('embedded-opentype'), url("../themes/default/assets/fonts/icons.svg#icons") format('svg'), url("../themes/default/assets/fonts/icons.woff") format('woff'), url("../themes/default/assets/fonts/icons.ttf") format('truetype');
+  src: url("../themes/default/assets/fonts/icons.eot?#iefix") format('embedded-opentype'), url("../themes/default/assets/fonts/icons.woff2") format('woff2'), url("../themes/default/assets/fonts/icons.woff") format('woff'), url("../themes/default/assets/fonts/icons.ttf") format('truetype'), url("../themes/default/assets/fonts/icons.svg#icons") format('svg');
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -29,17 +28,17 @@ i.icon {
   display: inline-block;
   opacity: 1;
   margin: 0em 0.25rem 0em 0em;
-  width: 1.23em;
-  height: 0.9em;
+  width: 1.18em;
+  height: 1em;
   font-family: 'Icons';
   font-style: normal;
-  line-height: 1;
   font-weight: normal;
   text-decoration: inherit;
   text-align: center;
   speak: none;
   font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
 }
@@ -59,16 +58,15 @@ i.icon:before {
 
 i.icon.loading {
   height: 1em;
+  line-height: 1;
   -webkit-animation: icon-loading 2s linear infinite;
           animation: icon-loading 2s linear infinite;
 }
 @-webkit-keyframes icon-loading {
-
   from {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
   }
-
   to {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
@@ -100,8 +98,7 @@ i.emphasized.icon {
   opacity: 1;
 }
 i.disabled.icon {
-  pointer-events: none;
-  opacity: 0.3 !important;
+  opacity: 0.45 !important;
 }
 
 
@@ -117,8 +114,8 @@ i.disabled.icon {
 i.link.icon {
   cursor: pointer;
   opacity: 0.8;
-  -webkit-transition: opacity 0.2s ease;
-          transition: opacity 0.2s ease;
+  -webkit-transition: opacity 0.1s ease;
+          transition: opacity 0.1s ease;
 }
 i.link.icon:hover {
   opacity: 1 !important;
@@ -130,9 +127,9 @@ i.link.icon:hover {
 
 i.circular.icon {
   border-radius: 500em !important;
+  line-height: 1 !important;
   padding: 0.5em 0.5em !important;
   box-shadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;
-  line-height: 1 !important;
   width: 2em !important;
   height: 2em !important;
 }
@@ -180,11 +177,12 @@ i.counterclockwise.rotated.icon {
 --------------------*/
 
 i.bordered.icon {
+  line-height: 1;
+  vertical-align: baseline;
   width: 2em;
   height: 2em;
-  padding: 0.55em 0.385em !important;
+  padding: 0.5em 0.41em !important;
   box-shadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;
-  vertical-align: baseline;
 }
 i.bordered.inverted.icon {
   border: none;
@@ -192,176 +190,282 @@ i.bordered.inverted.icon {
 }
 
 /*-------------------
-       Colors
---------------------*/
-
-i.white.icon {
-  color: #ffffff !important;
-}
-i.black.icon {
-  color: #1b1c1d !important;
-}
-i.blue.icon {
-  color: #3b83c0 !important;
-}
-i.green.icon {
-  color: #5bbd72 !important;
-}
-i.orange.icon {
-  color: #e07b53 !important;
-}
-i.pink.icon {
-  color: #d9499a !important;
-}
-i.purple.icon {
-  color: #564f8a !important;
-}
-i.red.icon {
-  color: #d95c5c !important;
-}
-i.teal.icon {
-  color: #00b5ad !important;
-}
-i.yellow.icon {
-  color: #f2c61f !important;
-}
-
-/*-------------------
       Inverted
 --------------------*/
 
-i.inverted.icon {
-  color: #ffffff;
-}
-i.inverted.black.icon {
-  color: #333333 !important;
-}
-i.inverted.blue.icon {
-  color: #54c8ff !important;
-}
-i.inverted.green.icon {
-  color: #2ecc40 !important;
-}
-i.inverted.orange.icon {
-  color: #ff851b !important;
-}
-i.inverted.pink.icon {
-  color: #ff8edf !important;
-}
-i.inverted.purple.icon {
-  color: #cdc6ff !important;
-}
-i.inverted.red.icon {
-  color: #ff695e !important;
-}
-i.inverted.teal.icon {
-  color: #6dffff !important;
-}
-i.inverted.yellow.icon {
-  color: #ffe21f !important;
-}
 
 /* Inverted Shapes */
 i.inverted.bordered.icon,
 i.inverted.circular.icon {
-  background-color: #222222 !important;
-  color: #FFFFFF !important;
-}
-i.inverted.bordered.black.icon,
-i.inverted.circular.black.icon {
   background-color: #1b1c1d !important;
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
-i.inverted.bordered.blue.icon,
-i.inverted.circular.blue.icon {
-  background-color: #3b83c0 !important;
-  color: #FFFFFF !important;
+i.inverted.icon {
+  color: #ffffff;
 }
-i.inverted.bordered.green.icon,
-i.inverted.circular.green.icon {
-  background-color: #5bbd72 !important;
-  color: #FFFFFF !important;
+
+/*-------------------
+       Colors
+--------------------*/
+
+
+/* Red */
+i.red.icon {
+  color: #db2828 !important;
 }
-i.inverted.bordered.orange.icon,
-i.inverted.circular.orange.icon {
-  background-color: #e07b53 !important;
-  color: #FFFFFF !important;
-}
-i.inverted.bordered.pink.icon,
-i.inverted.circular.pink.icon {
-  background-color: #d9499a !important;
-  color: #FFFFFF !important;
-}
-i.inverted.bordered.purple.icon,
-i.inverted.circular.purple.icon {
-  background-color: #564f8a !important;
-  color: #FFFFFF !important;
+i.inverted.red.icon {
+  color: #ff695e !important;
 }
 i.inverted.bordered.red.icon,
 i.inverted.circular.red.icon {
-  background-color: #d95c5c !important;
-  color: #FFFFFF !important;
+  background-color: #db2828 !important;
+  color: #ffffff !important;
+}
+
+/* Orange */
+i.orange.icon {
+  color: #f2711c !important;
+}
+i.inverted.orange.icon {
+  color: #ff851b !important;
+}
+i.inverted.bordered.orange.icon,
+i.inverted.circular.orange.icon {
+  background-color: #f2711c !important;
+  color: #ffffff !important;
+}
+
+/* Yellow */
+i.yellow.icon {
+  color: #fbbd08 !important;
+}
+i.inverted.yellow.icon {
+  color: #ffe21f !important;
+}
+i.inverted.bordered.yellow.icon,
+i.inverted.circular.yellow.icon {
+  background-color: #fbbd08 !important;
+  color: #ffffff !important;
+}
+
+/* Olive */
+i.olive.icon {
+  color: #b5cc18 !important;
+}
+i.inverted.olive.icon {
+  color: #d9e778 !important;
+}
+i.inverted.bordered.olive.icon,
+i.inverted.circular.olive.icon {
+  background-color: #b5cc18 !important;
+  color: #ffffff !important;
+}
+
+/* Green */
+i.green.icon {
+  color: #21ba45 !important;
+}
+i.inverted.green.icon {
+  color: #2ecc40 !important;
+}
+i.inverted.bordered.green.icon,
+i.inverted.circular.green.icon {
+  background-color: #21ba45 !important;
+  color: #ffffff !important;
+}
+
+/* Teal */
+i.teal.icon {
+  color: #00b5ad !important;
+}
+i.inverted.teal.icon {
+  color: #6dffff !important;
 }
 i.inverted.bordered.teal.icon,
 i.inverted.circular.teal.icon {
   background-color: #00b5ad !important;
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
-i.inverted.bordered.yellow.icon,
-i.inverted.circular.yellow.icon {
-  background-color: #f2c61f !important;
-  color: #FFFFFF !important;
+
+/* Blue */
+i.blue.icon {
+  color: #2185d0 !important;
+}
+i.inverted.blue.icon {
+  color: #54c8ff !important;
+}
+i.inverted.bordered.blue.icon,
+i.inverted.circular.blue.icon {
+  background-color: #2185d0 !important;
+  color: #ffffff !important;
+}
+
+/* Violet */
+i.violet.icon {
+  color: #6435c9 !important;
+}
+i.inverted.violet.icon {
+  color: #a291fb !important;
+}
+i.inverted.bordered.violet.icon,
+i.inverted.circular.violet.icon {
+  background-color: #6435c9 !important;
+  color: #ffffff !important;
+}
+
+/* Purple */
+i.purple.icon {
+  color: #a333c8 !important;
+}
+i.inverted.purple.icon {
+  color: #dc73ff !important;
+}
+i.inverted.bordered.purple.icon,
+i.inverted.circular.purple.icon {
+  background-color: #a333c8 !important;
+  color: #ffffff !important;
+}
+
+/* Pink */
+i.pink.icon {
+  color: #e03997 !important;
+}
+i.inverted.pink.icon {
+  color: #ff8edf !important;
+}
+i.inverted.bordered.pink.icon,
+i.inverted.circular.pink.icon {
+  background-color: #e03997 !important;
+  color: #ffffff !important;
+}
+
+/* Brown */
+i.brown.icon {
+  color: #a5673f !important;
+}
+i.inverted.brown.icon {
+  color: #d67c1c !important;
+}
+i.inverted.bordered.brown.icon,
+i.inverted.circular.brown.icon {
+  background-color: #a5673f !important;
+  color: #ffffff !important;
+}
+
+/* Grey */
+i.grey.icon {
+  color: #767676 !important;
+}
+i.inverted.grey.icon {
+  color: #dcddde !important;
+}
+i.inverted.bordered.grey.icon,
+i.inverted.circular.grey.icon {
+  background-color: #767676 !important;
+  color: #ffffff !important;
+}
+
+/* Black */
+i.black.icon {
+  color: #1b1c1d !important;
+}
+i.inverted.black.icon {
+  color: #545454 !important;
+}
+i.inverted.bordeblack.black.icon,
+i.inverted.circular.black.icon {
+  background-color: #1b1c1d !important;
+  color: #ffffff !important;
 }
 
 /*-------------------
         Sizes
 --------------------*/
 
-i.small.icon {
-  font-size: 0.875em;
+i.small.icon,
+i.small.icons {
+  line-height: 1;
+  font-size: 0.92857143em;
 }
-i.icon {
+i.icon,
+i.icons {
   font-size: 1em;
 }
-i.large.icon {
+i.large.icon,
+i.large.icons {
+  line-height: 1;
+  vertical-align: middle;
   font-size: 1.5em;
-  vertical-align: middle;
 }
-i.big.icon {
+i.big.icon,
+i.big.icons {
+  line-height: 1;
+  vertical-align: middle;
   font-size: 2em;
-  vertical-align: middle;
 }
-i.huge.icon {
+i.huge.icon,
+i.huge.icons {
+  line-height: 1;
+  vertical-align: middle;
   font-size: 4em;
-  vertical-align: middle;
 }
-i.massive.icon {
+i.massive.icon,
+i.massive.icons {
+  line-height: 1;
+  vertical-align: middle;
   font-size: 8em;
-  vertical-align: middle;
+}
+
+
+/*******************************
+            Groups
+*******************************/
+
+i.icons {
+  display: inline-block;
+  position: relative;
+  line-height: 1;
+}
+i.icons .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+      -ms-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+  margin: 0em;
+  margin: 0;
+}
+i.icons .icon:first-child {
+  position: static;
+  width: auto;
+  height: auto;
+  vertical-align: top;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
+  margin-right: 0.25rem;
+}
+
+/* Corner Icon */
+i.icons .corner.icon {
+  top: auto;
+  left: auto;
+  right: 0;
+  bottom: 0;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
+  font-size: 0.45em;
+  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+}
+i.icons .inverted.corner.icon {
+  text-shadow: -1px -1px 0 #1b1c1d, 1px -1px 0 #1b1c1d, -1px 1px 0 #1b1c1d, 1px 1px 0 #1b1c1d;
 }
 /*
- * # Semantic - Icon
- * http://github.com/semantic-org/semantic-ui/
- *
- *
- * Copyright 2014 Contributor
- * Released under the MIT license
- * http://opensource.org/licenses/MIT
- *
+ * Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome
+ * License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
-/*
- *  Font Awesome 4.0.3
- *  the iconic font designed for Bootstrap
- *  ------------------------------------------------------------------------------
- *  The full suite of pictographic icons, examples, and documentation can be
- *  found at http://fon.io.  Stay up to date on Twitter at
- *  http://twitter.com/fon.
- *
- *  License
- *  ------------------------------------------------------------------------------
- *  - The Font Awesome font is licensed under SIL OFL 1.1 -
- *    http://scripts.sil.org/OFL
-
 
 
 /*******************************
@@ -401,10 +505,10 @@ i.icon.search:before {
 i.icon.mail.outline:before {
   content: "\f003";
 }
-i.icon.external.link:before {
+i.icon.external:before {
   content: "\f08e";
 }
-i.icon.wifi:before {
+i.icon.signal:before {
   content: "\f012";
 }
 i.icon.setting:before {
@@ -494,7 +598,7 @@ i.icon.calendar.outline:before {
 i.icon.ticket:before {
   content: "\f145";
 }
-i.icon.external.link.square:before {
+i.icon.external.square:before {
   content: "\f14c";
 }
 i.icon.map:before {
@@ -517,6 +621,36 @@ i.icon.comment.outline:before {
 }
 i.icon.comments.outline:before {
   content: "\f0e6";
+}
+i.icon.text.telephone:before {
+  content: "\f1e4";
+}
+i.icon.find:before {
+  content: "\f1e5";
+}
+i.icon.wifi:before {
+  content: "\f1eb";
+}
+i.icon.alarm.slash:before {
+  content: "\f1f6";
+}
+i.icon.alarm.slash.outline:before {
+  content: "\f1f7";
+}
+i.icon.copyright:before {
+  content: "\f1f9";
+}
+i.icon.at:before {
+  content: "\f1fa";
+}
+i.icon.eyedropper:before {
+  content: "\f1fb";
+}
+i.icon.paint.brush:before {
+  content: "\f1fc";
+}
+i.icon.heartbeat:before {
+  content: "\f21e";
 }
 
 /* User Actions */
@@ -667,6 +801,18 @@ i.icon.write.square:before {
 i.icon.share.square:before {
   content: "\f14d";
 }
+i.icon.add.to.cart:before {
+  content: "\f217";
+}
+i.icon.in.cart:before {
+  content: "\f218";
+}
+i.icon.add.user:before {
+  content: "\f234";
+}
+i.icon.remove.user:before {
+  content: "\f235";
+}
 
 /* Messages */
 i.icon.help.circle:before {
@@ -693,6 +839,9 @@ i.icon.info:before {
 i.icon.announcement:before {
   content: "\f0a1";
 }
+i.icon.birthday:before {
+  content: "\f1fd";
+}
 
 /* Users */
 i.icon.users:before {
@@ -700,12 +849,6 @@ i.icon.users:before {
 }
 i.icon.doctor:before {
   content: "\f0f0";
-}
-i.icon.female:before {
-  content: "\f182";
-}
-i.icon.male:before {
-  content: "\f183";
 }
 i.icon.child:before {
   content: "\f1ae";
@@ -718,6 +861,53 @@ i.icon.handicap:before {
 }
 i.icon.student:before {
   content: "\f19d";
+}
+i.icon.spy:before {
+  content: "\f21b";
+}
+
+/* Gender & Sexuality */
+i.icon.female:before {
+  content: "\f182";
+}
+i.icon.male:before {
+  content: "\f183";
+}
+i.icon.woman:before {
+  content: "\f221";
+}
+i.icon.man:before {
+  content: "\f222";
+}
+i.icon.non.binary.transgender:before {
+  content: "\f223";
+}
+i.icon.intergender:before {
+  content: "\f224";
+}
+i.icon.transgender:before {
+  content: "\f225";
+}
+i.icon.lesbian:before {
+  content: "\f226";
+}
+i.icon.gay:before {
+  content: "\f227";
+}
+i.icon.heterosexual:before {
+  content: "\f228";
+}
+i.icon.other.gender:before {
+  content: "\f229";
+}
+i.icon.other.gender.vertical:before {
+  content: "\f22a";
+}
+i.icon.other.gender.horizontal:before {
+  content: "\f22b";
+}
+i.icon.neuter:before {
+  content: "\f22c";
 }
 
 /* View Adjustment */
@@ -846,6 +1036,15 @@ i.icon.life.ring:before {
 i.icon.bomb:before {
   content: "\f1e2";
 }
+i.icon.soccer:before {
+  content: "\f1e3";
+}
+i.icon.calculator:before {
+  content: "\f1ec";
+}
+i.icon.diamond:before {
+  content: "\f219";
+}
 
 /* Shapes */
 i.icon.crosshairs:before {
@@ -883,6 +1082,12 @@ i.icon.circle.notched:before {
 }
 i.icon.circle.thin:before {
   content: "\f1db";
+}
+i.icon.square.outline:before {
+  content: "\f096";
+}
+i.icon.square:before {
+  content: "\f0c8";
 }
 
 /* Item Selection */
@@ -943,6 +1148,12 @@ i.icon.check.square:before {
 i.icon.plus.square.outline:before {
   content: "\f196";
 }
+i.icon.toggle.off:before {
+  content: "\f204";
+}
+i.icon.toggle.on:before {
+  content: "\f205";
+}
 
 /* Media */
 i.icon.film:before {
@@ -959,6 +1170,18 @@ i.icon.bar.chart:before {
 }
 i.icon.camera.retro:before {
   content: "\f083";
+}
+i.icon.newspaper:before {
+  content: "\f1ea";
+}
+i.icon.area.chart:before {
+  content: "\f1fe";
+}
+i.icon.pie.chart:before {
+  content: "\f200";
+}
+i.icon.line.chart:before {
+  content: "\f201";
 }
 
 /* Pointers */
@@ -1100,6 +1323,9 @@ i.icon.power:before {
   content: "\f011";
 }
 i.icon.trash:before {
+  content: "\f1f8";
+}
+i.icon.trash.outline:before {
   content: "\f014";
 }
 i.icon.disk.outline:before {
@@ -1122,6 +1348,9 @@ i.icon.game:before {
 }
 i.icon.keyboard:before {
   content: "\f11c";
+}
+i.icon.plug:before {
+  content: "\f1e6";
 }
 
 /* File System */
@@ -1199,6 +1428,9 @@ i.icon.html5:before {
 i.icon.css3:before {
   content: "\f13c";
 }
+i.icon.rss:before {
+  content: "\f09e";
+}
 i.icon.rss.square:before {
   content: "\f143";
 }
@@ -1207,6 +1439,9 @@ i.icon.openid:before {
 }
 i.icon.database:before {
   content: "\f1c0";
+}
+i.icon.server:before {
+  content: "\f233";
 }
 
 /* Rating */
@@ -1308,8 +1543,11 @@ i.icon.mute:before {
 i.icon.video.play:before {
   content: "\f144";
 }
+i.icon.closed.captioning:before {
+  content: "\f20a";
+}
 
-/* Map & Locations */
+/* Map, Locations, & Transportation */
 i.icon.marker:before {
   content: "\f041";
 }
@@ -1364,6 +1602,30 @@ i.icon.taxi:before {
 i.icon.tree:before {
   content: "\f1bb";
 }
+i.icon.bicycle:before {
+  content: "\f206";
+}
+i.icon.bus:before {
+  content: "\f207";
+}
+i.icon.ship:before {
+  content: "\f21a";
+}
+i.icon.motorcycle:before {
+  content: "\f21c";
+}
+i.icon.street.view:before {
+  content: "\f21d";
+}
+i.icon.hotel:before {
+  content: "\f236";
+}
+i.icon.train:before {
+  content: "\f238";
+}
+i.icon.subway:before {
+  content: "\f239";
+}
 
 /* Tables */
 i.icon.table:before {
@@ -1376,10 +1638,10 @@ i.icon.sort:before {
   content: "\f0dc";
 }
 i.icon.sort.ascending:before {
-  content: "\f0dd";
+  content: "\f0de";
 }
 i.icon.sort.descending:before {
-  content: "\f0de";
+  content: "\f0dd";
 }
 i.icon.sort.alphabet.ascending:before {
   content: "\f15d";
@@ -1510,6 +1772,35 @@ i.icon.won:before {
 }
 i.icon.lira:before {
   content: "\f195";
+}
+i.icon.shekel:before {
+  content: "\f20b";
+}
+
+/* Payment Options */
+i.icon.paypal:before {
+  content: "\f1ed";
+}
+i.icon.paypal.card:before {
+  content: "\f1f4";
+}
+i.icon.google.wallet:before {
+  content: "\f1ee";
+}
+i.icon.visa:before {
+  content: "\f1f0";
+}
+i.icon.mastercard:before {
+  content: "\f1f1";
+}
+i.icon.discover:before {
+  content: "\f1f2";
+}
+i.icon.american.express:before {
+  content: "\f1f3";
+}
+i.icon.stripe:before {
+  content: "\f1f5";
 }
 /* Networks and Websites*/
 i.icon.twitter.square:before {
@@ -1740,6 +2031,66 @@ i.icon.qq:before {
 i.icon.wechat:before {
   content: "\f1d7";
 }
+i.icon.slideshare:before {
+  content: "\f1e7";
+}
+i.icon.twitch:before {
+  content: "\f1e8";
+}
+i.icon.yelp:before {
+  content: "\f1e9";
+}
+i.icon.lastfm:before {
+  content: "\f202";
+}
+i.icon.lastfm.square:before {
+  content: "\f203";
+}
+i.icon.ioxhost:before {
+  content: "\f208";
+}
+i.icon.angellist:before {
+  content: "\f209";
+}
+i.icon.meanpath:before {
+  content: "\f20c";
+}
+i.icon.buysellads:before {
+  content: "\f20d";
+}
+i.icon.connectdevelop:before {
+  content: "\f20e";
+}
+i.icon.dashcube:before {
+  content: "\f210";
+}
+i.icon.forumbee:before {
+  content: "\f211";
+}
+i.icon.leanpub:before {
+  content: "\f212";
+}
+i.icon.sellsy:before {
+  content: "\f213";
+}
+i.icon.shirtsinbulk:before {
+  content: "\f214";
+}
+i.icon.simplybuilt:before {
+  content: "\f215";
+}
+i.icon.skyatlas:before {
+  content: "\f216";
+}
+i.icon.whatsapp:before {
+  content: "\f232";
+}
+i.icon.viacoin:before {
+  content: "\f237";
+}
+i.icon.medium:before {
+  content: "\f23a";
+}
 
 
 /*******************************
@@ -1773,6 +2124,21 @@ i.icon.delete:before {
 i.icon.x:before {
   content: "\f00d";
 }
+i.icon.user.times:before {
+  content: "\f235";
+}
+i.icon.user.close:before {
+  content: "\f235";
+}
+i.icon.user.cancel:before {
+  content: "\f235";
+}
+i.icon.user.delete:before {
+  content: "\f235";
+}
+i.icon.user.x:before {
+  content: "\f235";
+}
 i.icon.zoom.in:before {
   content: "\f00e";
 }
@@ -1782,9 +2148,6 @@ i.icon.magnify:before {
 i.icon.shutdown:before {
   content: "\f011";
 }
-i.icon.signal:before {
-  content: "\f012";
-}
 i.icon.clock:before {
   content: "\f017";
 }
@@ -1793,9 +2156,6 @@ i.icon.time:before {
 }
 i.icon.play.circle.outline:before {
   content: "\f01d";
-}
-i.icon.clockwise:before {
-  content: "\f01e";
 }
 i.icon.headphone:before {
   content: "\f025";
@@ -1851,9 +2211,6 @@ i.icon.attention:before {
 i.icon.cart:before {
   content: "\f07a";
 }
-i.icon.plane:before {
-  content: "\f072";
-}
 i.icon.shuffle:before {
   content: "\f074";
 }
@@ -1868,6 +2225,15 @@ i.icon.shopping.cart:before {
 }
 i.icon.bar.graph:before {
   content: "\f080";
+}
+i.icon.area.graph:before {
+  content: "\f1fe";
+}
+i.icon.pie.graph:before {
+  content: "\f200";
+}
+i.icon.line.graph:before {
+  content: "\f201";
 }
 i.icon.key:before {
   content: "\f084";
@@ -1902,17 +2268,14 @@ i.icon.winner:before {
 i.icon.bookmark.outline:before {
   content: "\f097";
 }
-i.icon.phone.square:before {
-  content: "\f098";
+i.icon.phone:before {
+  content: "\f095";
 }
 i.icon.phone.square:before {
   content: "\f098";
 }
 i.icon.credit.card:before {
   content: "\f09d";
-}
-i.icon.rss:before {
-  content: "\f09e";
 }
 i.icon.hdd.outline:before {
   content: "\f0a0";
@@ -1922,6 +2285,15 @@ i.icon.bullhorn:before {
 }
 i.icon.bell:before {
   content: "\f0f3";
+}
+i.icon.bell.outline:before {
+  content: "\f0a2";
+}
+i.icon.bell.slash:before {
+  content: "\f1f6";
+}
+i.icon.bell.slash.outline:before {
+  content: "\f1f7";
 }
 i.icon.hand.outline.right:before {
   content: "\f0a4";
@@ -2031,6 +2403,12 @@ i.icon.computer:before {
 i.icon.circle.outline:before {
   content: "\f10c";
 }
+i.icon.intersex:before {
+  content: "\f10c";
+}
+i.icon.asexual:before {
+  content: "\f10c";
+}
 i.icon.spinner:before {
   content: "\f110";
 }
@@ -2070,6 +2448,9 @@ i.icon.pencil.square:before {
 i.icon.compass:before {
   content: "\f14e";
 }
+i.icon.amex:before {
+  content: "\f1f3";
+}
 i.icon.eur:before {
   content: "\f153";
 }
@@ -2098,6 +2479,10 @@ i.icon.krw:before {
 i.icon.btc:before {
   content: "\f15a";
 }
+i.icon.sheqel:before,
+i.icon.ils:before {
+  content: "\f20b";
+}
 i.icon.try:before {
   content: "\f195";
 }
@@ -2110,6 +2495,9 @@ i.icon.dot.circle.outline:before {
 i.icon.sliders:before {
   content: "\f1de";
 }
+i.icon.wi-fi:before {
+  content: "\f1eb";
+}
 i.icon.graduation:before {
   content: "\f19d";
 }
@@ -2118,6 +2506,93 @@ i.icon.\33d:before {
 }
 i.icon.weixin:before {
   content: "\f1d7";
+}
+i.icon.binoculars:before {
+  content: "\f1e5";
+}
+i.icon.gratipay:before {
+  content: "\f184";
+}
+i.icon.genderless:before {
+  content: "\f1db";
+}
+i.icon.teletype:before {
+  content: "\f1e4";
+}
+i.icon.power.cord:before {
+  content: "\f1e6";
+}
+i.icon.tty:before {
+  content: "\f1e4";
+}
+i.icon.cc:before {
+  content: "\f20a";
+}
+i.icon.ils:before {
+  content: "\f20b";
+}
+i.icon.plus.cart:before {
+  content: "\f217";
+}
+i.icon.arrow.down.cart:before {
+  content: "\f218";
+}
+i.icon.detective:before {
+  content: "\f21b";
+}
+i.icon.venus:before {
+  content: "\f221";
+}
+i.icon.mars:before {
+  content: "\f222";
+}
+i.icon.mercury:before {
+  content: "\f223";
+}
+i.icon.venus.double:before {
+  content: "\f226";
+}
+i.icon.female.homosexual:before {
+  content: "\f226";
+}
+i.icon.mars.double:before {
+  content: "\f227";
+}
+i.icon.male.homosexual:before {
+  content: "\f227";
+}
+i.icon.venus.mars:before {
+  content: "\f228";
+}
+i.icon.mars.stroke:before {
+  content: "\f229";
+}
+i.icon.mars.alternate:before {
+  content: "\f229";
+}
+i.icon.mars.vertical:before {
+  content: "\f22a";
+}
+i.icon.mars.horizontal:before {
+  content: "\f22b";
+}
+i.icon.mars.stroke.vertical:before {
+  content: "\f22a";
+}
+i.icon.mars.stroke.horizontal:before {
+  content: "\f22b";
+}
+i.icon.neuter:before {
+  content: "\f22c";
+}
+i.icon.facebook.official {
+  content: "\f230";
+}
+i.icon.pinterest.official {
+  content: "\f231";
+}
+i.icon.bed:before {
+  content: "\f236";
 }
 
 

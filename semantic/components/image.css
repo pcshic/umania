@@ -1,14 +1,13 @@
- /*
- * # Semantic UI - 1.8.1
- * https://github.com/Semantic-Org/Semantic-UI
- * http://www.semantic-ui.com/
+/*!
+ * # Semantic UI x.x - Image
+ * http://github.com/semantic-org/semantic-ui/
  *
- * Copyright 2014 Contributors
+ *
+ * Copyright 2015 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
  */
-
 
 
 /*******************************
@@ -37,9 +36,14 @@ img.ui.image {
             States
 *******************************/
 
+.ui.hidden.images,
+.ui.hidden.image {
+  display: none;
+}
+.ui.disabled.images,
 .ui.disabled.image {
   cursor: default;
-  opacity: 0.3;
+  opacity: 0.45;
 }
 
 
@@ -89,11 +93,9 @@ img.ui.image {
 ---------------*/
 
 .ui.rounded.images .image,
-.ui.rounded.images img,
-.ui.rounded.images svg,
-.ui.rounded.image img,
-.ui.rounded.image svg,
-.ui.rounded.image {
+.ui.rounded.image,
+.ui.rounded.images .image > *,
+.ui.rounded.image > * {
   border-radius: 0.3125em;
 }
 
@@ -119,11 +121,9 @@ img.ui.bordered.image {
   overflow: hidden;
 }
 .ui.circular.images .image,
-.ui.circular.images img,
-.ui.circular.images svg,
-.ui.circular.image img,
-.ui.circular.image svg,
-.ui.circular.image {
+.ui.circular.image,
+.ui.circular.images .image > *,
+.ui.circular.image > * {
   border-radius: 500rem;
 }
 
@@ -139,6 +139,7 @@ img.ui.bordered.image {
 .ui.fluid.image img {
   display: block;
   width: 100%;
+  height: auto;
 }
 
 /*--------------
@@ -153,9 +154,27 @@ img.ui.bordered.image {
 .ui.avatar.image {
   margin-right: 0.25em;
   display: inline-block;
-  width: 2.5em;
-  height: 2.5em;
+  width: 2em;
+  height: 2em;
   border-radius: 500rem;
+}
+
+/*-------------------
+       Spaced
+--------------------*/
+
+.ui.spaced.image {
+  display: inline-block !important;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+.ui[class*="left spaced"].image {
+  margin-left: 0.5em;
+  margin-right: 0em;
+}
+.ui[class*="right spaced"].image {
+  margin-left: 0em;
+  margin-right: 0.5em;
 }
 
 /*-------------------
@@ -193,7 +212,8 @@ img.ui.bordered.image {
 .ui.mini.images img,
 .ui.mini.images svg,
 .ui.mini.image {
-  width: 20px;
+  width: 35px;
+  height: auto;
   font-size: 0.71428571rem;
 }
 .ui.tiny.images .image,
@@ -201,6 +221,7 @@ img.ui.bordered.image {
 .ui.tiny.images svg,
 .ui.tiny.image {
   width: 80px;
+  height: auto;
   font-size: 0.85714286rem;
 }
 .ui.small.images .image,
@@ -208,6 +229,7 @@ img.ui.bordered.image {
 .ui.small.images svg,
 .ui.small.image {
   width: 150px;
+  height: auto;
   font-size: 0.92857143rem;
 }
 .ui.medium.images .image,
@@ -215,6 +237,7 @@ img.ui.bordered.image {
 .ui.medium.images svg,
 .ui.medium.image {
   width: 300px;
+  height: auto;
   font-size: 1rem;
 }
 .ui.large.images .image,
@@ -222,6 +245,7 @@ img.ui.bordered.image {
 .ui.large.images svg,
 .ui.large.image {
   width: 450px;
+  height: auto;
   font-size: 1.14285714rem;
 }
 .ui.big.images .image,
@@ -229,6 +253,7 @@ img.ui.bordered.image {
 .ui.big.images svg,
 .ui.big.image {
   width: 600px;
+  height: auto;
   font-size: 1.28571429rem;
 }
 .ui.huge.images .image,
@@ -236,6 +261,7 @@ img.ui.bordered.image {
 .ui.huge.images svg,
 .ui.huge.image {
   width: 800px;
+  height: auto;
   font-size: 1.42857143rem;
 }
 .ui.massive.images .image,
@@ -243,6 +269,7 @@ img.ui.bordered.image {
 .ui.massive.images svg,
 .ui.massive.image {
   width: 960px;
+  height: auto;
   font-size: 1.71428571rem;
 }
 

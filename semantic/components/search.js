@@ -1,9 +1,9 @@
-/*
- * # Semantic - Search
+/*!
+ * # Semantic UI x.x - Search
  * http://github.com/semantic-org/semantic-ui/
  *
  *
- * Copyright 2014 Contributor
+ * Copyright 2015 Contributors
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  *
@@ -29,7 +29,9 @@ $.fn.search = function(parameters) {
   $(this)
     .each(function() {
       var
-        settings        = $.extend(true, {}, $.fn.search.settings, parameters),
+        settings          = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.search.settings, parameters)
+          : $.extend({}, $.fn.search.settings),
 
         className       = settings.className,
         metadata        = settings.metadata,
@@ -53,36 +55,15 @@ $.fn.search = function(parameters) {
 
         module
       ;
+
       module = {
 
         initialize: function() {
           module.verbose('Initializing module');
-          var
-            prompt = $prompt[0],
-            inputEvent   = (prompt !== undefined && prompt.oninput !== undefined)
-              ? 'input'
-              : (prompt !== undefined && prompt.onpropertychange !== undefined)
-                ? 'propertychange'
-                : 'keyup'
-          ;
-          if(settings.automatic) {
-            $prompt
-              .on(inputEvent + eventNamespace, module.throttle)
-            ;
-          }
-          $prompt
-            .on('focus' + eventNamespace, module.event.focus)
-            .on('blur' + eventNamespace, module.event.blur)
-            .on('keydown' + eventNamespace, module.handleKeyboard)
-          ;
-          $searchButton
-            .on('click' + eventNamespace, module.query)
-          ;
-          $results
-            .on('mousedown' + eventNamespace, module.event.result.mousedown)
-            .on('mouseup' + eventNamespace, module.event.result.mouseup)
-            .on('click' + eventNamespace, selector.result, module.event.result.click)
-          ;
+          module.determine.searchFields();
+          module.bind.events();
+          module.set.type();
+          module.create.results();
           module.instantiate();
         },
         instantiate: function() {
@@ -95,24 +76,56 @@ $.fn.search = function(parameters) {
         destroy: function() {
           module.verbose('Destroying instance');
           $module
+            .off(eventNamespace)
             .removeData(moduleNamespace)
           ;
-          $prompt
-            .off(eventNamespace)
-          ;
-          $searchButton
-            .off(eventNamespace)
-          ;
-          $results
-            .off(eventNamespace)
-          ;
         },
+
+        bind: {
+          events: function() {
+            module.verbose('Binding events to search');
+            if(settings.automatic) {
+              $module
+                .on(module.get.inputEvent() + eventNamespace, selector.prompt, module.event.input)
+              ;
+              $prompt
+                .attr('autocomplete', 'off')
+              ;
+            }
+            $module
+              // prompt
+              .on('focus'     + eventNamespace, selector.prompt, module.event.focus)
+              .on('blur'      + eventNamespace, selector.prompt, module.event.blur)
+              .on('keydown'   + eventNamespace, selector.prompt, module.handleKeyboard)
+              // search button
+              .on('click'     + eventNamespace, selector.searchButton, module.query)
+              // results
+              .on('mousedown' + eventNamespace, selector.results, module.event.result.mousedown)
+              .on('mouseup'   + eventNamespace, selector.results, module.event.result.mouseup)
+              .on('click'     + eventNamespace, selector.result,  module.event.result.click)
+            ;
+          }
+        },
+
+        determine: {
+          searchFields: function() {
+            // this makes sure $.extend does not add specified search fields to default fields
+            // this is the only setting which should not extend defaults
+            if(parameters && parameters.searchFields !== undefined) {
+              settings.searchFields = parameters.searchFields;
+            }
+          }
+        },
+
         event: {
+          input: function() {
+            clearTimeout(module.timer);
+            module.timer = setTimeout(module.query, settings.searchDelay);
+          },
           focus: function() {
             module.set.focus();
-            clearTimeout(module.timer);
-            module.throttle();
             if( module.has.minimumCharacters() ) {
+              module.query();
               module.showResults();
             }
           },
@@ -142,11 +155,12 @@ $.fn.search = function(parameters) {
                 href    = $link.attr('href')   || false,
                 target  = $link.attr('target') || false,
                 title   = $title.html(),
-                name    = ($title.length > 0)
+                // title is used for result lookup
+                value   = ($title.length > 0)
                   ? $title.text()
                   : false,
                 results = module.get.results(),
-                result  = module.get.result(name, results),
+                result  = $result.data(metadata.result) || module.get.result(value, results),
                 returnedValue
               ;
               if( $.isFunction(settings.onSelect) ) {
@@ -156,8 +170,8 @@ $.fn.search = function(parameters) {
                 }
               }
               module.hideResults();
-              if(name) {
-                module.set.value(name);
+              if(value) {
+                module.set.value(value);
               }
               if(href) {
                 module.verbose('Opening search link found in result', $link);
@@ -257,9 +271,11 @@ $.fn.search = function(parameters) {
           api: function() {
             var
               apiSettings = {
+                debug     : settings.debug,
                 on        : false,
+                cache     : 'local',
                 action    : 'search',
-                onFailure : module.error
+                onError   : module.error
               },
               searchHTML
             ;
@@ -290,6 +306,17 @@ $.fn.search = function(parameters) {
         },
 
         get: {
+          inputEvent: function() {
+            var
+              prompt = $prompt[0],
+              inputEvent   = (prompt !== undefined && prompt.oninput !== undefined)
+                ? 'input'
+                : (prompt !== undefined && prompt.onpropertychange !== undefined)
+                  ? 'propertychange'
+                  : 'keyup'
+            ;
+            return inputEvent;
+          },
           value: function() {
             return $prompt.val();
           },
@@ -301,26 +328,34 @@ $.fn.search = function(parameters) {
           },
           result: function(value, results) {
             var
-              result = false
+              lookupFields = ['title', 'id'],
+              result       = false
             ;
-            value = value || module.get.value();
-            results = results || module.get.results();
+            value = (value !== undefined)
+              ? value
+              : module.get.value()
+            ;
+            results = (results !== undefined)
+              ? results
+              : module.get.results()
+            ;
             if(settings.type === 'category') {
-              module.debug('Finding result from category results', value);
+              module.debug('Finding result that matches', value);
               $.each(results, function(index, category) {
-                if(category.results !== undefined) {
-                  result = module.search.object(value, category.results)[0];
-                  if(result.length > 0) {
-                    return true;
+                if($.isArray(category.results)) {
+                  result = module.search.object(value, category.results, lookupFields)[0];
+                  // dont continue searching if a result is found
+                  if(result) {
+                    return false;
                   }
                 }
               });
             }
             else {
               module.debug('Finding result in results object', value);
-              result = module.search.object(value, results)[0];
+              result = module.search.object(value, results, lookupFields)[0];
             }
-            return result;
+            return result || false;
           },
         },
 
@@ -333,7 +368,15 @@ $.fn.search = function(parameters) {
           },
           value: function(value) {
             module.verbose('Setting search input value', value);
-            $prompt.val(value);
+            $prompt
+              .val(value)
+            ;
+          },
+          type: function(type) {
+            type = type || settings.type;
+            if(settings.type == 'category') {
+              $module.addClass(settings.type);
+            }
           },
           buttonPressed: function() {
             $searchButton.addClass(className.pressed);
@@ -355,56 +398,63 @@ $.fn.search = function(parameters) {
         query: function() {
           var
             searchTerm = module.get.value(),
-            cachedHTML = module.read.cachedHTML(searchTerm)
+            cache = module.read.cache(searchTerm)
           ;
-          if(cachedHTML) {
-            module.debug('Reading result for ' + searchTerm + ' from cache');
-            module.addResults(cachedHTML);
-          }
-          else {
-            module.debug('Querying for ' + searchTerm);
-            if($.isPlainObject(settings.source) || $.isArray(settings.source)) {
-              module.search.local(searchTerm);
-            }
-            else if( module.can.useAPI() ) {
-              if(settings.apiSettings) {
-                module.debug('Searching with specified API settings', settings.apiSettings);
-                module.search.remote(searchTerm);
-              }
-              else if($.api.settings.api.search !== undefined) {
-                module.debug('Searching with default search API endpoint');
-                module.search.remote(searchTerm);
-              }
+          if( module.has.minimumCharacters() )  {
+            if(cache) {
+              module.debug('Reading result from cache', searchTerm);
+              module.save.results(cache.results);
+              module.addResults(cache.html);
+              module.inject.id(cache.results);
             }
             else {
-              module.error(error.source);
+              module.debug('Querying for', searchTerm);
+              if($.isPlainObject(settings.source) || $.isArray(settings.source)) {
+                module.search.local(searchTerm);
+              }
+              else if( module.can.useAPI() ) {
+                module.search.remote(searchTerm);
+              }
+              else {
+                module.error(error.source);
+              }
+              settings.onSearchQuery.call(element, searchTerm);
             }
-            settings.onSearchQuery.call(element, searchTerm);
+          }
+          else {
+            module.hideResults();
           }
         },
 
         search: {
           local: function(searchTerm) {
             var
-              searchResults = module.search.object(searchTerm, settings.content),
+              results = module.search.object(searchTerm, settings.content),
               searchHTML
             ;
             module.set.loading();
-            module.save.results(searchResults);
-            module.debug('Returned local search results', searchResults);
+            module.save.results(results);
+            module.debug('Returned local search results', results);
 
             searchHTML = module.generateResults({
-              results: searchResults
+              results: results
             });
             module.remove.loading();
-            module.write.cachedHTML(searchTerm, searchHTML);
             module.addResults(searchHTML);
+            module.inject.id(results);
+            module.write.cache(searchTerm, {
+              html    : searchHTML,
+              results : results
+            });
           },
           remote: function(searchTerm) {
             var
               apiSettings = {
                 onSuccess : function(response) {
                   module.parse.response.call(element, response, searchTerm);
+                },
+                onFailure: function() {
+                  module.displayMessage(error.serverError);
                 },
                 urlData: {
                   query: searchTerm
@@ -422,44 +472,91 @@ $.fn.search = function(parameters) {
               .api('query')
             ;
           },
-          object: function(searchTerm, source) {
+          object: function(searchTerm, source, searchFields) {
             var
-              results         = [],
-              fullTextResults = [],
-              searchFields    = $.isArray(settings.searchFields)
-                ? settings.searchFields
-                : [settings.searchFields],
-              searchRegExp    = new RegExp(regExp.exact + searchTerm, 'i'),
-              fullTextRegExp  = new RegExp(searchTerm, 'i')
+              results      = [],
+              fuzzyResults = [],
+              searchExp    = searchTerm.toString().replace(regExp.escape, '\\$&'),
+              matchRegExp  = new RegExp(regExp.beginsWith + searchExp, 'i'),
+
+              // avoid duplicates when pushing results
+              addResult = function(array, result) {
+                var
+                  notResult      = ($.inArray(result, results) == -1),
+                  notFuzzyResult = ($.inArray(result, fuzzyResults) == -1)
+                ;
+                if(notResult && notFuzzyResult) {
+                  array.push(result);
+                }
+              }
+            ;
+            source = source || settings.source;
+            searchFields = (searchFields !== undefined)
+              ? searchFields
+              : settings.searchFields
             ;
 
-            source = source || settings.source;
+            // search fields should be array to loop correctly
+            if(!$.isArray(searchFields)) {
+              searchFields = [searchFields];
+            }
 
-            // exit conditions on no source
-            if(source === undefined) {
+            // exit conditions if no source
+            if(source === undefined || source === false) {
               module.error(error.source);
               return [];
             }
 
-            // iterate through search fields in array order
+            // iterate through search fields looking for matches
             $.each(searchFields, function(index, field) {
               $.each(source, function(label, content) {
                 var
-                  fieldExists = (typeof content[field] == 'string'),
-                  notAlreadyResult = ($.inArray(content, results) == -1 && $.inArray(content, fullTextResults) == -1)
+                  fieldExists = (typeof content[field] == 'string')
                 ;
-                if(fieldExists && notAlreadyResult) {
-                  if( content[field].match(searchRegExp) ) {
-                    results.push(content);
+                if(fieldExists) {
+                  if( content[field].search(matchRegExp) !== -1) {
+                    // content starts with value (first in results)
+                    addResult(results, content);
                   }
-                  else if( settings.searchFullText && content[field].match(fullTextRegExp) ) {
-                    fullTextResults.push(content);
+                  else if(settings.searchFullText && module.fuzzySearch(searchTerm, content[field]) ) {
+                    // content fuzzy matches (last in results)
+                    addResult(fuzzyResults, content);
                   }
                 }
               });
             });
-            return $.merge(results, fullTextResults);
+            return $.merge(results, fuzzyResults);
           }
+        },
+
+        fuzzySearch: function(query, term) {
+          var
+            termLength  = term.length,
+            queryLength = query.length
+          ;
+          if(typeof query !== 'string') {
+            return false;
+          }
+          query = query.toLowerCase();
+          term  = term.toLowerCase();
+          if(queryLength > termLength) {
+            return false;
+          }
+          if(queryLength === termLength) {
+            return (query === term);
+          }
+          search: for (var characterIndex = 0, nextCharacterIndex = 0; characterIndex < queryLength; characterIndex++) {
+            var
+              queryCharacter = query.charCodeAt(characterIndex)
+            ;
+            while(nextCharacterIndex < termLength) {
+              if(term.charCodeAt(nextCharacterIndex++) === queryCharacter) {
+                continue search;
+              }
+            }
+            return false;
+          }
+          return true;
         },
 
         parse: {
@@ -469,24 +566,16 @@ $.fn.search = function(parameters) {
             ;
             module.verbose('Parsing server response', response);
             if(response !== undefined) {
-              if(searchTerm) {
-                module.write.cachedHTML(searchTerm, searchHTML);
-                if(response.results !== undefined) {
-                  module.save.results(response.results);
-                }
+              if(searchTerm !== undefined && response.results !== undefined) {
+                module.addResults(searchHTML);
+                module.inject.id(response.results);
+                module.write.cache(searchTerm, {
+                  html    : searchHTML,
+                  results : response.results
+                });
+                module.save.results(response.results);
               }
-              module.addResults(searchHTML);
             }
-          }
-        },
-
-        throttle: function() {
-          clearTimeout(module.timer);
-          if(module.has.minimumCharacters())  {
-            module.timer = setTimeout(module.query, settings.searchDelay);
-          }
-          else {
-            module.hideResults();
           }
         },
 
@@ -508,8 +597,25 @@ $.fn.search = function(parameters) {
           }
         },
 
+        clear: {
+          cache: function(value) {
+            var
+              cache = $module.data(metadata.cache)
+            ;
+            if(!value) {
+              module.debug('Clearing cache', value);
+              $module.removeData(metadata.cache);
+            }
+            else if(value && cache && cache[value]) {
+              module.debug('Removing value from cache', value);
+              delete cache[value];
+              $module.data(metadata.cache, cache);
+            }
+          }
+        },
+
         read: {
-          cachedHTML: function(name) {
+          cache: function(name) {
             var
               cache = $module.data(metadata.cache)
             ;
@@ -524,6 +630,94 @@ $.fn.search = function(parameters) {
           }
         },
 
+        create: {
+          id: function(resultIndex, categoryIndex) {
+            var
+              resultID      = (resultIndex + 1), // not zero indexed
+              categoryID    = (categoryIndex + 1),
+              firstCharCode,
+              letterID,
+              id
+            ;
+            if(categoryIndex !== undefined) {
+              // start char code for "A"
+              letterID = String.fromCharCode(97 + categoryIndex);
+              id          = letterID + resultID;
+              module.verbose('Creating category result id', id);
+            }
+            else {
+              id = resultID;
+              module.verbose('Creating result id', id);
+            }
+            return id;
+          },
+          results: function() {
+            if($results.length === 0) {
+              $results = $('<div />')
+                .addClass(className.results)
+                .appendTo($module)
+              ;
+            }
+          }
+        },
+
+        inject: {
+          result: function(result, resultIndex, categoryIndex) {
+            module.verbose('Injecting result into results');
+            var
+              $selectedResult = (categoryIndex !== undefined)
+                ? $results
+                    .children().eq(categoryIndex)
+                      .children(selector.result).eq(resultIndex)
+                : $results
+                    .children(selector.result).eq(resultIndex)
+            ;
+            module.verbose('Injecting results metadata', $selectedResult);
+            $selectedResult
+              .data(metadata.result, result)
+            ;
+          },
+          id: function(results) {
+            module.debug('Injecting unique ids into results');
+            var
+              // since results may be object, we must use counters
+              categoryIndex = 0,
+              resultIndex   = 0
+            ;
+            if(settings.type === 'category') {
+              // iterate through each category result
+              $.each(results, function(index, category) {
+                resultIndex = 0;
+                $.each(category.results, function(index, value) {
+                  var
+                    result = category.results[index]
+                  ;
+                  if(result.id === undefined) {
+                    result.id = module.create.id(resultIndex, categoryIndex);
+                  }
+                  module.inject.result(result, resultIndex, categoryIndex);
+                  resultIndex++;
+                });
+                categoryIndex++;
+              });
+            }
+            else {
+              // top level
+              $.each(results, function(index, value) {
+                var
+                  result = results[index]
+                ;
+                if(result.id === undefined) {
+                  result.id = module.create.id(resultIndex);
+                }
+                module.inject.result(result, resultIndex);
+                resultIndex++;
+              });
+            }
+            return results;
+          }
+        },
+
         save: {
           results: function(results) {
             module.verbose('Saving current search results to metadata', results);
@@ -532,7 +726,7 @@ $.fn.search = function(parameters) {
         },
 
         write: {
-          cachedHTML: function(name, value) {
+          cache: function(name, value) {
             var
               cache = ($module.data(metadata.cache) !== undefined)
                 ? $module.data(metadata.cache)
@@ -568,6 +762,8 @@ $.fn.search = function(parameters) {
               $results
                 .transition({
                   animation  : settings.transition + ' in',
+                  debug      : settings.debug,
+                  verbose    : settings.verbose,
                   duration   : settings.duration,
                   queue      : true
                 })
@@ -590,6 +786,8 @@ $.fn.search = function(parameters) {
               $results
                 .transition({
                   animation  : settings.transition + ' out',
+                  debug      : settings.debug,
+                  verbose    : settings.verbose,
                   duration   : settings.duration,
                   queue      : true
                 })
@@ -617,7 +815,9 @@ $.fn.search = function(parameters) {
           if(isProperObject || isProperArray ) {
             if(settings.maxResults > 0) {
               if(isProperObject) {
-                module.error(error.maxResults);
+                if(settings.type == 'standard') {
+                  module.error(error.maxResults);
+                }
               }
               else {
                 response.results = response.results.slice(0, settings.maxResults);
@@ -712,7 +912,7 @@ $.fn.search = function(parameters) {
               });
             }
             clearTimeout(module.performance.timer);
-            module.performance.timer = setTimeout(module.performance.display, 100);
+            module.performance.timer = setTimeout(module.performance.display, 500);
           },
           display: function() {
             var
@@ -782,7 +982,7 @@ $.fn.search = function(parameters) {
               }
             });
           }
-          if ( $.isFunction( found ) ) {
+          if( $.isFunction( found ) ) {
             response = found.apply(context, passedArguments);
           }
           else if(found !== undefined) {
@@ -808,7 +1008,7 @@ $.fn.search = function(parameters) {
       }
       else {
         if(instance !== undefined) {
-          module.destroy();
+          instance.invoke('destroy');
         }
         module.initialize();
       }
@@ -824,36 +1024,55 @@ $.fn.search = function(parameters) {
 
 $.fn.search.settings = {
 
-  name           : 'Search Module',
+  name           : 'Search',
   namespace      : 'search',
 
   debug          : false,
-  verbose        : true,
+  verbose        : false,
   performance    : true,
 
   type           : 'standard',
-  minCharacters  : 1,
+  // template to use (specified in settings.templates)
 
-  // api config
+  minCharacters  : 1,
+  // minimum characters required to search
+
   apiSettings    : false,
+  // API config
 
   source         : false,
+  // object to search
+
   searchFields   : [
     'title',
     'description'
   ],
+  // fields to search
+
   searchFullText : true,
+  // whether to include fuzzy results in local search
 
-  automatic      : 'true',
+  automatic      : true,
+  // whether to add events to prompt automatically
+
   hideDelay      : 0,
-  searchDelay    : 100,
-  maxResults     : 7,
-  cache          : true,
+  // delay before hiding menu after blur
 
+  searchDelay    : 200,
+  // delay before searching
+
+  maxResults     : 7,
+  // maximum results returned from local
+
+  cache          : true,
+  // whether to store lookups in local cache
+
+  // transition settings
   transition     : 'scale',
-  duration       : 300,
+  duration       : 200,
   easing         : 'easeOutExpo',
 
+  // callbacks
   onSelect       : false,
   onResultsAdd   : false,
 
@@ -868,6 +1087,7 @@ $.fn.search.settings = {
     empty   : 'empty',
     focus   : 'focus',
     loading : 'loading',
+    results : 'results',
     pressed : 'down'
   },
 
@@ -875,19 +1095,22 @@ $.fn.search.settings = {
     source      : 'Cannot search. No source used, and Semantic API module was not included',
     noResults   : 'Your search returned no results',
     logging     : 'Error in debug logging, exiting.',
+    noEndpoint  : 'No search endpoint was specified',
     noTemplate  : 'A valid template name was not specified.',
-    serverError : 'There was an issue with querying the server.',
+    serverError : 'There was an issue querying the server.',
     maxResults  : 'Results must be an array to use maxResults setting',
     method      : 'The method you called is not defined.'
   },
 
   metadata: {
     cache   : 'cache',
-    results : 'results'
+    results : 'results',
+    result  : 'result'
   },
 
   regExp: {
-    exact: '(?:\s|^)'
+    escape     : /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,
+    beginsWith : '(?:\s|^)'
   },
 
   selector : {
