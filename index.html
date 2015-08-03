@@ -5,82 +5,41 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!-- CSS -->
-  <link href="css/normalize.css" rel="stylesheet" media="screen">
-  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-  <link href="css/style.css" rel="stylesheet" media="screen">
-  <title>UVa Problem Solver</title>
+  <link href="semantic/semantic.min.css" rel="stylesheet" media="screen">
+  <link href="index.css" rel="stylesheet" media="screen">
+  <title>uMania</title>
 </head>
 <body>
-  <nav id="menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#banner">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="index.html">UVa Problem Solver</a>
-      </div>
-      <div class="collapse navbar-collapse" id="banner">
-        <ul class="nav navbar-nav" role="tablist">
-          <li><a href="#practice">講義練習題</a></li>
-          <li><a href="#problem-set">UVa 全題</a></li>
-          <li><a href="#version-info">版本沿革</a></li>
-        </ul>
-        <form id="newUser" class="navbar-form navbar-right">
-          <div class="form-group"><input type="text" name="user" class="form-control" placeholder="username ..."></div>
-          <button class="btn btn-default">確定</button>
-        </form>
-        <form action="list.html" id="search" class="navbar-form navbar-right" method="get">
-          <div class="form-group">
-            <input type="text" name="num" class="form-control" placeholder="輸入題號 ...">
-            <input type="hidden" name="type" value="single">
+  <div id="main" class="ui centered grid">
+    <div id="content" class="fourteen wide column">
+      <nav id="menu" class="ui top attached tabular labeled icon menu">
+        <a class="item active" data-tab="umania">
+          <i class="grid layout icon"></i> uMania
+        </a>
+        <div class="right menu">
+        <a class="ui simple dropdown item">
+          <i class="setting icon"></i>
+          <span id="info"></span>
+          <div class="menu">
+            <div class="item">
+            <form id="userform" class="ui form">
+              <div class="field">
+              <input id="username" type="text" placeholder="Username ...">
+              </div>
+              <div class="field">
+              <input type="submit" value="切換使用者" class="ui blue button">
+              </div>
+            </form>
+            </div>
           </div>
-          <button type="submit" class="btn btn-default">搜尋</button>
-        </form>
-      </div>
+        </a>
+        </div>
+      </nav>
+      <section id="problem" class="ui center aligned bottom attached loading tab segment active" data-tab="umania"></section>
     </div>
-  </nav>
-  <div id="body" data-spy="scroll" data-target="#menu" class="container">
-    <div id="userMsg"></div>
-    <div id="practice"></div>
-    <div id="problem-set"></div>
-    <div id="version-info"></div>
   </div>
-  <footer>
-    <div id="copyright"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/tw/"><img alt="創用 CC 授權條款" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/2.5/tw/88x31.png" /></a></div>
-  </footer>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/yaml.js"></script>
-  <script src="js/solver-core.js"></script>
-  <script src="js/site/practice.js"></script>
-  <script src="js/site/list.js"></script>
-  <script src="js/site/board.js"></script>
-  <script src="js/site/index.js"></script>
-  <script type="text/javascript">
-    $('#newUser').submit(function (e) {
-      var input = $('input[name="user"]');
-      if (input.val().length != 0) {
-        // 去掉首尾空白 + 縮空白
-        var val = input.val().replace(/(^\s*)|(\s*$)/g,'').replace(/\s+/g, ' ');
-        if (ls[upsName] == undefined)
-          ls[upsName] = '{}';
-        var ups = JSON.parse(ls[upsName]);
-        if (ups.user == undefined)
-          ups.user = {};
-        if (ups.user[val] == undefined)
-          ups.user[val] = {};
-        ups.master = val;
-        ls[upsName] = JSON.stringify(ups);
-      }
-      e.preventDefault();
-      location.reload();
-    });
-    if (ups && ups.master) {
-      $('#userMsg').append('<div class="alert alert-success">當前使用者: <strong>' + ups.master + '</strong></div>');
-    }
-  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="semantic/semantic.min.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
