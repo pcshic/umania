@@ -143,12 +143,13 @@
 
   // ================================================================
   // ================================================================
+  /*
   var addTab = function(prob) {
     if (DEBUG)
       console.log('start add tab.');
     var id  = $(prob).data('id'),
         num = $(prob).data('num');
-    /* add tab */
+    // add tab
     var tab = [];
     tab.push('<a id="tab-uva' + id + '" class="item" data-tab="uva' + id + '">');
     tab.push('<i class="tag icon"></i>');
@@ -158,11 +159,11 @@
       $('#menu .right.menu').before(tab.join(''));
     }
     else $('#menu').append(tab.join(''));
-    /* add content */
+    // add content
     var content = [];
     content.push('<section id="problem-uva' + id + '" class="ui bottom attached loading tab segment" data-tab="uva' + id + '"></section>');
     $('#content').append(content.join(''));
-    /* loading problem */
+    // loading problem
     $.getJSON('http://uhunt.felix-halim.net/api/p/id/' + id,
       function (data) {
         var art = [];
@@ -171,9 +172,10 @@
         art.push('</article>');
         $('#problem-uva' + id).removeClass('loading').append(art.join(''));
     });
-    /* toogle tab */
+    // toogle tab
     $('.tabular.menu .item').tab();
   }
+  */
   // ================================================================
   // ================================================================
   var getSubmission = function() {
@@ -265,8 +267,10 @@
         console.log($(btn));
       var id  = $(btn).data('id'),
           tab = $('#tab-uva' + id);
+      /*
       if ( !tab.length )
         addTab(btn);
+      */
     });
     /* --------------------------------------------------------- */
     /* --------------------------------------------------------- */
@@ -346,14 +350,14 @@
             $.each(data[name].trans, function (j, num) {
               if (DEBUG)
                 console.log(j, num);
-              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon" data-title="' + name + '"></i>');
+              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon" data-html="<div class=\"header\">name</div><div class=\"content\"><a href="' + data[name].site + num + '.html">連結</a></div>"></i>');
             });
           }
           else {
             for (var num in data[name].trans) {
               if (DEBUG)
                 console.log(num);
-              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon" data-title="' + name + '"></i>');
+              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon" data-html="<div class=\"header\">name</div><div class=\"content\"><a href="' + data[name].site + data[name].trans[num] + '">連結</a></div>"></i>');
             }
           }
         }
