@@ -239,7 +239,7 @@
       var name = $('#username').val();
       if ( BOX.setCurrentUser(name) ) {
         // clean user data
-        $('.problem').removeClass( randomColor({all: 1}).join(' ') ).addClass('basic');
+        $('.problem').removeClass( randomColor({all: 1}).join(' ') ).addClass('basic').data('state', 0);
         // update user
         $('#info').text(name);
         getSubmission();
