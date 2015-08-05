@@ -333,10 +333,23 @@
         */
       });
       $.get('./data/translate.yml', function (str) {
-        data = YAML.parse(str);
+        var data     = YAML.parse(str),
+            indexing = [];
         if (DEBUG)
           console.log(data);
+        /**/
+        $('.problem').each(function (i, prob) {
+          indexing[$(prob).data('num')];
+        });
+        for (var name in data) {
+          if (name === 'Unfortunate 狗') {
+            $.each(data[name].trans, function (j, num) {
+              $(indexing[num]).append(' <i class="popup plane icon" data-title="' + name + '"></i>');
+            });
+          }
+        }
       });
+      $('.popup').popup();
       /* --------------------------------------------------------- */
       /*  get username
       /* --------------------------------------------------------- */
