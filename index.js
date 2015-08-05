@@ -302,14 +302,12 @@
       $('#umania-problem-content').addClass('loading');
       $('.dimmer').dimmer('show');
       var art = [];
-      art.push('<article class="ui segment" style="color: black">');
       art.push('<header><div class="ui huge dividing header">UVa ' + num + '</div></header>');
       art.push('<div class="ui ' + getJudgeColor(state) + ' huge statistic">');
       art.push('<div class="label">狀態</div>');
       art.push('<div class="value">' + getJudgeString(state) + '</div>');
       art.push('</div>');
       art.push('</div>');
-      art.push('</article>');
       $('#umania-problem-content').html(art.join(''));
       $('#umania-problem-content').removeClass('loading');
       /*
