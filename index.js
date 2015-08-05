@@ -346,19 +346,19 @@
             $.each(data[name].trans, function (j, num) {
               if (DEBUG)
                 console.log(j, num);
-              $(indexing[num]).append(' <i class="popup plane icon" data-title="' + name + '"></i>');
+              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon" data-title="' + name + '"></i>');
             });
           }
           else {
             for (var num in data[name].trans) {
               if (DEBUG)
                 console.log(num);
-              $(indexing[num]).append(' <i class="popup plane icon" data-title="' + name + '"></i>');
+              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon" data-title="' + name + '"></i>');
             }
           }
         }
+        $('.popup').popup();
       });
-      $('.popup').popup();
       /* --------------------------------------------------------- */
       /*  get username
       /* --------------------------------------------------------- */
