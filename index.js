@@ -352,7 +352,7 @@
           else {
             for (var num in data[name].trans) {
               if (DEBUG)
-                nsole.log(num);
+                console.log(num);
               $(indexing[num]).append(' <i class="popup plane icon" data-title="' + name + '"></i>');
             }
           }
