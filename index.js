@@ -349,7 +349,7 @@
           if (name === 'Unfortunate 狗') {
             $.each(data[name].trans, function (j, num) {
               $(indexing[num])
-                .addClass('popup right labeled icon')
+                .addClass('umania-popup right labeled icon')
                 .attr({
                   'target': '_blank',
                   'href': data[name].site + Math.floor(num / 100) + '/p' + num + '/',
@@ -362,18 +362,18 @@
           else {
             for (var num in data[name].trans) {
               $(indexing[num])
-                .addClass('popup right labeled icon')
+                .addClass('umania-popup right labeled icon')
                 .attr({
                   'target': '_blank',
                   'href': data[name].site + data[name].trans[num],
                   'data-content': name,
                   'data-variation': 'inverted'
                 })
-                .append('<i class="popup plane icon"></i>');
+                .append('<i class="plane icon"></i>');
             }
           }
         }
-        $('.popup').popup();
+        $('.umania-popup').popup();
       });
       /* --------------------------------------------------------- */
       /*  get username
