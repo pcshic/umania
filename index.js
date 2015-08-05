@@ -236,9 +236,9 @@
       var name = $('#username').val();
       if ( BOX.setCurrentUser(name) ) {
         // clean user data
-        $('.problem').removeClass( randomColor({all: 1}).join(' ') );
+        $('.problem').removeClass( randomColor({all: 1}).join(' ') ).addClass('basic');
         // update user
-        $('#info').text(user);
+        $('#info').text(name);
         getSubmission();
       }
     });
