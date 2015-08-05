@@ -275,12 +275,15 @@
     $('.tabular.menu .item').tab();
     /* --------------------------------------------------------- */
     /* --------------------------------------------------------- */
-    $('.problem').click(function (e) {
+    $('.umania-problem-class').click(function (e) {
       var btn = this;
       if (DEBUG)
         console.log($(btn));
       var id  = $(btn).data('id'),
+          num = $(btn).data('num'),
           tab = $('#tab-uva' + id);
+      $('#umania-problem-content .header:first').text('UVa ' + num);
+      $('.dimmer').dimmer('show');
       /*
       if ( !tab.length )
         addTab(btn);
@@ -327,9 +330,9 @@
         art.push('</h1></header>');
         /* add problems in same volume */
         $.each(cat, function (j, prob) {
-          art.push('<a style="margin: 0.3rem" id="uva' + prob[0] + '" class="ui circular basic button problem">');
+          art.push('<div style="margin: 0.3rem" id="uva' + prob[0] + '" class="ui circular basic button umania-problem-class">');
           art.push(prob[1]);
-          art.push('</a>');
+          art.push('</div>');
         });
         art.push('</article>');
         /* append volume */
@@ -338,17 +341,6 @@
         $.each(cat, function (j, prob) {
           $('#uva' + prob[0]).data('id', prob[0]).data('num', prob[1]);
         });
-
-        /* nav */
-        /*
-        var nav = [];
-        nav.push('<li class="item">');
-        nav.push('<a href="' + '#volume' + i + '">');
-        nav.push(i);
-        nav.push('</a>');
-        nav.push('</li>');
-        $('#category').append(nav.join(''));
-        */
       });
       $.get('./data/translate.yml', function (str) {
         var data     = YAML.parse(str),
@@ -356,38 +348,29 @@
         if (DEBUG)
           console.log(data);
         /**/
-        $('.problem').each(function (i, prob) {
+        $('.umania-problem-class').each(function (i, prob) {
           indexing[$(prob).data('num')] = prob;
         });
         for (var name in data) {
           if (name === 'Unfortunate 狗') {
             $.each(data[name].trans, function (j, num) {
               $(indexing[num])
-                .addClass('umania-popup right labeled icon')
-                .attr({
-                  'target': '_blank',
-                  'href': data[name].site + Math.floor(num / 100) + '/p' + num + '/',
-                  'data-content': name,
-                  'data-variation': 'inverted'
-                })
-                .append('<i class="popup plane icon"></i>');
+                .addClass('right labeled icon')
+                .data('link-source', name)
+                .data('link', data[name].site + Math.floor(num / 100) + '/p' + num + '/')
+                .append('<i class="plane icon"></i>');
             });
           }
           else {
             for (var num in data[name].trans) {
               $(indexing[num])
                 .addClass('umania-popup right labeled icon')
-                .attr({
-                  'target': '_blank',
-                  'href': data[name].site + data[name].trans[num],
-                  'data-content': name,
-                  'data-variation': 'inverted'
-                })
+                .data('link-source', name)
+                .data('link', data[name].site + data[name].trans[num])
                 .append('<i class="plane icon"></i>');
             }
           }
         }
-        $('.umania-popup').popup();
       });
       /* --------------------------------------------------------- */
       /*  get username
