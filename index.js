@@ -118,6 +118,9 @@
         }
       }
       else if ( !UNIT.none(options.all) ) {
+        if (DEBUG) {
+          console.log('return all colors.');
+        }
         return colors;
       }
     }
