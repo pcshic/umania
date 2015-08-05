@@ -310,7 +310,7 @@
       art.push('</div>');
       art.push('</div>');
       art.push('</article>');
-      $('#umania-problem-content').text(art.join(''));
+      $('#umania-problem-content').html(art.join(''));
       $('#umania-problem-content').removeClass('loading');
       /*
       if ( !tab.length )
