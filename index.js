@@ -313,9 +313,9 @@
         art.push('</h1></header>');
         /* add problems in same volume */
         $.each(cat, function (j, prob) {
-          art.push('<div style="margin: 0.3rem" id="uva' + prob[0] + '" class="ui circular basic button problem">');
+          art.push('<a style="margin: 0.3rem" id="uva' + prob[0] + '" class="ui circular basic button problem">');
           art.push(prob[1]);
-          art.push('</div>');
+          art.push('</a>');
         });
         art.push('</article>');
         /* append volume */
@@ -348,12 +348,28 @@
         for (var name in data) {
           if (name === 'Unfortunate 狗') {
             $.each(data[name].trans, function (j, num) {
-              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon link" data-content="' + name + '" data-variation="inverted"><a target="_blank" href="' + data[name].site + Math.floor(num / 100) + '/p' + num + '/"></a></i>');
+              $(indexing[num])
+                .addClass('popup right labeled icon')
+                .attr({
+                  'target': '_blank',
+                  'href': data[name].site + Math.floor(num / 100) + '/p' + num + '/',
+                  'data-content': name,
+                  'data-variation': 'inverted'
+                })
+                .append('<i class="popup plane icon"></i>');
             });
           }
           else {
             for (var num in data[name].trans) {
-              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon link" data-content="' + name + '" data-variation="inverted"><a target="_blank" href="' + data[name].site + data[name].trans[num] + '"></a></i>');
+              $(indexing[num])
+                .addClass('popup right labeled icon')
+                .attr({
+                  'target': '_blank',
+                  'href': data[name].site + data[name].trans[num],
+                  'data-content': name,
+                  'data-variation': 'inverted'
+                })
+                .append('<i class="popup plane icon"></i>');
             }
           }
         }
