@@ -239,7 +239,7 @@
       var name = $('#username').val();
       if ( BOX.setCurrentUser(name) ) {
         // clean user data
-        $('.problem').removeClass( randomColor({all: 1}).join(' ') ).addClass('basic').data('state', 0);
+        $('.umania-problem-class').removeClass( randomColor({all: 1}).join(' ') ).addClass('basic').data('state', 0);
         // update user
         $('#info').text(name);
         getSubmission();
@@ -284,7 +284,11 @@
           tab = $('#tab-uva' + id);
       $('#umania-problem-content').addClass('loading');
       $('.dimmer').dimmer('show');
-      $('#umania-problem-content .header:first').text('UVa ' + num);
+      var art = [];
+      art.push('<article class="ui segment" style="color: black">');
+      art.push('<header><div class="ui huge dividing header">UVa ' + num + '</div></header>');
+      art.push('</article>');
+      $('#umania-problem-content').text(art.join('')).removeClass('loading');
       /*
       if ( !tab.length )
         addTab(btn);
