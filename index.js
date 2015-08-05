@@ -373,7 +373,12 @@
             }
           }
         }
-        $('.umania-popup').popup();
+        $('.umania-popup').popup({
+          delay: {
+            show: 50,
+            hide: 1000
+          }
+        });
       });
       /* --------------------------------------------------------- */
       /*  get username
