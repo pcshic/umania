@@ -203,7 +203,7 @@
           $('#uva' + sub[1]).data('state', state);
         });
         /* add state */
-        $.each($('.problem'), function (i, btn) {
+        $.each($('.umania-problem-class'), function (i, btn) {
           var state = $(btn).data('state');
           if ( !UNIT.none(state) ) {
             $(btn).removeClass('basic').addClass( getJudgeColor(state) );
@@ -282,8 +282,9 @@
       var id  = $(btn).data('id'),
           num = $(btn).data('num'),
           tab = $('#tab-uva' + id);
-      $('#umania-problem-content .header:first').text('UVa ' + num);
+      $('#umania-problem-content').addClass('loading');
       $('.dimmer').dimmer('show');
+      $('#umania-problem-content .header:first').text('UVa ' + num);
       /*
       if ( !tab.length )
         addTab(btn);
