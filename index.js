@@ -145,6 +145,23 @@
     }
     return colors[code];
   }
+  var getJudgeString = function(code) {
+    var str = {
+      10 : 'SE', // Submission error
+      15 : 'others',  // Can't be judged
+      20 : 'Inq',  // In queue
+      30 : 'CE', // Compile error
+      35 : 'RF', // Restricted function
+      40 : 'RE',   // Runtime error
+      45 : 'OLE',   // Output limit
+      50 : 'TLE',   // Time limit
+      60 : 'MLE',   // Memory limit
+      70 : 'WA',    // Wrong answer
+      80 : 'PE',   // PresentationE
+      90 : 'AC'   // Accepted
+    }
+    return str[code];
+  }
 
 /* ******************************************************************** */
 /* ******************************************************************** */
@@ -279,16 +296,23 @@
       var btn = this;
       if (DEBUG)
         console.log($(btn));
-      var id  = $(btn).data('id'),
-          num = $(btn).data('num'),
-          tab = $('#tab-uva' + id);
+      var id    = $(btn).data('id'),
+          num   = $(btn).data('num'),
+          state = $(btn).data('state');
       $('#umania-problem-content').addClass('loading');
       $('.dimmer').dimmer('show');
       var art = [];
       art.push('<article class="ui segment" style="color: black">');
       art.push('<header><div class="ui huge dividing header">UVa ' + num + '</div></header>');
+      var 
+      art.push('<div class="ui ' + getJudgeColor(state) + ' huge statistic">');
+      art.push('<div class="label">狀態</div>');
+      art.push('<div class="value">' + getJudgeString(state) + '</div>');
+      art.push('</div>');
+      art.push('</div>');
       art.push('</article>');
-      $('#umania-problem-content').text(art.join('')).removeClass('loading');
+      $('#umania-problem-content').text(art.join(''));
+      $('#umania-problem-content').removeClass('loading');
       /*
       if ( !tab.length )
         addTab(btn);
