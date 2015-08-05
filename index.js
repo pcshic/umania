@@ -339,7 +339,7 @@
           console.log(data);
         /**/
         $('.problem').each(function (i, prob) {
-          indexing[$(prob).data('num')];
+          indexing[$(prob).data('num')] = prob;
         });
         for (var name in data) {
           if (name === 'Unfortunate 狗') {
