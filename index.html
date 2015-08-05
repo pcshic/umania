@@ -5,16 +5,42 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!-- CSS -->
-  <link href="css/normalize.css" rel="stylesheet" media="screen">
-  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-  <link href="css/style.css" rel="stylesheet" media="screen">
-  <title></title>
+  <link href="semantic/semantic.min.css" rel="stylesheet" media="screen">
+  <link href="index.css" rel="stylesheet" media="screen">
+  <title>uMania</title>
 </head>
 <body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/yaml.js"></script>
-  <script src="js/solver-core.js"></script>
-  <script src="js/site/index.js"></script>
+  <div id="main" class="ui centered grid">
+    <div id="content" class="fourteen wide column">
+      <nav id="menu" class="ui top attached tabular labeled icon menu">
+        <a class="item active" data-tab="umania">
+          <i class="grid layout icon"></i> uMania
+        </a>
+        <div class="right menu">
+        <a class="ui simple dropdown item">
+          <i class="setting icon"></i>
+          <span id="info"></span>
+          <div class="menu">
+            <div class="item">
+            <form id="userform" class="ui form">
+              <div class="field">
+              <input id="username" type="text" placeholder="Username ...">
+              </div>
+              <div class="field">
+              <input type="submit" value="切換使用者" class="ui blue button">
+              </div>
+            </form>
+            </div>
+          </div>
+        </a>
+        </div>
+      </nav>
+      <section id="problem" class="ui center aligned bottom attached loading tab segment active" data-tab="umania"></section>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="js/yaml.js"></script>
+  <script type="text/javascript" src="semantic/semantic.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
 </body>
 </html>

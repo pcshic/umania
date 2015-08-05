@@ -87,7 +87,7 @@ delete QueryProto;
 //
 // ==================================================================
 var none = function(obj) {
-  return obj == undefined || obj == '';
+  return typeof(obj) === 'undefined' || obj == null;
 }
 
 // ==================================================================
@@ -188,7 +188,7 @@ delete SubmitProto;
 // ==================================================================
 UVaSolver.Problem = function(data) {
   var problem = this;
-  if (data['pid'] != undefined) {
+  if ( !none(data.pid) ) {
     var attr = [
       'pid',   'num',    'title',  'dacu',  'mrun',
       'mmem',  'nover',  'sube',   'noj',   'inq',
@@ -200,41 +200,38 @@ UVaSolver.Problem = function(data) {
       problem.prob.push(data[attr[i]]);
   }
   else problem.prob = data;
-  problem.prob.push(  [],    // category
-            [],    // submit
-            0,    // verdit
-            0,    // last stamp
-            0,    // rank
-            []);  // translate
+  problem.prob.push(
+    [],    // category
+    [],    // submit
+    0,     // verdit
+    0,     // last stamp
+    0,     // rank
+    []     // translate
+  );
 }
 var ProbProto = UVaSolver.Problem.prototype;
-ProbProto.getPid        = function() { return this.prob[0]; }
-ProbProto.getNumber     = function() { return this.prob[1]; }
-ProbProto.getTitle      = function() { return this.prob[2]; }
-ProbProto.getCE         = function() { return this.prob[10]; }
-ProbProto.getRF         = function() { return this.prob[11]; }
-ProbProto.getRE         = function() { return this.prob[12]; }
-ProbProto.getOLE        = function() { return this.prob[13]; }
-ProbProto.getTLE        = function() { return this.prob[14]; }
-ProbProto.getMLE        = function() { return this.prob[15]; }
-ProbProto.getWA         = function() { return this.prob[16]; }
-ProbProto.getPE         = function() { return this.prob[17]; }
-ProbProto.getAC         = function() { return this.prob[18]; }
-ProbProto.getCategory   = function() { return this.prob[21]; }
-ProbProto.getSubmit     = function() { return this.prob[22]; }
-ProbProto.getVerdit     = function() { return this.prob[23]; }
-ProbProto.getTime       = function() { return this.prob[24]; }
-ProbProto.getRank       = function() { return this.prob[25]; }
-ProbProto.getTranslate  = function() { return this.prob[26]; }
-ProbProto.setVerdit     = function(verd) {
-  this.prob[23] = verd;
-}
-ProbProto.setTime       = function(stmp) {
-  this.prob[24] = stmp;
-}
-ProbProto.setRank       = function(rank) {
-  this.prob[25] = rank;
-}
+ProbProto.getPid        = function() { return this.prob[0] }
+ProbProto.getNumber     = function() { return this.prob[1] }
+ProbProto.getTitle      = function() { return this.prob[2] }
+ProbProto.getCE         = function() { return this.prob[10] }
+ProbProto.getRF         = function() { return this.prob[11] }
+ProbProto.getRE         = function() { return this.prob[12] }
+ProbProto.getOLE        = function() { return this.prob[13] }
+ProbProto.getTLE        = function() { return this.prob[14] }
+ProbProto.getMLE        = function() { return this.prob[15] }
+ProbProto.getWA         = function() { return this.prob[16] }
+ProbProto.getPE         = function() { return this.prob[17] }
+ProbProto.getAC         = function() { return this.prob[18] }
+ProbProto.getCategory   = function() { return this.prob[21] }
+ProbProto.getSubmit     = function() { return this.prob[22] }
+ProbProto.getVerdit     = function() { return this.prob[23] }
+ProbProto.getTime       = function() { return this.prob[24] }
+ProbProto.getRank       = function() { return this.prob[25] }
+ProbProto.getTranslate  = function() { return this.prob[26] }
+ProbProto.setCategory   = function(cate) { this.prob[21].push(cate) }
+ProbProto.setVerdit     = function(verd) { this.prob[23] = verd }
+ProbProto.setTime       = function(stmp) { this.prob[24] = stmp }
+ProbProto.setRank       = function(rank) { this.prob[25] = rank }
 ProbProto.getStyle      = function(args) {
   var res = '';
   var prob = this;
@@ -243,7 +240,13 @@ ProbProto.getStyle      = function(args) {
   if (args == undefined) args = 'tc';
   // 設定題號顏色
   var btnAttr = 'btn-' + UVaSolver.Util.btnStyle[prob.getVerdit()];
-  res += '<a id="uva' + val + '" href="problem.html?' + query + '" type="button" class="btn ' + btnAttr + '" target="_blank">' + val + ' ';
+  res += '<a id="uva' + val + '" href="problem.html?' + query + '" type="button" class="btn ' + btnAttr + '" target="_blank">';
+  var tags = prob.getCategory(), flag = false;
+  for (var i = 0; i < tags.length; i++)
+    if (tags[i][1]) flag = true;
+  if (flag) res += '<strong>' + val + '</strong>';
+  else res += val;
+  res += ' ';
   // 設定翻譯
   if (args.indexOf('t') >= 0) {
     var trans = prob.getTranslate();
@@ -271,13 +274,14 @@ delete ProbProto;
 // ==================================================================
 /*
 var title = [
-  'id',                '編號',          '標題',
-  'DACU',              'Best Runtime',      'Best Memory',
-  'No Verdict Given',  'Submission Error',    'Can\'t be Judged',
-  'In Queue',          'Compilation Error',  'Restricted Function',
-  'Runtime Error',     'Output Limit Exceeded','Time Limit Exceeded',
-  'Memory Limit Exceeded','Wrong Answer',      'Presentation Error',
-  'Accepted',          '時間限制(毫秒)',    '狀態'];
+  'id',                    '編號',                  '標題',
+  'DACU',                  'Best Runtime',          'Best Memory',
+  'No Verdict Given',      'Submission Error',      'Can\'t be Judged',
+  'In Queue',              'Compilation Error',     'Restricted Function',
+  'Runtime Error',         'Output Limit Exceeded', 'Time Limit Exceeded',
+  'Memory Limit Exceeded', 'Wrong Answer',          'Presentation Error',
+  'Accepted',              '時間限制(毫秒)',        '狀態'
+];
 */
 UVaSolver.Solver = function(args) {
   /* ***************************************************** */
@@ -308,29 +312,31 @@ UVaSolver.Solver = function(args) {
   /* ***************************************************** */
   /*                                                       */
   /*  設定 args 預設值:                                    */
-  /*    'type'    - 'all'                              */
-  /*    'prob'    - true                               */
-  /*    'database'  - true                               */
-  /*    'user'    - undefined                          */
-  /*    'trans'    - true                               */
+  /*    'type'      - 'all'                                */
+  /*    'prob'      - true                                 */
+  /*    'database'  - true                                 */
+  /*    'user'      - undefined                            */
+  /*    'trans'     - true                                 */
   /*                                                       */
   /* ***************************************************** */
-  if (args == undefined)
-    args = {};
-  if (args.type == undefined)
-    args.type = 'all';
-  if (args.prob == undefined)
-    args.prob = true;
-  if (args.database == undefined)
-    args.database = true;
-  if (args.trans == undefined)
-    args.trans = true;
+  if ( none(args) )          args          = {};
+  if ( none(args.type) )     args.type     = 'all';
+  if ( none(args.prob) )     args.prob     = true;
+  if ( none(args.database) ) args.database = true;
+  if ( none(args.user) )     args.user     = undefined;
+  if ( none(args.trans) )    args.trans    = true;
 
   /* ***************************************************** */
   /*                                                       */
   /*  初始化原始資料                                       */
   /*                                                       */
   /* ***************************************************** */
+  var loadDataYML  = function(options) {
+    $.get(options.url, '', options.callback);
+  }
+  var loadDataJSON = function(options) {
+    $.getJSON(options.url, '', options.callback);
+  }
   var loadData = function(args) {
     var apiUrl           = 'http://uhunt.felix-halim.net/api';
     var probUrl          = apiUrl + '/p';
@@ -346,34 +352,45 @@ UVaSolver.Solver = function(args) {
       $.getJSON(nameToPidUrl + '/' + args['user'], '',
         function (data) { solver.userId = data; });
     }
-    if (args['type'] == 'all' || args['type'] == 'part') {
-      if (args['prob']) {
-        $.getJSON(probUrl, '',
-          function (data) { solver.probData = data; });
+    if (args.type === 'all' || args.type === 'part') {
+      if (args.prob) {
+        loadDataJSON({
+          url:      probUrl,
+          callback: function (d) { solver.probData = d }
+        });
       }
       if (solver.userId != 0) {
-        $.getJSON(subUserUrl + '/' + solver.userId, '',
-          function (data) { solver.userData = data; });
+        loadDataJSON({
+          url:      [subUserUrl, solver.userId].join('/'),
+          callback: function (d) { solver.userData = d }
+        });
       }
     }
-    else if (args['type'] == 'single') {
-      if (args['num']) {
-        $.getJSON(probNumUrl + '/' + args['num'], '',
-          function (data) { solver.probData = [data]; });
+    else if (args.type === 'single') {
+      if (args.num) {
+        loadDataJSON({
+          url:      [probNumUrl, args.num].join('/'),
+          callback: function (d) { solver.probData = [d] }
+        });
       }
       if (solver.userId != 0) {
-        var tmp = solver.userId + '/' + args['num'] + '/0';
-        $.getJSON(subUserProbUrl + '/' + tmp, '',
-          function (data) { solver.userData = data[solver.userId] });
+        loadDataJSON({
+          url: [subUserProbUrl, solver.userId, args.num, '0'].join('/'),
+          callback: function (d) { solver.userData = d[solver.userId] }
+        });
       }
     }
-    if (args['database']) {
-      $.get('data/database.yml', '',
-        function (data) { solver.dbData = YAML.parse(data); });
+    if (args.database) {
+      loadDataYML({
+        url:      'data/database.yml',
+        callback: function (d) { solver.dbData = YAML.parse(d) }
+      });
     }
-    if (args['trans']) {
-      $.get('data/translate.yml', '',
-        function (data) { solver.transData = YAML.parse(data); });
+    if (args.trans) {
+      loadDataYML({
+        url:      'data/translate.yml',
+        callback:  function (d) { solver.transData = YAML.parse(d) }
+      });
     }
     $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         options.async = true;
@@ -386,20 +403,20 @@ UVaSolver.Solver = function(args) {
   /*  處理 probData                                        */
   /*                                                       */
   /* ***************************************************** */
-  if (solver.probData != undefined) {
+  if ( !none(solver.probData) ) {
     var probs = solver.probData;
     // 建立 Problem 物件
     for (var i = 0; i < probs.length; i++) {
       probs[i] = new UVaSolver.Problem(probs[i]);
     }
     // 依照 problem number 遞增排序
-    probs.sort(function(left, right) {
-      return left.getNumber() - right.getNumber();
+    probs.sort(function (L, R) {
+      return L.getNumber() - R.getNumber()
     });
     // 建立 id, number 對應表
     for (var i = 0; i < probs.length; i++) {
       var prob = probs[i];
-      rePid[prob.getPid()] = prob;
+      rePid[prob.getPid()]    = prob;
       reNum[prob.getNumber()] = prob;
     }
   }
@@ -408,7 +425,7 @@ UVaSolver.Solver = function(args) {
   /*  建立題單對應分類                                     */
   /*                                                       */
   /* ***************************************************** */
-  if (solver.dbData != undefined) {
+  if ( !none(solver.dbData) ) {
     var db = solver.dbData;
     for (var part in db) {
       for (var chap in db[part]) {
@@ -521,9 +538,6 @@ var col = function(sm, md, lg) {
     res.push(['col', type[i], num[i]].join('-'));
   return res.join(' ');
 }
-var postRender = function() {
-  $('[data-toggle="tooltip"]').tooltip();
-}
 
 /*
   load UPS Custom
@@ -533,16 +547,6 @@ var ls    = localStorage;
 if (ls[upsName] == undefined)
   ls[upsName] = '{}';
 var ups    = JSON.parse(ls[upsName]);
-
-/*
-  load head.html
-*/
-$.ajaxSettings.async = false;
-$.get('layout.html', '', function (data) {
-  $('body').prepend(data);
-  $('title, #banner').text('UVa Problem Solver');
-});
-$.ajaxSettings.async = true;
 
 /*
   get query

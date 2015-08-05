@@ -1,5 +1,5 @@
 /*
-	設定題單
+  設定題單
 */
 if (query['category']) {
 	var cates = [];
