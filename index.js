@@ -348,17 +348,12 @@
         for (var name in data) {
           if (name === 'Unfortunate 狗') {
             $.each(data[name].trans, function (j, num) {
-              if (DEBUG)
-                console.log(j, num);
-              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon" data-html="<div class=\'header\'>UVa ' + num + '</div><div class=\'content\'><a target=\'_blank\' href=\'' + data[name].site + Math.floor(num / 100) + '/p' + num + '.html\'>' + name + '</a></div>"></i>');
+              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon link" data-content="' + name + '" data-variation="inverted"><a target="_blank" href="' + data[name].site + Math.floor(num / 100) + '/p' + num + '/"></a></i>');
             });
           }
           else {
             for (var num in data[name].trans) {
-              if (DEBUG)
-                console.log(num);
-              var content = "";
-              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon" data-html="<div class=\'header\'>UVa ' + num + '</div><div class=\'content\'><a target=\'_blank\' href=\'' + data[name].site + data[name].trans[num] + '\'>' + name + '</a></div>"></i>');
+              $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon link" data-content="' + name + '" data-variation="inverted"><a target="_blank" href="' + data[name].site + data[name].trans[num] + '"></a></i>');
             }
           }
         }
