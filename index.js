@@ -350,7 +350,7 @@
             $.each(data[name].trans, function (j, num) {
               if (DEBUG)
                 console.log(j, num);
-              var content = '<div class="header">name</div><div class="content"><a target="_blank" href="' + data[name].site + Math.floor(num / 100) + '/p' + num + '.html">連結</a></div>';
+              var content = "<div class='header'>name</div><div class='content'><a target='_blank' href='" + data[name].site + Math.floor(num / 100) + "/p" + num + ".html'>連結</a></div>";
               $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon" data-html="' + content + '"></i>');
             });
           }
@@ -358,7 +358,7 @@
             for (var num in data[name].trans) {
               if (DEBUG)
                 console.log(num);
-              var content = '<div class="header">name</div><div class="content"><a target="_blank" href="' + data[name].site + data[name].trans[num] + '">連結</a></div>';
+              var content = "<div class='header'>name</div><div class='content'><a target='_blank' href='" + data[name].site + data[name].trans[num] + "'>連結</a></div>";
               $(indexing[num]).addClass('right labeled icon').append('<i class="popup plane icon" data-html="' + content + '"></i>');
             }
           }
