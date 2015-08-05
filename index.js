@@ -59,7 +59,9 @@
     if (!UNIT.none(name) && name !== '') {
       localStorage[mgr.current] = name;
       mgr.checkSetting(name);
+      return true;
     }
+    return false;
   }
   UserManager.prototype.getUserId = function(name, cb) {
     var mgr     = this;
@@ -114,6 +116,9 @@
           if (flag)
             res.push(colors[i]);
         }
+      }
+      else if ( !UNIT.none(options.all) ) {
+        return colors;
       }
     }
     return res[Math.floor(Math.random() * res.length)];
@@ -229,7 +234,11 @@
     $('#userform').submit(function (e) {
       e.preventDefault();
       var name = $('#username').val();
-      BOX.setCurrentUser(name);
+      if ( BOX.setCurrentUser(name) ) {
+        // clean user data
+        $('.problem').removeClass( randomColor({all: 1}).join(' ') );
+        getSubmission();
+      }
     });
     /* --------------------------------------------------------- */
     /*  remove 'loading' class after data is loaded              */
@@ -373,12 +382,7 @@
             }
           }
         }
-        $('.umania-popup').popup({
-          delay: {
-            show: 50,
-            hide: 1000
-          }
-        });
+        $('.umania-popup').popup();
       });
       /* --------------------------------------------------------- */
       /*  get username
