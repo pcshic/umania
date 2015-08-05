@@ -237,6 +237,8 @@
       if ( BOX.setCurrentUser(name) ) {
         // clean user data
         $('.problem').removeClass( randomColor({all: 1}).join(' ') );
+        // update user
+        $('#info').text(user);
         getSubmission();
       }
     });
@@ -388,9 +390,9 @@
       /*  get username
       /* --------------------------------------------------------- */
       var user = BOX.getCurrentUser();
-      if ( UNIT.none(user) || !user ) $('#info').append('無');
+      if ( UNIT.none(user) || !user ) $('#info').text('無');
       else {
-        $('#info').append(user);
+        $('#info').text(user);
         /* get submission */
         getSubmission();
       }
