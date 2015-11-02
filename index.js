@@ -329,6 +329,7 @@
   //  initialize uva problems
   //
   // ================================================================
+  $('.tabular.menu .item').tab();
   $.getJSON('http://uhunt.felix-halim.net/api/p',
     function (data) {
       if ( UNIT.none(data) )
@@ -415,6 +416,7 @@
       /*  get practice data
       /* --------------------------------------------------------- */
       $.get('http://m80126colin.github.io/icomalgo/book/problem/problem.yml', function (data) {
+        console.log(data);
         var practice = YAML.parse(data);
         console.log(practice);
         postProblemInitialize();
@@ -422,5 +424,4 @@
       /* --------------------------------------------------------- */
       /* --------------------------------------------------------- */
     });
-  $('.tabular.menu .item').tab();
 }())
