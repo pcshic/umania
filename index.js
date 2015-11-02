@@ -147,20 +147,20 @@
   }
   var getJudgeString = function(code) {
     var str = {
-      10 : 'SE', // Submission error
-      15 : 'others',  // Can't be judged
-      20 : 'Inq',  // In queue
-      30 : 'CE', // Compile error
-      35 : 'RF', // Restricted function
-      40 : 'RE',   // Runtime error
-      45 : 'OLE',   // Output limit
-      50 : 'TLE',   // Time limit
-      60 : 'MLE',   // Memory limit
-      70 : 'WA',    // Wrong answer
-      80 : 'PE',   // PresentationE
-      90 : 'AC'   // Accepted
+      10 : 'SE',     // Submission error
+      15 : 'others', // Can't be judged
+      20 : 'Inq',    // In queue
+      30 : 'CE',     // Compile error
+      35 : 'RF',     // Restricted function
+      40 : 'RE',     // Runtime error
+      45 : 'OLE',    // Output limit
+      50 : 'TLE',    // Time limit
+      60 : 'MLE',    // Memory limit
+      70 : 'WA',     // Wrong answer
+      80 : 'PE',     // PresentationE
+      90 : 'AC'      // Accepted
     }
-    return str[code];
+    return str[code] || 'None';
   }
 
 /* ******************************************************************** */
