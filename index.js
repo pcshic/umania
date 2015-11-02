@@ -361,97 +361,97 @@
 /*                                                                      */
 /*                                                                      */
 /* ******************************************************************** */
-  $.getJSON('http://uhunt.felix-halim.net/api/p',
-    function (data) {
-      if ( UNIT.none(data) )
-        throw 'error retrieve problem data';
-      preProblemInitialize();
-      var res = {};
-      /* --------------------------------------------------------- */
-      /*  rearrange problems by problem number                     */
-      /* --------------------------------------------------------- */
-      $.each(data, function (i, prob) {
-        var num = Math.floor(prob[1] / 100);
-        if ( UNIT.none(res[num]) )
-          res[num] = [];
-        res[num].push(prob);
+  var problemUrl = 'http://uhunt.felix-halim.net/api/p';
+  $.getJSON(problemUrl, function (data) {
+    if ( UNIT.none(data) )
+      throw 'error retrieve problem data';
+    preProblemInitialize();
+    var res = {};
+    /* --------------------------------------------------------- */
+    /*  rearrange problems by problem number                     */
+    /* --------------------------------------------------------- */
+    $.each(data, function (i, prob) {
+      var num = Math.floor(prob[1] / 100);
+      if ( UNIT.none(res[num]) )
+        res[num] = [];
+      res[num].push(prob);
+    });
+    /* --------------------------------------------------------- */
+    /* --------------------------------------------------------- */
+    $.each(res, function (i, cat) {
+      /* problems */
+      var art = [];
+      art.push('<article id="volume' + i + '" class="ui justified">');
+      /* volume header */
+      art.push('<header><h1 class="ui ' + randomColor({
+        'except': ['black', 'green']
+        }) + ' icon header">');
+      art.push('<i class="circular book icon"></i>');
+      art.push('Volume ' + i);
+      art.push('</h1></header>');
+      /* add problems in same volume */
+      $.each(cat, function (j, prob) {
+        art.push('<div style="margin: 0.3rem" id="uva' + prob[0] + '" class="ui circular basic button umania-problem-class">');
+        art.push(prob[1]);
+        art.push('</div>');
       });
-      /* --------------------------------------------------------- */
-      /* --------------------------------------------------------- */
-      $.each(res, function (i, cat) {
-        /* problems */
-        var art = [];
-        art.push('<article id="volume' + i + '" class="ui justified">');
-        /* volume header */
-        art.push('<header><h1 class="ui ' + randomColor({
-          'except': ['black', 'green']
-          }) + ' icon header">');
-        art.push('<i class="circular book icon"></i>');
-        art.push('Volume ' + i);
-        art.push('</h1></header>');
-        /* add problems in same volume */
-        $.each(cat, function (j, prob) {
-          art.push('<div style="margin: 0.3rem" id="uva' + prob[0] + '" class="ui circular basic button umania-problem-class">');
-          art.push(prob[1]);
-          art.push('</div>');
-        });
-        art.push('</article>');
-        /* append volume */
-        $('#problem').append(art.join(''));
-        /* add problem id and number */
-        $.each(cat, function (j, prob) {
-          $('#uva' + prob[0]).data('id', prob[0]).data('num', prob[1]);
-        });
-      });
-      $.get('./data/translate.yml', function (str) {
-        var data     = YAML.parse(str),
-            indexing = [];
-        if (DEBUG)
-          console.log(data);
-        /**/
-        $('.umania-problem-class').each(function (i, prob) {
-          indexing[$(prob).data('num')] = prob;
-        });
-        for (var name in data) {
-          if (name === 'Unfortunate 狗') {
-            $.each(data[name].trans, function (j, num) {
-              $(indexing[num])
-                .addClass('right labeled icon')
-                .data('link-source', name)
-                .data('link', data[name].site + Math.floor(num / 100) + '/p' + num + '/')
-                .append('<i class="plane icon"></i>');
-            });
-          }
-          else {
-            for (var num in data[name].trans) {
-              $(indexing[num])
-                .addClass('umania-popup right labeled icon')
-                .data('link-source', name)
-                .data('link', data[name].site + data[name].trans[num])
-                .append('<i class="plane icon"></i>');
-            }
-          }
-        }
-      });
-      /* --------------------------------------------------------- */
-      /*  get username
-      /* --------------------------------------------------------- */
-      var user = BOX.getCurrentUser();
-      if ( UNIT.none(user) || !user ) $('#info').text('無');
-      else {
-        $('#info').text(user);
-        /* get submission */
-        getSubmission();
-      }
-      /* --------------------------------------------------------- */
-      /*  get practice data
-      /* --------------------------------------------------------- */
-      $.get('http://m80126colin.github.io/icomalgo/book/problem/problem.yml', function (data) {
-        var practice = YAML.parse(data);
-        if (DEBUG) {
-          console.log(practice);
-        }
-        postProblemInitialize();
+      art.push('</article>');
+      /* append volume */
+      $('#problem').append(art.join(''));
+      /* add problem id and number */
+      $.each(cat, function (j, prob) {
+        $('#uva' + prob[0]).data('id', prob[0]).data('num', prob[1]);
       });
     });
+    $.get('./data/translate.yml', function (str) {
+      var data     = YAML.parse(str),
+          indexing = [];
+      if (DEBUG)
+        console.log(data);
+      /**/
+      $('.umania-problem-class').each(function (i, prob) {
+        indexing[$(prob).data('num')] = prob;
+      });
+      for (var name in data) {
+        if (name === 'Unfortunate 狗') {
+          $.each(data[name].trans, function (j, num) {
+            $(indexing[num])
+              .addClass('right labeled icon')
+              .data('link-source', name)
+              .data('link', data[name].site + Math.floor(num / 100) + '/p' + num + '/')
+              .append('<i class="plane icon"></i>');
+          });
+        }
+        else {
+          for (var num in data[name].trans) {
+            $(indexing[num])
+              .addClass('umania-popup right labeled icon')
+              .data('link-source', name)
+              .data('link', data[name].site + data[name].trans[num])
+              .append('<i class="plane icon"></i>');
+          }
+        }
+      }
+    });
+    /* --------------------------------------------------------- */
+    /*  get username
+    /* --------------------------------------------------------- */
+    var user = BOX.getCurrentUser();
+    if ( UNIT.none(user) || !user ) $('#info').text('無');
+    else {
+      $('#info').text(user);
+      /* get submission */
+      getSubmission();
+    }
+    /* --------------------------------------------------------- */
+    /*  get practice data
+    /* --------------------------------------------------------- */
+    $.get('http://m80126colin.github.io/icomalgo/book/problem/problem.yml', function (data) {
+      var practice = YAML.parse(data);
+      if (DEBUG) {
+        console.log(practice);
+      }
+      postProblemInitialize();
+    });
+  });
 }())
