@@ -459,7 +459,7 @@
       art.push('</h1></header>');
       /* add problems in same volume */
       $.each(cat, function (j, prob) {
-        art.push( PROB.getProblemById('uva', prob[0]) );
+        art.push( PROB.getProblemById('uva', prob[0]).text );
       });
       art.push('</article>');
       /* append volume */
