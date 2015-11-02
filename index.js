@@ -289,7 +289,7 @@
     /* --------------------------------------------------------- */
     /* enable tabular menu                                       */
     /* --------------------------------------------------------- */
-    $('.tabular.menu .item').tab();
+    // $('.tabular.menu .item').tab();
     /* --------------------------------------------------------- */
     /* --------------------------------------------------------- */
     $('.umania-problem-class').click(function (e) {
@@ -414,10 +414,11 @@
       /* --------------------------------------------------------- */
       /*  get practice data
       /* --------------------------------------------------------- */
-      var practice = YAML.load('https://m80126colin.github.io/icomalgo/book/problem/problem.yml');
+      var practice = YAML.load('/icomalgo/book/problem/problem.yml');
       console.log(practice);
       /* --------------------------------------------------------- */
       /* --------------------------------------------------------- */
       postProblemInitialize();
     });
+  $('.tabular.menu .item').tab();
 }())
