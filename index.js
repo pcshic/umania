@@ -207,7 +207,7 @@
     var probMgr = this;
     var index   = probMgr.list.length;
     probMgr.list.push(prob);
-    probMgr.store[prob.judge + prob.id] = list[index];
+    probMgr.store[prob.judge + prob.id] = probMgr.list[index];
     probMgr.numToId[prob.judge + prob.num] = prob.judge + prob.id;
   }
   // ================================================================
