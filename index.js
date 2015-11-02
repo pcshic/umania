@@ -411,6 +411,13 @@
         /* get submission */
         getSubmission();
       }
+      /* --------------------------------------------------------- */
+      /*  get practice data
+      /* --------------------------------------------------------- */
+      var practice = YAML.load('https://m80126colin.github.io/icomalgo/book/problem/problem.yml');
+      console.log(practice);
+      /* --------------------------------------------------------- */
+      /* --------------------------------------------------------- */
       postProblemInitialize();
     });
 }())
