@@ -414,11 +414,13 @@
       /* --------------------------------------------------------- */
       /*  get practice data
       /* --------------------------------------------------------- */
-      var practice = YAML.load('/icomalgo/book/problem/problem.yml');
-      console.log(practice);
+      $.get('//icomalgo/book/problem/problem.yml', function (data) {
+        var practice = YAML.parse(data);
+        console.log(practice);
+        postProblemInitialize();
+      });
       /* --------------------------------------------------------- */
       /* --------------------------------------------------------- */
-      postProblemInitialize();
     });
   $('.tabular.menu .item').tab();
 }())
