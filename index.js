@@ -309,7 +309,7 @@
         art.push('<div class="label">狀態</div>');
         art.push('<div class="value">' + getJudgeString(state) + '</div>');
       art.push('</div>');
-      art.push('<a class="ui button" href="' + link + '">' + src + '</a>');
+      art.push('<a class="ui button" href="' + link + '" target="_blank">' + src + '</a>');
       art.push('</div>');
       $('#umania-problem-content').html(art.join(''));
       $('#umania-problem-content').removeClass('loading');
