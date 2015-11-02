@@ -416,7 +416,6 @@
       /*  get practice data
       /* --------------------------------------------------------- */
       $.get('http://m80126colin.github.io/icomalgo/book/problem/problem.yml', function (data) {
-        console.log(data);
         var practice = YAML.parse(data);
         console.log(practice);
         postProblemInitialize();
