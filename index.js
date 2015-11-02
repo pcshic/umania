@@ -330,6 +330,9 @@
   //
   // ================================================================
   $('.tabular.menu .item').tab();
+  if (DEBUG) {
+    console.log('initialize tab ...');
+  }
   $.getJSON('http://uhunt.felix-halim.net/api/p',
     function (data) {
       if ( UNIT.none(data) )
@@ -417,7 +420,9 @@
       /* --------------------------------------------------------- */
       $.get('http://m80126colin.github.io/icomalgo/book/problem/problem.yml', function (data) {
         var practice = YAML.parse(data);
-        console.log(practice);
+        if (DEBUG) {
+          console.log(practice);
+        }
         postProblemInitialize();
       });
       /* --------------------------------------------------------- */
