@@ -298,15 +298,18 @@
         console.log($(btn));
       var id    = $(btn).data('id'),
           num   = $(btn).data('num'),
-          state = $(btn).data('state');
+          state = $(btn).data('state'),
+          src   = $(btn).data('linkSource'),
+          link  = $(btn).data('link');
       $('#umania-problem-content').addClass('loading');
       $('.dimmer').dimmer('show');
       var art = [];
       art.push('<header><div class="ui huge dividing header">UVa ' + num + '</div></header>');
       art.push('<div class="ui ' + getJudgeColor(state) + ' huge statistic">');
-      art.push('<div class="label">狀態</div>');
-      art.push('<div class="value">' + getJudgeString(state) + '</div>');
+        art.push('<div class="label">狀態</div>');
+        art.push('<div class="value">' + getJudgeString(state) + '</div>');
       art.push('</div>');
+      art.push('<a class="ui button" href="' + link + '">' + src + '</a>');
       art.push('</div>');
       $('#umania-problem-content').html(art.join(''));
       $('#umania-problem-content').removeClass('loading');
