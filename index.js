@@ -184,9 +184,63 @@
 
 /* ******************************************************************** */
 /*                                                                      */
+/*  class: ProblemManager                                               */
 /*                                                                      */
 /* ******************************************************************** */
+  function ProblemManager() {
+    var probMgr     = this;
+    probMgr.list    = [];
+    probMgr.store   = {};
+    probMgr.numToId = {};
+  }
+  // ================================================================
+  // ================================================================
+  ProblemManager.prototype.addProblem = function(prob) {
+    if ( UNIT.none(prob) )
+      throw 'add problem without argument!';
+    if ( UNIT.none(prob.id) )
+      throw 'add problem without problem id!';
+    if ( UNIT.none(prob.num) )
+      throw 'add problem without problem number!';
+    if ( UNIT.none(prob.judge) )
+      throw 'add problem without judge name!';
+    var probMgr = this;
+    var index   = probMgr.list.length;
+    probMgr.list.push(prob);
+    probMgr.store[prob.judge + prob.id] = list[index];
+    probMgr.numToId[prob.judge + prob.num] = prob.judge + prob.id;
+  }
+  // ================================================================
+  // ================================================================
+  ProblemManager.prototype.getProblemById = function(judge, id) {
+    var probMgr = this;
+    return probMgr.store[judge + id];
+  }
+  // ================================================================
+  // ================================================================
+  ProblemManager.prototype.getProblemByNum = function(judge, num) {
+    var probMgr = this;
+    return probMgr.store[ probMgr.numToId[judge + num] ];
+  }
+  // ================================================================
+  // ================================================================
+  ProblemManager.prototype.getProblemsByJudge = function(judge) {
+    var probMgr = this,
+        res     = [];
+    for (var i = 0; i < probMgr.list.length; i++) {
+      if (probMgr.list[i].judge === judge)
+        res.push(probMgr.list[i]);
+    }
+    return res;
+  };
+  // ================================================================
+  // ================================================================
+  var PROB = new ProblemManager();
 
+/* ******************************************************************** */
+/*                                                                      */
+/*                                                                      */
+/* ******************************************************************** */
   // ================================================================
   // ================================================================
   /*
@@ -368,6 +422,20 @@
     preProblemInitialize();
     var res = {};
     /* --------------------------------------------------------- */
+    /* --------------------------------------------------------- */
+    $.each(data, function (i, prob) {
+      var probStr = [];
+      probStr.push('<div style="margin: 0.3rem" class="ui circular basic button umania-problem-class uva' + prob[0] + '">');
+      probStr.push(prob[1]);
+      probStr.push('</div>');
+      PROB.addProblem({
+        id:    prob[0],
+        num:   prob[1],
+        judge: 'uva',
+        text:  probStr.join('')
+      });
+    });
+    /* --------------------------------------------------------- */
     /*  rearrange problems by problem number                     */
     /* --------------------------------------------------------- */
     $.each(data, function (i, prob) {
@@ -391,9 +459,7 @@
       art.push('</h1></header>');
       /* add problems in same volume */
       $.each(cat, function (j, prob) {
-        art.push('<div style="margin: 0.3rem" id="uva' + prob[0] + '" class="ui circular basic button umania-problem-class">');
-        art.push(prob[1]);
-        art.push('</div>');
+        art.push( PROB.getProblemById('uva', prob[0]) );
       });
       art.push('</article>');
       /* append volume */
