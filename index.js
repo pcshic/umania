@@ -289,10 +289,10 @@
       $.getJSON(url, function (data) {
         /* process submissions */
         $.each(data.subs, function (i, sub) {
-          var state = $('#uva' + sub[1]).data('state');
+          var state = $('.uva' + sub[1]).data('state');
           if (UNIT.none(state) || state < sub[2])
             state = sub[2];
-          $('#uva' + sub[1]).data('state', state);
+          $('.uva' + sub[1]).data('state', state);
         });
         /* add state */
         $.each($('.umania-problem-class'), function (i, btn) {
@@ -466,7 +466,7 @@
       $('#problem').append(art.join(''));
       /* add problem id and number */
       $.each(cat, function (j, prob) {
-        $('#uva' + prob[0]).data('id', prob[0]).data('num', prob[1]);
+        $('.uva' + prob[0]).data('id', prob[0]).data('num', prob[1]);
       });
     });
     $.get('./data/translate.yml', function (str) {
