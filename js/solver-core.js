@@ -344,12 +344,13 @@ UVaSolver.Solver = function(args) {
     var nameToPidUrl     = apiUrl + '/uname2uid';
     var subUserUrl       = apiUrl + '/subs-user';
     var subUserProbUrl   = apiUrl + '/subs-nums';
-    $.ajaxSettings.async = false;
-    if (args.user) {
-      loadDataJSON({
-        url:      [nameToPidUrl, args.user].join('/'),
-        callback: function (d) { solver.userId = d }
-      });
+    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+        options.async = false;
+    });
+    // $.ajaxSettings.async = false;
+    if (args['user']) {
+      $.getJSON(nameToPidUrl + '/' + args['user'], '',
+        function (data) { solver.userId = data; });
     }
     if (args.type === 'all' || args.type === 'part') {
       if (args.prob) {
@@ -391,7 +392,10 @@ UVaSolver.Solver = function(args) {
         callback:  function (d) { solver.transData = YAML.parse(d) }
       });
     }
-    $.ajaxSettings.async = true;
+    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+        options.async = true;
+    });
+    // $.ajaxSettings.async = true;
   }
   loadData(args);
   /* ***************************************************** */
@@ -428,42 +432,28 @@ UVaSolver.Solver = function(args) {
         for (var sect in db[part][chap]) {
           var probs = db[part][chap][sect],
               cate  = [part, chap, sect].join(' '),
-              coll  = [];
-          if ( !none(probs.exercises) || !none(probs.others) ) {
-            if (!none(probs.exercises)) {
-              var list = probs.exercises;
-              for (var i = 0; i < list.length; i++) {
-                var prob = reNum[ list[i] ];
-                if ( !none(prob) ) {
-                  prob.setCategory([cate, true]);
-                  coll.push(prob);
-                }
-              }
-            }
-            if (!none(probs.others)) {
-              var list = probs.others;
-              for (var i = 0; i < list.length; i++) {
-                var prob = reNum[ list[i] ];
-                if ( !none(prob) ) {
-                  prob.setCategory([cate, false]);
-                  coll.push(prob);
-                }
+              vol   = [];
+          if (probs.exercises) {
+            var nums = probs.exercises;
+            for (var i = 0; i < nums.length; i++) {
+              var prob = reNum[ nums[i] ];
+              if (prob != undefined) {
+                prob.getCategory().push([cate, true]);
+                vol.push(prob);
               }
             }
           }
-          else {
-            for (var i = 0; i < probs.length; i++) {
-              var prob = reNum[ probs[i] ];
-              if ( !none(prob) ) {
-                prob.setCategory([cate, false]);
-                coll.push(prob);
+          if (probs.others) {
+            var nums = probs.others;
+            for (var i = 0; i < nums.length; i++) {
+              var prob = reNum[ nums[i] ];
+              if (prob != undefined) {
+                prob.getCategory().push([cate, false]);
+                vol.push(prob);
               }
             }
           }
-          coll.sort(function (L, R) {
-            return L.getNumber() - R.getNumber();
-          });
-          solver.dbData[part][chap][sect] = coll;
+          solver.dbData[part][chap][sect]['volume'] = vol;
         }
       }
     }
