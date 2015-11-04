@@ -8,13 +8,17 @@ var UManiaApp = React.createClass({
     }
   },
   componentDidMount: function() {
+    // init
     $('.tabular.menu .item').tab();
+    $('.ui.accordion').accordion();
     // app component
-    var app        = this;
+    var app          = this;
     // urls
     var problemUrl   = 'http://uhunt.felix-halim.net/api/p';
     var translateUrl = './data/translate.yml';
+    // ----------------------------------------------------
     // get problems
+    // ----------------------------------------------------
     $.getJSON(problemUrl, function (data) {
       var res = {
         probs: {},
@@ -31,6 +35,7 @@ var UManiaApp = React.createClass({
               num:   prob[1],
               title: prob[2],
               link:  'https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=' + prob[0],
+              res:   0,
               stat: {
                 SE:  prob[7],
                 CE:  prob[10],
@@ -56,7 +61,9 @@ var UManiaApp = React.createClass({
         res.prob_categories[num].push(obj);
       });
       app.setState(res);
-      // get translate
+      // ----------------------------------------------------
+      // get translations
+      // ----------------------------------------------------
       $.get(translateUrl, function (str) {
         var data = YAML.parse(str);
         Object.keys(data).map(function (name) {
@@ -79,6 +86,9 @@ var UManiaApp = React.createClass({
           }
         });
         app.setState(res);
+        // ----------------------------------------------------
+        // get submissionss
+        // ----------------------------------------------------
       });
     })
   },
@@ -106,9 +116,6 @@ var UManiaApp = React.createClass({
 });
 
 var ProblemSection = React.createClass({
-  componentDidMount: function() {
-    $('.ui.accordion').accordion();
-  },
   render: function() {
     var volume  = this.props.categories || {};
     var loading = this.props.categories ? '' : 'loading ';
@@ -119,13 +126,13 @@ var ProblemSection = React.createClass({
           return (
             <article id={"volume" + vol} className="ui list">
             <div className="ui title item">
-              <i className="huge checkmark icon"></i>
+              <i className="huge folder icon"></i>
               <div className="content">
                 <header className="header"><h1>Volume {vol}</h1></header>
                 <div className="description">
                 {
                   volume[vol].map(function (prob) {
-                    return <div className="ui basic empty circular label"></div>
+                    return <ProblemDot prob={prob} />
                   })
                 }
                 </div>
@@ -135,7 +142,7 @@ var ProblemSection = React.createClass({
               <div className="ui doubling six column grid">
               {
                 volume[vol].map(function (prob) {
-                  return <Problem prob={prob} />
+                  return <ProblemCard prob={prob} />
                 })
               }
               </div>
@@ -158,37 +165,68 @@ var PracticeSection = React.createClass({
   }
 });
 
-var Problem = React.createClass({
+var dummyProb =  {
+  config: {
+    main: ''
+  },
+  judges: {
+    '': {
+      id:    0,
+      num:   0,
+      link:  '',
+      title: '',
+      res:   0,
+      stat:  {}
+    }
+  },
+  translate: {}
+};
+
+var colorResult = function(state) {
+  var table = {
+    0:   'basic',  // default
+    10 : 'black',  // Submission error
+    15 : 'brown',  // Can't be judged
+    20 : 'yellow', // In queue
+    30 : 'orange', // Compile error
+    35 : 'olive',  // Restricted function
+    40 : 'purple', // Runtime error
+    45 : 'violet', // Output limit
+    50 : 'blue',   // Time limit
+    60 : 'teal',   // Memory limit
+    70 : 'red',    // Wrong answer
+    80 : 'pink',   // PresentationE
+    90 : 'green'   // Accepted
+  };
+  return table[state];
+}
+
+var ProblemDot = React.createClass({
   render: function() {
-    var dummyProb = {
-      config: {
-        main: ''
-      },
-      judges: {
-        '': {
-          id: 0,
-          num: 0,
-          link: '',
-          title: ''
-        }
-      },
-      translate: {}
-    };
-    var prob      = this.props.prob || dummyProb;
-    var config    = prob.config     || {};
-    var translate = prob.translate  || {};
-    var main      = config.main     || '';
+    var prob   = this.props.prob       || dummyProb;
+    var config = prob.config           || {};
+    var main   = config.main           || '';
+    var res    = prob.judges[main].res || 0;
+    return <div className={"ui " + colorResult(res) + " empty circular label"}></div>
+  }
+});
+
+var ProblemCard = React.createClass({
+  render: function() {
+    var prob      = this.props.prob       || dummyProb;
+    var config    = prob.config           || {};
+    var translate = prob.translate        || {};
+    var main      = config.main           || '';
+    var res       = prob.judges[main].res || 0;
     return (
       <div className="column">
-      <div className="ui left aligned items segment">
+      <div className={"ui left aligned " + colorResult(res) + " items segment"}>
         <div className="item">
         <div className="content">
           <a className="header" href={prob.judges[main].link} target="_blank">
             {main + ' ' + prob.judges[main].num}
           </a>
-          <div className="meta">
-            {prob.judges[main].title}
-          </div>
+          <div className="meta">{prob.judges[main].title}</div>
           <div className="description">
             <div className="ui list">
             {
