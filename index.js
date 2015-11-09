@@ -7,6 +7,47 @@ var UManiaApp = React.createClass({
       practice_categories: null
     }
   },
+  addUVaObject: function(obj, prob) {
+    obj.config.main = 'uva';
+    obj.judges.uva  = new JudgeObject();
+    // judges
+    obj.judges.uva.id    = prob[0];
+    obj.judges.uva.num   = prob[1];
+    obj.judges.uva.title = prob[2];
+    obj.judges.uva.stats = {
+      SE:  prob[7],
+      CE:  prob[10],
+      RF:  prob[11],
+      RE:  prob[12],
+      OLE: prob[13],
+      TLE: prob[14],
+      MLE: prob[15],
+      WA:  prob[16],
+      AC:  prob[17]
+    }
+    return obj;
+  },
+  addUVaTranslate: function(obj, trans) {
+    obj.translate[trans.name] = trans.link;
+    return obj;
+  },
+  addPracticeProblem: function(res, prob) {
+    var obj = null;
+    if (typeof(prob.UVa) !== 'undefined')
+         obj = res.probs['uva_num' + prob.UVa];
+    else obj = new ProblemObject();
+    if (typeof(prob.ZJ) !== 'undefined') {
+      obj.judges.ZJ     = new JudgeObject();
+      obj.judges.ZJ.id  = prob.ZJ;
+      obj.judges.ZJ.num = prob.ZJ;
+      if (typeof(prob.title) !== 'undefined')
+        obj.judges.ZJ.title = prob.title;
+      res.probs['ZJ_' + prob.ZJ] = obj;
+      if (obj.config.main !== 'uva')
+        obj.config.main = 'ZJ';
+    }
+    return obj;
+  },
   componentDidMount: function() {
     // init
     $('.tabular.menu .item').tab();
@@ -16,46 +57,22 @@ var UManiaApp = React.createClass({
     // urls
     var problemUrl   = 'http://uhunt.felix-halim.net/api/p';
     var translateUrl = './data/translate.yml';
+    var practiceUrl  = 'http://m80126colin.github.io/icomalgo/book/problem/problem.yml';
     // ----------------------------------------------------
     // get problems
     // ----------------------------------------------------
     $.getJSON(problemUrl, function (data) {
       var res = {
         probs: {},
-        prob_categories: {}
+        prob_categories: {},
+        practice_categories: {}
       };
       data.map(function (prob) {
-        var obj = {
-          config: {
-            main: 'uva'
-          },
-          judges: {
-            uva: {
-              id:    prob[0],
-              num:   prob[1],
-              title: prob[2],
-              link:  'https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=' + prob[0],
-              res:   0,
-              stat: {
-                SE:  prob[7],
-                CE:  prob[10],
-                RF:  prob[11],
-                RE:  prob[12],
-                OLE: prob[13],
-                TLE: prob[14],
-                MLE: prob[15],
-                WA:  prob[16],
-                AC:  prob[17]
-              }
-            }
-          }
-        };
+        var num = Math.floor(prob[1] / 100);
+        var obj = new ProblemObject();
+        obj = app.addUVaObject(obj, prob);
         res.probs['uva_id'  + obj.judges.uva.id]  = obj;
         res.probs['uva_num' + obj.judges.uva.num] = obj;
-      });
-      data.map(function (prob) {
-        var num = Math.floor(prob[1] / 100);
-        var obj = res.probs['uva_id' + prob[0]];
         if ( typeof(res.prob_categories[num]) === 'undefined' )
           res.prob_categories[num] = [];
         res.prob_categories[num].push(obj);
@@ -67,28 +84,55 @@ var UManiaApp = React.createClass({
       $.get(translateUrl, function (str) {
         var data = YAML.parse(str);
         Object.keys(data).map(function (name) {
-          if (name === 'Unfortunate 狗') {
-            data[name].trans.map(function (num) {
-              var obj = res.probs['uva_num' + num];
-              if (typeof(obj.translate) === 'undefined')
-                obj.translate = {};
-              var vol = Math.floor(num / 100);
-              obj.translate[name] = data[name].site + vol + '/p' + num;
-            });
-          }
-          else {
-            Object.keys(data[name].trans).map(function (num) {
-              var obj = res.probs['uva_num' + num];
-              if (typeof(obj.translate) === 'undefined')
-                obj.translate = {};
-              obj.translate[name] = data[name].site + data[name].trans[num];
-            });
-          }
+          var iter = data[name].trans || [];
+          if (name !== 'Unfortunate 狗')
+            iter = Object.keys(iter);
+          iter.map(function (num) {
+            var link = [];
+            if (name === 'Unfortunate 狗')
+              link.push(Math.floor(num / 100), num);
+            else
+              link.push(data[name].trans[num]);
+            app.addUVaTranslate(res.probs['uva_num' + num], {
+              name: name,
+              link: link
+            })
+          });
         });
         app.setState(res);
-        // ----------------------------------------------------
-        // get submissionss
-        // ----------------------------------------------------
+      });
+      // ----------------------------------------------------
+      // get practice problems
+      // ----------------------------------------------------
+      $.get(practiceUrl, function (str) {
+        var data = YAML.parse(str);
+        Object.keys(data).map(function (chap) {
+          res.practice_categories[chap] = {
+            title: data[chap].title,
+            section: []
+          };
+          var sections = res.practice_categories[chap].section;
+          data[chap].section.map(function (sect) {
+            var obj = {
+              title:     sect.title,
+              exercises: [],
+              others:    []
+            };
+            if (typeof(sect.exercises) !== 'undefined') {
+              sect.exercises.map(function (prob) {
+                obj.exercises.push( app.addPracticeProblem(res, prob) );
+              });
+            }
+            if (typeof(sect.others) !== 'undefined') {
+              sect.others.map(function (prob) {
+                obj.others.push(    app.addPracticeProblem(res, prob) );
+              });
+            }
+            sections.push(obj);
+          });
+        });
+        console.log(res.practice_categories);
+        app.setState(res);
       });
     })
   },
@@ -101,14 +145,61 @@ var UManiaApp = React.createClass({
     <div id="main" className="ui centered grid">
     <div id="content" className="fourteen wide column">
       <nav id="menu" className="ui top attached tabular labeled icon menu">
-        <a className="active item" data-tab="home"><i className="grid layout icon"></i> uMania</a>
-        <a className="item" data-tab="practice"><i className="puzzle icon"></i> Practice</a>
+        <a className="active item" data-tab="home">
+          <i className="grid layout icon"></i> uMania
+        </a>
+        <a className="item" data-tab="practice">
+          <i className="puzzle icon"></i> Practice
+        </a>
         <div className="right menu">
-          <a className="ui simple dropdown item"><i className="setting icon"></i></a>
+          <UserApp />
         </div>
       </nav>
-      <ProblemSection categories={this.state.prob_categories} />
+      <ProblemSection  categories={this.state.prob_categories}     />
       <PracticeSection categories={this.state.practice_categories} />
+    </div>
+    </div>
+    )
+  }
+});
+
+var UserApp = React.createClass({
+  getInitialState: function() {
+    return {
+      current: '',
+      content: []
+    }
+  },
+  handleChange: function(event) {
+    console.log(event.target.value);
+  },
+  componentDidMount: function() {
+    if (typeof(localStorage.current) === 'undefined')
+      localStorage.current = '';
+    if (typeof(localStorage.content) === 'undefined')
+      localStorage.content = JSON.stringify([]);
+    var res = {
+      current: localStorage.current,
+      content: JSON.parse(localStorage.content)
+    };
+    $('.ui.search.selection.dropdown').dropdown();
+    $('.ui.search.selection.dropdown .search').on('change', this.handleChange);
+    this.setState(res);
+  },
+  render: function() {
+    return (
+    <div className="item">
+    <div className="ui search selection dropdown">
+      <input type="hidden" name="user" />
+      <i className="dropdown icon"></i>
+      <div className="default text">Username</div>
+      <div className="menu">
+      {
+        this.state.content.map(function (user) {
+          return <div className="item" data-value={user.id}>{user.name}</div>
+        })
+      }
+      </div>
     </div>
     </div>
     )
@@ -120,18 +211,77 @@ var ProblemSection = React.createClass({
     var volume  = this.props.categories || {};
     var loading = this.props.categories ? '' : 'loading ';
     return (
-      <section id="problem" className={"ui active bottom attached " + loading + "tab accordion segment"} data-tab="home">
-      {
-        Object.keys(volume).map(function (vol) {
-          return (
-            <article id={"volume" + vol} className="ui list">
-            <div className="ui title item">
-              <i className="huge folder icon"></i>
+    <section id="problem" className={"ui active bottom attached " + loading + "tab accordion segment"} data-tab="home">
+    {
+      Object.keys(volume).map(function (vol) {
+        return (
+        <article id={"volume" + vol} className="ui list">
+        <div className="ui title item">
+          <i className="huge folder icon"></i>
+          <div className="content">
+            <header className="header"><h1>Volume {vol}</h1></header>
+            <div className="description">
+            {
+              volume[vol].map(function (prob) {
+                return <ProblemDot prob={prob} />
+              })
+            }
+            </div>
+          </div>
+        </div>
+        <div className="content">
+          <div className="ui doubling six column grid">
+          {
+            volume[vol].map(function (prob) {
+              return <ProblemCard prob={prob} />
+            })
+          }
+          </div>
+        </div>
+        </article>
+        )
+      })
+    }
+    </section>
+    )
+  }
+});
+
+var PracticeSection = React.createClass({
+  componentDidUpdate: function() {
+    $('.ui.accordion').accordion();
+  },
+  render: function() {
+    var volume  = this.props.categories || {};
+    return (
+    <section id="practice" className={"ui bottom attached tab accordion segment"} data-tab="practice">
+    {
+      Object.keys(volume).map(function (vol) {
+        return (
+        <article className="ui list">
+        <div className="ui title item">
+          <i className="huge book icon"></i>
+          <div className="content">
+            <header className="ui header"><h1>{volume[vol].title}</h1></header>
+          </div>
+        </div>
+        <div className="content">
+        {
+          volume[vol].section.map(function (sect) {
+            return (
+            <div className="relaxed list">
+            <div className="item">
+              <i className="big folder icon"></i>
               <div className="content">
-                <header className="header"><h1>Volume {vol}</h1></header>
+                <h2 className="header">{sect.title}</h2>
                 <div className="description">
                 {
-                  volume[vol].map(function (prob) {
+                  sect.exercises.map(function (prob) {
+                    return <ProblemDot prob={prob} />
+                  })
+                }
+                {
+                  sect.others.map(function (prob) {
                     return <ProblemDot prob={prob} />
                   })
                 }
@@ -141,115 +291,163 @@ var ProblemSection = React.createClass({
             <div className="content">
               <div className="ui doubling six column grid">
               {
-                volume[vol].map(function (prob) {
+                sect.exercises.map(function (prob) {
+                  return <ProblemCard prob={prob} />
+                })
+              }
+              {
+                sect.others.map(function (prob) {
                   return <ProblemCard prob={prob} />
                 })
               }
               </div>
             </div>
-            </article>
-          )
-        })
-      }
-      </section>
-    )
-  }
-});
-
-var PracticeSection = React.createClass({
-  render: function() {
-    return (
-      <section id="practice" className="ui center aligned bottom attached tab segment" data-tab="practice">
-      </section>
-    )
-  }
-});
-
-var dummyProb =  {
-  config: {
-    main: ''
-  },
-  judges: {
-    '': {
-      id:    0,
-      num:   0,
-      link:  '',
-      title: '',
-      res:   0,
-      stat:  {}
+            </div>
+            )
+          })
+        }
+        </div>
+        </article>
+        )
+      })
     }
-  },
-  translate: {}
-};
-
-var colorResult = function(state) {
-  var table = {
-    0:   'basic',  // default
-    10 : 'black',  // Submission error
-    15 : 'brown',  // Can't be judged
-    20 : 'yellow', // In queue
-    30 : 'orange', // Compile error
-    35 : 'olive',  // Restricted function
-    40 : 'purple', // Runtime error
-    45 : 'violet', // Output limit
-    50 : 'blue',   // Time limit
-    60 : 'teal',   // Memory limit
-    70 : 'red',    // Wrong answer
-    80 : 'pink',   // PresentationE
-    90 : 'green'   // Accepted
-  };
-  return table[state];
-}
+    </section>
+    )
+  }
+});
 
 var ProblemDot = React.createClass({
   render: function() {
-    var prob   = this.props.prob       || dummyProb;
-    var config = prob.config           || {};
-    var main   = config.main           || '';
-    var res    = prob.judges[main].res || 0;
-    return <div className={"ui " + colorResult(res) + " empty circular label"}></div>
+    var prob = this.props.prob || dummyProb;
+    return <div className={"ui " + prob.getStatusColor() + " empty circular label"}></div>
   }
 });
 
 var ProblemCard = React.createClass({
   render: function() {
-    var prob      = this.props.prob       || dummyProb;
-    var config    = prob.config           || {};
-    var translate = prob.translate        || {};
-    var main      = config.main           || '';
-    var res       = prob.judges[main].res || 0;
+    var prob      = this.props.prob || dummyProb;
+    var translate = prob.translate;
+    var color     = prob.getStatusColor();
+    if (color === 'basic') color = '';
     return (
-      <div className="column">
-      <div className={"ui left aligned " + colorResult(res) + " items segment"}>
-        <div className="item">
-        <div className="content">
-          <a className="header" href={prob.judges[main].link} target="_blank">
-            {main + ' ' + prob.judges[main].num}
-          </a>
-          <div className="meta">{prob.judges[main].title}</div>
-          <div className="description">
-            <div className="ui list">
-            {
-              Object.keys(translate).map(function (trans) {
-                return (
-                  <div className="item">
-                    <i className="world icon"></i>
-                    <div className="content">
-                      <a href={translate[trans]} target="_blank">{trans}</a>
-                    </div>
-                  </div>
-                )
-              })
-            }
-            </div>
+    <div className="column">
+    <div className={"ui left aligned " + color + " items segment"}>
+      <div className="item">
+      <div className="content">
+        <a className="header" href={prob.getJudgeUrl()} target="_blank">
+          {prob.getJudgeName()}
+        </a>
+        <div className="meta">{prob.getJudgeTitle()}</div>
+        <div className="description">
+          <div className="ui list">
+          {
+            Object.keys(translate).map(function (trans) {
+              return (
+              <div className="item">
+                <i className="world icon"></i>
+                <div className="content">
+                  <a href={prob.getTranslateUrl(trans)} target="_blank">{trans}</a>
+                </div>
+              </div>
+              )
+            })
+          }
           </div>
         </div>
-        </div>
       </div>
       </div>
+    </div>
+    </div>
     )
   }
 });
+
+var JudgeObject = function() {
+  this.id     = 0;
+  this.num    = 0;
+  this.title  = '';
+  this.status = 0;
+}
+JudgeObject.prototype.colorCode = {
+  0:   'basic',  // default
+  10 : 'black',  // Submission error
+  15 : 'brown',  // Can't be judged
+  20 : 'yellow', // In queue
+  30 : 'orange', // Compile error
+  35 : 'olive',  // Restricted function
+  40 : 'purple', // Runtime error
+  45 : 'violet', // Output limit
+  50 : 'blue',   // Time limit
+  60 : 'teal',   // Memory limit
+  70 : 'red',    // Wrong answer
+  80 : 'pink',   // PresentationE
+  90 : 'green'   // Accepted
+}
+JudgeObject.prototype.getStatusColor = function() {
+  return this.colorCode[this.status];
+}
+
+var ProblemObject = function() {
+  this.config    = { main: '_' };
+  this.judges    = { '_': new JudgeObject() };
+  this.translate = {};
+}
+ProblemObject.prototype.judgeConfig = {
+  '_': {
+    'name': '',
+    'url': ''
+  },
+  'uva': {
+    'name': 'UVa',
+    'url': 'https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=\\1'
+  },
+  'ZJ': {
+    'name': 'ZeroJudge',
+    'url': 'http://zerojudge.tw/ShowProblem?problemid=\\1'
+  }
+}
+ProblemObject.prototype.translateConfig = {
+  '':               '',
+  'luckycat':       'http://luckycat.kshs.kh.edu.tw/homework/\\1',
+  'ruby 兔':        'http://rubyacm.blogspot.tw/\\1',
+  'unfortunate 狗': 'http://unfortunatedog.blogspot.tw/\\1',
+  'Unfortunate 狗': 'http://unfortunate-dog.github.io/articles/\\1/p\\2'
+}
+ProblemObject.prototype.__validJudgeId = function(jid) {
+  if (typeof(jid)              === 'undefined' ||
+      typeof(this.judges[jid]) === 'undefined')
+    return this.config.main;
+  return jid;
+}
+ProblemObject.prototype.getStatusColor = function(jid) {
+  jid = this.__validJudgeId(jid);
+  return this.judges[jid].getStatusColor();
+}
+ProblemObject.prototype.getJudgeName = function(jid) {
+  jid = this.__validJudgeId(jid);
+  return this.judgeConfig[jid].name + ' ' + this.judges[jid].num;
+}
+ProblemObject.prototype.getJudgeTitle = function(jid) {
+  jid = this.__validJudgeId(jid);
+  return this.judges[jid].title;
+}
+ProblemObject.prototype.getJudgeUrl = function(jid) {
+  jid = this.__validJudgeId(jid);
+  return this.judgeConfig[jid].url.replace(/\\1/, this.judges[jid].id);
+}
+ProblemObject.prototype.getTranslateUrl = function(tid) {
+  if (typeof(tid)                 === 'undefined' ||
+      typeof(this.translate[tid]) === 'undefined')
+    return '';
+  var res  = this.translateConfig[tid];
+  var args = this.translate[tid];
+  for (var i = 0; i < args.length; i++) {
+    var j = i + 1;
+    res = res.replace(new RegExp("\\" + j), args[i]);
+  }
+  return res;
+}
+var dummyProb = new ProblemObject();
 
 $(document).ready(function() {
   ReactDOM.render(<UManiaApp />, document.body);
