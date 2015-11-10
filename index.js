@@ -131,7 +131,6 @@ var UManiaApp = React.createClass({
             sections.push(obj);
           });
         });
-        console.log(res.practice_categories);
         app.setState(res);
       });
     })
@@ -443,7 +442,7 @@ ProblemObject.prototype.getTranslateUrl = function(tid) {
   var args = this.translate[tid];
   for (var i = 0; i < args.length; i++) {
     var j = i + 1;
-    res = res.replace(new RegExp("\\" + j), args[i]);
+    res = res.replace(new RegExp("\\\\" + j), args[i]);
   }
   return res;
 }
