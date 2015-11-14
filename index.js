@@ -118,16 +118,18 @@ var UManiaApp = React.createClass({
               exercises: [],
               others:    []
             };
-            if (typeof(sect.exercises) !== 'undefined') {
-              sect.exercises.map(function (prob) {
-                obj.exercises.push( app.addPracticeProblem(res, prob) );
-              });
-            }
-            if (typeof(sect.others) !== 'undefined') {
-              sect.others.map(function (prob) {
-                obj.others.push(    app.addPracticeProblem(res, prob) );
-              });
-            }
+
+            var property = ['exercises', 'others'];
+            property.map(function (str) {
+              if (typeof(sect[str]) !== 'undefined') {
+                sect[str].map(function (prob) {
+                  var po = app.addPracticeProblem(res, prob);
+                  po.practice.push(data[chap].title + ' - ' + sect.title);
+                  obj[str].push(po);
+                })
+              }
+            })
+
             sections.push(obj);
           });
         });
@@ -326,6 +328,7 @@ var ProblemCard = React.createClass({
   render: function() {
     var prob      = this.props.prob || dummyProb;
     var translate = prob.translate;
+    var practice  = prob.practice;
     var color     = prob.getStatusColor();
     if (color === 'basic') color = '';
     return (
@@ -351,6 +354,16 @@ var ProblemCard = React.createClass({
               )
             })
           }
+          {
+            practice.map(function (prat) {
+              return (
+              <div className="item">
+                <i className="write icon"></i>
+                <div className="content">{prat}</div>
+              </div>
+              )
+            })
+          }
           </div>
         </div>
       </div>
@@ -362,10 +375,11 @@ var ProblemCard = React.createClass({
 });
 
 var JudgeObject = function() {
-  this.id     = 0;
-  this.num    = 0;
-  this.title  = '';
-  this.status = 0;
+  var jo = this;
+  jo.id     = 0;
+  jo.num    = 0;
+  jo.title  = '';
+  jo.status = 0;
 }
 JudgeObject.prototype.colorCode = {
   0:   'basic',  // default
@@ -387,9 +401,11 @@ JudgeObject.prototype.getStatusColor = function() {
 }
 
 var ProblemObject = function() {
-  this.config    = { main: '_' };
-  this.judges    = { '_': new JudgeObject() };
-  this.translate = {};
+  var po = this;
+  po.config    = { main: '_' };
+  po.judges    = { '_': new JudgeObject() };
+  po.translate = {};
+  po.practice  = [];
 }
 ProblemObject.prototype.judgeConfig = {
   '_': {
