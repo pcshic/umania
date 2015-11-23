@@ -85,12 +85,12 @@ var UManiaApp = React.createClass({
         var data = YAML.parse(str);
         Object.keys(data).map(function (name) {
           var iter = data[name].trans || [];
-          if (name !== 'Unfortunate 狗')
+          if (name !== 'uniDog')
             iter = Object.keys(iter);
           iter.map(function (num) {
             var link = [];
-            if (name === 'Unfortunate 狗')
-              link.push(Math.floor(num / 100), num);
+            if (name === 'uniDog')
+              link.push(num);
             else
               link.push(data[name].trans[num]);
             app.addUVaTranslate(res.probs['uva_num' + num], {
@@ -426,7 +426,7 @@ ProblemObject.prototype.translateConfig = {
   'luckycat':       'http://luckycat.kshs.kh.edu.tw/homework/\\1',
   'ruby 兔':        'http://rubyacm.blogspot.tw/\\1',
   'unfortunate 狗': 'http://unfortunatedog.blogspot.tw/\\1',
-  'Unfortunate 狗': 'http://unfortunate-dog.github.io/articles/\\1/p\\2'
+  'uniDog': 'http://pcshic.github.io/uniDog/problem/\\1'
 }
 ProblemObject.prototype.__validJudgeId = function(jid) {
   if (typeof(jid)              === 'undefined' ||

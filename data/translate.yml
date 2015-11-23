@@ -983,8 +983,8 @@ unfortunate 狗:
     12190: "2013/07/12190-electric-bill.html"
     12291: "2013/07/12291-polyomino-composer.html"
     12319: "2013/08/12319-edgetowns-traffic-jams.html"
-Unfortunate 狗:
-  site: "http://unfortunate-dog.github.io/articles/"
+uniDog:
+  site: "http://pcshic.github.io/uniDog/problem/"
   trans:
   - 100
   - 101
