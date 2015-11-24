@@ -33,18 +33,18 @@ var UManiaApp = React.createClass({
   },
   addPracticeProblem: function(res, prob) {
     var obj = null;
-    if (typeof(prob.UVa) !== 'undefined')
-         obj = res.probs['uva_num' + prob.UVa];
+    if (typeof(prob.uva) !== 'undefined')
+         obj = res.probs['uva_num' + prob.uva];
     else obj = new ProblemObject();
-    if (typeof(prob.ZJ) !== 'undefined') {
-      obj.judges.ZJ     = new JudgeObject();
-      obj.judges.ZJ.id  = prob.ZJ;
-      obj.judges.ZJ.num = prob.ZJ;
+    if (typeof(prob.zj) !== 'undefined') {
+      obj.judges.zj     = new JudgeObject();
+      obj.judges.zj.id  = prob.zj;
+      obj.judges.zj.num = prob.zj;
       if (typeof(prob.title) !== 'undefined')
-        obj.judges.ZJ.title = prob.title;
-      res.probs['ZJ_' + prob.ZJ] = obj;
+        obj.judges.zj.title = prob.title;
+      res.probs['zj_' + prob.zj] = obj;
       if (obj.config.main !== 'uva')
-        obj.config.main = 'ZJ';
+        obj.config.main = 'zj';
     }
     return obj;
   },
@@ -416,7 +416,7 @@ ProblemObject.prototype.judgeConfig = {
     'name': 'UVa',
     'url': 'https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=\\1'
   },
-  'ZJ': {
+  'zj': {
     'name': 'ZeroJudge',
     'url': 'http://zerojudge.tw/ShowProblem?problemid=\\1'
   }
