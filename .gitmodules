@@ -1,0 +1,3 @@
+[submodule "uva.data"]
+	path = uva.data
+	url = git@github.com:pcshic/uva.data.git
