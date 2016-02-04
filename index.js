@@ -55,9 +55,9 @@ var UManiaApp = React.createClass({
     // app component
     var app          = this;
     // urls
-    var problemUrl   = 'http://uhunt.felix-halim.net/api/p';
-    var translateUrl = './data/translate.yml';
-    var practiceUrl  = 'http://m80126colin.github.io/icomalgo/book/problem/problem.yml';
+    var   problemUrl = 'http://uhunt.felix-halim.net/api/p';
+    var  practiceUrl = './uva.data/problem/problem.list.yml';
+    var translateUrl = './uva.data/translate/translate.yml';
     // ----------------------------------------------------
     // get problems
     // ----------------------------------------------------
