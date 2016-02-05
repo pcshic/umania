@@ -54,10 +54,13 @@ var UManiaApp = React.createClass({
     $('.ui.accordion').accordion();
     // app component
     var app          = this;
+    // ----------------------------------------------------
     // urls
+    // ----------------------------------------------------
     var   problemUrl = 'http://uhunt.felix-halim.net/api/p';
     var  practiceUrl = './uva.data/problem/problem.list.yml';
     var translateUrl = './uva.data/translate/translate.yml';
+    var transJsonUrl = './uva.data/translate/translate.json';
     // ----------------------------------------------------
     // get problems
     // ----------------------------------------------------
@@ -84,22 +87,26 @@ var UManiaApp = React.createClass({
       $.get(translateUrl, function (str) {
         var data = YAML.parse(str);
         Object.keys(data).map(function (name) {
+          if (name === 'uniDog')
+            return ;
           var iter = data[name].trans || [];
-          if (name !== 'uniDog')
-            iter = Object.keys(iter);
+          iter = (name !== 'uniDog')? Object.keys(iter): iter;
           iter.map(function (num) {
-            var link = [];
-            if (name === 'uniDog')
-              link.push(num);
-            else
-              link.push(data[name].trans[num]);
             app.addUVaTranslate(res.probs['uva_num' + num], {
               name: name,
-              link: link
+              link: (name === 'uniDog')? num: data[name].trans[num]
             })
           });
         });
-        app.setState(res);
+        $.getJSON(transJsonUrl, function (json) {
+          Object.keys(json).map(function (num) {
+            app.addUVaTranslate(res.probs['uva_num' + num], {
+              name: 'uniDog',
+              link: [ json[num] ]
+            })
+          })
+          app.setState(res);
+        });
       });
       // ----------------------------------------------------
       // get practice problems
