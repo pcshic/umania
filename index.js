@@ -57,7 +57,7 @@ var UManiaApp = React.createClass({
     // ----------------------------------------------------
     // urls
     // ----------------------------------------------------
-    var   problemUrl = 'http://uhunt.felix-halim.net/api/p';
+    var   problemUrl = 'https://uhunt.felix-halim.net/api/p';
     var  practiceUrl = './uva.data/problem/problem.list.yml';
     var translateUrl = './uva.data/translate/translate.yml';
     var transJsonUrl = './uva.data/translate/translate.json';
