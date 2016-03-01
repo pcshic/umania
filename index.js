@@ -219,37 +219,28 @@ var ProblemSection = React.createClass({
     var volume  = this.props.categories || {};
     var loading = this.props.categories ? '' : 'loading ';
     return (
-    <section id="problem" className={"ui active bottom attached " + loading + "tab accordion segment"} data-tab="home">
+    <section id="problem" className={"ui active bottom attached " + loading + "tab segment"} data-tab="home">
+    <div className="ui styled fluid accordion">
     {
       Object.keys(volume).map(function (vol) {
         return (
-        <article id={"volume" + vol} className="ui list">
-        <div className="ui title item">
+        <article id={"volume" + vol} className="title">
           <i className="huge folder icon"></i>
+          <header className="header"><h1>Volume {vol}</h1></header>
           <div className="content">
-            <header className="header"><h1>Volume {vol}</h1></header>
-            <div className="description">
+            <div className="ui doubling six column grid">
             {
               volume[vol].map(function (prob) {
-                return <ProblemDot prob={prob} />
+                return <ProblemCard prob={prob} />
               })
             }
             </div>
           </div>
-        </div>
-        <div className="content">
-          <div className="ui doubling six column grid">
-          {
-            volume[vol].map(function (prob) {
-              return <ProblemCard prob={prob} />
-            })
-          }
-          </div>
-        </div>
         </article>
         )
       })
     }
+    </div>
     </section>
     )
   }
@@ -274,40 +265,36 @@ var PracticeSection = React.createClass({
           </div>
         </div>
         <div className="content">
+        <div className="ui doubling four column grid">
         {
           volume[vol].section.map(function (sect) {
             return (
-            <div className="relaxed list">
-            <div className="item">
-              <i className="big folder icon"></i>
-              <div className="content">
-                <h2 className="header">{sect.title}</h2>
-                <div className="description">
+            <div className="column">
+            <div className="ui raised segments">
+              <div className="ui segment">
+                <h3 className="ui header">{sect.title}</h3>
+              </div>
+              <div className="ui segment">
+                <table className="ui celled table">
+                <tbody>
                 {
                   sect.exercises.map(function (prob) {
-                    return <ProblemDot prob={prob} />
+                    return <tr><td>{prob.getJudgeName()}</td></tr>
                   })
                 }
+                </tbody>
+                </table>
+              </div>
+              <div className="ui segment">
+                <table className="ui celled table">
+                <tbody>
                 {
                   sect.others.map(function (prob) {
-                    return <ProblemDot prob={prob} />
+                    return <tr><td>{prob.getJudgeName()}</td></tr>
                   })
                 }
-                </div>
-              </div>
-            </div>
-            <div className="content">
-              <div className="ui doubling six column grid">
-              {
-                sect.exercises.map(function (prob) {
-                  return <ProblemCard prob={prob} />
-                })
-              }
-              {
-                sect.others.map(function (prob) {
-                  return <ProblemCard prob={prob} />
-                })
-              }
+                </tbody>
+                </table>
               </div>
             </div>
             </div>
@@ -315,12 +302,20 @@ var PracticeSection = React.createClass({
           })
         }
         </div>
+        </div>
         </article>
         )
       })
     }
     </section>
     )
+  }
+});
+
+var ProblemItem = React.createClass({
+  render: function() {
+    var prob = this.props.prob || dummyProb;
+    return <div className="column">{prob.getJudgeName()}</div>
   }
 });
 
@@ -346,7 +341,6 @@ var ProblemCard = React.createClass({
         <a className="header" href={prob.getJudgeUrl()} target="_blank">
           {prob.getJudgeName()}
         </a>
-        <div className="meta">{prob.getJudgeTitle()}</div>
         <div className="description">
           <div className="ui list">
           {
