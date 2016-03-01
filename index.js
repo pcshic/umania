@@ -94,7 +94,7 @@ var UManiaApp = React.createClass({
           iter.map(function (num) {
             app.addUVaTranslate(res.probs['uva_num' + num], {
               name: name,
-              link: (name === 'uniDog')? num: data[name].trans[num]
+              link: [(name === 'uniDog')? num: data[name].trans[num]]
             })
           });
         });
