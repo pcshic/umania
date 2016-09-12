@@ -1,6 +1,10 @@
 {
-	"name": "uMania",
-	"version": "0.0.1",
-	"private": true,
-	"dependencies": {}
+  "name": "uMania",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "express": "^4.13.4",
+    "serve-static": "^1.10.3"
+  }
 }

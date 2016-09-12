@@ -1,4 +1,96 @@
-var UManiaApp = React.createClass({
+class UManiaApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      category: [1,2,3,4,5,6,7,8,9,10,11,100,101,102,103],
+    }
+  }
+
+  render() {
+    let cate = this.state.category;
+    console.log(cate);
+    return (
+    <div id="main" className="ui container">
+      <nav id="menu" className="ui top attached pointing menu">
+        <a className="active item" data-tab="home">
+          <i className="grid layout icon"></i> uMania
+        </a>
+        <a className="item" data-tab="practice">
+          <i className="puzzle icon"></i> Practice
+        </a>
+        <div className="right menu">
+          <div className="ui search item">
+          <div className="ui icon input">
+            <input className="prompt" type="text" placeholder="Search ..." />
+            <i className="search icon"></i>
+          </div>
+          </div>
+        </div>
+      </nav>
+      <div className="ui bottom attached segment">
+        <div className="ui stackable two column grid">
+        {
+          (cate || []).map((it) => (
+            <div className="column">
+              <VolumeBlock title={"Volume " + it} />
+            </div>) )
+        }
+        </div>
+      </div>
+    </div>
+    )
+  }
+}
+
+class VolumeBlock extends React.Component {
+  render() {
+    let title = this.props.title;
+    return (<article><div className="ui title">{title}</div></article>)
+  }
+}
+
+/*
+let UManiaApp = React.createClass({
+  getInitialState: function() {
+    return {
+      category: [1,2,3,4,5,6,7,8,9,10,11,100,101,102,103]
+    }
+  },
+  render: function() {
+    var cate = this.state.category;
+    console.log(cate);
+    return (
+    <div id="main" className="ui container">
+      <nav id="menu" className="ui top attached pointing menu">
+        <a className="active item" data-tab="home">
+          <i className="grid layout icon"></i> uMania
+        </a>
+        <a className="item" data-tab="practice">
+          <i className="puzzle icon"></i> Practice
+        </a>
+        <div className="right menu">
+          <div className="ui search item">
+          <div className="ui icon input">
+            <input className="prompt" type="text" placeholder="Search ..." />
+            <i className="search icon"></i>
+          </div>
+          </div>
+        </div>
+      </nav>
+      <div className="ui bottom attached segment">
+        <div className="ui stackable two column grid">
+        {
+          (cate || []).map((it) => { return <div className="column">{"Volume " + it}</div> })
+        }
+        </div>
+      </div>
+    </div>
+    )
+  }
+})
+*/
+
+var NewUManiaApp = React.createClass({
   getInitialState: function() {
     return {
       title: 'uMania',
@@ -465,6 +557,6 @@ ProblemObject.prototype.getTranslateUrl = function(tid) {
 }
 var dummyProb = new ProblemObject();
 
-$(document).ready(function() {
-  ReactDOM.render(<UManiaApp />, document.body);
+$(document).ready(() => {
+  ReactDOM.render(<UManiaApp />, document.body)
 });
