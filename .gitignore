@@ -1,8 +1,4 @@
-# google drive config
-*.ini
-
-# no use file
-Thumbs.db
-
-# package
+.DS_Store
 node_modules/
+dist/
+npm-debug.log
