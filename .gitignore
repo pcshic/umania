@@ -1,8 +1,0 @@
-# google drive config
-*.ini
-
-# no use file
-Thumbs.db
-
-# package
-node_modules/
