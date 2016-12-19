@@ -47,7 +47,19 @@ Array.prototype.unique = function() {
   }, [])
 }
 
-const categorizer = (arr, keyMapper) => {
+const core = (data, keyMapper, reducer) => {
+  const arr = data || []
+  let res = {}
+  res.list = arr.map(keyMapper).unique().sort((a, b) => a - b)
+  res.data = arr.map(item => {
+    return {
+      key:   keyMapper(item),
+      value: item
+    }
+  })
+}
+
+const cater = (arr, keyMapper) => {
   let res = {}
   // gen key list
   res.list = arr.map(keyMapper).unique().sort((a, b) => a - b)
@@ -73,7 +85,11 @@ export default {
       user: {
         subs: []
       },
-      problems: []
+      problems: [],
+      asset: {
+        problem:    [],
+        submission: []
+      }
     }
   },
   created() {
@@ -83,16 +99,16 @@ export default {
       app.username = localStorage.username
     // get problems
     UVa.endpoint('/p')
-      .then(data => { app.problems = data })
+      .then(data => { app.problems = app.asset.problem = data })
   },
   computed: {
     volumes() {
       let app = this
-      return categorizer(app.problems, it => Math.floor(it[1] / 100))
+      return cater(app.problems, it => Math.floor(it[1] / 100))
     },
     submissions() {
       let app = this
-      return categorizer(app.user.subs, it => it[1])
+      return cater(app.user.subs, it => it[1])
     },
     mapper() {
       let res = {
@@ -104,6 +120,26 @@ export default {
         res.id[ item[0] ]  = item
         res.num[ item[1] ] = item
       })
+      return res
+    },
+    store() {
+      const app   = this
+      const store = app.store
+      let res = {
+        data: [],
+        category: {}
+      }
+      // problem & submission data
+      res.data = store.problem
+        .map((prob, i) => {
+          return {
+            id: i,
+            prob: prob
+          }
+        })
+      // category
+      res.category.uid    = cater(res.data, )
+      res.category.volume = cater(res.data, it => Math(it.prob[1] / 100)).data
       return res
     }
   },

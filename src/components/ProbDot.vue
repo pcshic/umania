@@ -1,5 +1,5 @@
 <template>
-<router-link :to="`/problem/${num}`" id="probdot" :class="`ui ${color} empty circular label`"></router-link>
+<router-link :to="`/problem/${num}`" id="probdot" :class="`ui ${color} circular label`">{{ num % 100 | leftpad }}</router-link>
 </template>
 
 <script>
@@ -23,9 +23,16 @@ export default {
         .map(sub => verdict[ sub[2] ])
         .reduce((a, b) => Math.min(a, b), setting.length)
       if (final !== setting.length) {
-        res = 'large ' + setting[final][4]
+        res = setting[final][4]
       }
       return res
+    }
+  },
+  filters: {
+    leftpad(val) {
+      if (val < 10)
+        return '0' + val
+      return val
     }
   }
 }

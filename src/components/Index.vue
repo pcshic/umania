@@ -1,5 +1,5 @@
 <template>
-<section id="index" class="ui stackable doubling four column grid">
+<section id="index" class="ui stackable doubling two column grid">
   <article v-for="vol in volumes.list" class="column">
     <h2 class="ui top attached header">Volume {{ vol }}</h2>
     <div class="ui bottom attached segment">
