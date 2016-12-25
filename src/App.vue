@@ -16,65 +16,23 @@
     </nav>
     <div id="content" class="fourteen wide column">
       <router-view
-        :userid="userid"
-        :mapper="mapper"
-        :volumes="volumes"
-        :submissions="submissions">
+        :store="store"
+        :userid="userid">
       </router-view>
     </div>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
 import $ from 'jquery'
+import uHunt from './scripts/uhunt'
 
+window._ = _
 window.$ = window.jQuery = $
+
 require('semantic-ui-css/semantic.css')
 require('semantic-ui-css/semantic.js')
-
-class UVa {
-  static endpoint(ep) {
-    const domain = 'http://uhunt.felix-halim.net/api'
-    return $.getJSON(domain + ep)
-  }
-}
-
-Array.prototype.unique = function() {
-  return this.reduce((uni, item) => {
-    if ( !uni.some(uItem => item === uItem) )
-      uni.push(item)
-    return uni
-  }, [])
-}
-
-const core = (data, keyMapper, reducer) => {
-  const arr = data || []
-  let res = {}
-  res.list = arr.map(keyMapper).unique().sort((a, b) => a - b)
-  res.data = arr.map(item => {
-    return {
-      key:   keyMapper(item),
-      value: item
-    }
-  })
-}
-
-const cater = (arr, keyMapper) => {
-  let res = {}
-  // gen key list
-  res.list = arr.map(keyMapper).unique().sort((a, b) => a - b)
-  // initialize data
-  res.data = {}
-  res.list.forEach(key => {
-    res.data[key] = []
-  })
-  // categorize
-  arr.forEach(item => {
-    res.data[keyMapper(item)].push(item)
-  })
-  // return
-  return res
-}
 
 export default {
   name: 'app',
@@ -85,7 +43,6 @@ export default {
       user: {
         subs: []
       },
-      problems: [],
       asset: {
         problem:    [],
         submission: []
@@ -98,49 +55,57 @@ export default {
     if (localStorage.username !== 'undefined')
       app.username = localStorage.username
     // get problems
-    UVa.endpoint('/p')
-      .then(data => { app.problems = app.asset.problem = data })
+    uHunt.uva('/p')
+      .then(data => { app.asset.problem = data })
   },
   computed: {
-    volumes() {
-      let app = this
-      return cater(app.problems, it => Math.floor(it[1] / 100))
-    },
-    submissions() {
-      let app = this
-      return cater(app.user.subs, it => it[1])
-    },
-    mapper() {
-      let res = {
-        id: {},
-        num: {}
-      }
-      let app = this
-      app.problems.forEach(item => {
-        res.id[ item[0] ]  = item
-        res.num[ item[1] ] = item
-      })
-      return res
-    },
     store() {
       const app   = this
-      const store = app.store
-      let res = {
-        data: [],
-        category: {}
+      const asset = app.asset
+      /*
+        Combine data
+          problem & submission data
+      */
+      const data = _
+        // problem data
+        //   1. we index by UVa problem ID
+        .chain(
+          _.chain(asset.problem)
+            // 1.1. wrap Submission instance
+            .map((data, i) => new uHunt.Problem(i, data))
+            .keyBy(prob => prob.getId()) // key by problem id
+            .value())
+        // submission data
+        //   2. _.mergeWith will merge with identical key
+        .mergeWith(
+          _.chain(asset.submission)
+            // 2.1. wrap Submission instance
+            .map(data => new uHunt.Submission(data))
+            .groupBy(sub => sub.getProbId()) // group by problem id
+            .mapValues(subs => subs.sort((a, b) => b.getId() - a.getId()))
+            .value(),
+          // 2.2. merge result
+          (target, source) => target.registerSubmissions(source)
+        )
+        // 3. We don't need keys
+        .values()
+        // 4. Final result
+        .value()
+      /*
+        category
+      */
+      let _uidnum = _.chain(data).map(it => it.getIdNum())
+      const category = {
+        id:     _.keyBy(data, it => it.getId()),
+        num:    _.keyBy(data, it => it.getNum()),
+        volume: _.groupBy(data, it => Math.floor(it.getNum() / 100)),
+        id2num: _uidnum.fromPairs().value(),
+        num2id: _uidnum.reverse().fromPairs().value()
       }
-      // problem & submission data
-      res.data = store.problem
-        .map((prob, i) => {
-          return {
-            id: i,
-            prob: prob
-          }
-        })
-      // category
-      res.category.uid    = cater(res.data, )
-      res.category.volume = cater(res.data, it => Math(it.prob[1] / 100)).data
-      return res
+      return {
+        data: data,
+        category: category
+      }
     }
   },
   watch: {
@@ -150,15 +115,18 @@ export default {
         app.userid = 0
         return
       }
-      UVa.endpoint('/uname2uid/' + app.username)
+      uHunt.uva('/uname2uid/' + app.username)
         .then(id => { app.userid = id })
     },
     userid(newUserid) {
       if (newUserid === 0)
         return
       let app = this
-      UVa.endpoint('/subs-user/' + app.userid)
-        .then(data => { app.user = data })
+      uHunt.uva('/subs-user/' + app.userid)
+        .then(data => {
+          app.user = data
+          app.asset.submission = data.subs
+        })
     }
   }
 }

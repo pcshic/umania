@@ -3,7 +3,7 @@
   <header class="ui huge header">
     <div class="content">
       UVa {{ $route.params.num }}
-      <div class="sub header" v-if="prob">{{ prob[2] }}</div>
+      <div class="sub header" v-if="problem">{{ problem.getHeader() }}</div>
     </div>
   </header>
   <h3 v-if="userid" class="ui header">
@@ -51,7 +51,7 @@
       統計<div class="sub header">Statistics</div>
     </div>
   </h3>
-  <article v-if="prob" class="ui statistics">
+  <article v-if="problem" class="ui statistics">
     <div v-for="stat in stats" :class="`${stat.color} statistic`">
       <div class="value">{{ stat.count }}</div>
       <div class="label">{{ stat.label }}</div>
@@ -61,58 +61,45 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import moment from 'moment'
+import uHunt from '../scripts/uhunt'
 
 window.Moment = moment
 
-const setting = require('../submission')
-
-let verdict = {}
-setting.forEach((state, i) => {
-  verdict[ state[3] ] = i
-})
-
-const language = ['', 'ANSI C', 'Java', 'C++', 'Pascal', 'C++11']
-
 export default {
   name: 'prob-name',
-  props: [ 'userid', 'mapper', 'submissions' ],
+  props: [ 'store', 'userid' ],
   data() {
     return {
-      setting: setting,
-      verdict: verdict
+      setting: uHunt
     }
   },
   computed: {
-    prob() {
-      let app = this
-      return app.mapper.num[ app.$route.params.num ]
+    problem() {
+      const app = this
+      return app.store.category.num[ app.$route.params.num ]
     },
     subs() {
-      let app = this
-      const id = app.prob[0]
-      return (app.submissions.data[id] || [])
-        .sort((a, b) => b[4] - a[4])
+      const app = this
+      const id  = app.problem.getId()
+      return _
+        .chain(app.problem.getSubs())
         .map(sub => {
           return {
-            status: setting[ verdict[sub[2]] ][1],
-            color:  setting[ verdict[sub[2]] ][4],
-            runtime: sub[3],
-            time:   moment.unix(sub[4]).format('YYYY/MM/DD HH:mm:ss'),
-            lang:   language[ sub[5] ],
-            rank:   sub[6]
+            status:  sub.getStatus(),
+            color:   sub.getColor(),
+            runtime: sub.getRuntime(),
+            time:    sub.getTime().format('YYYY/MM/DD HH:mm:ss'),
+            lang:    sub.getLang(),
+            rank:    sub.getRank()
           }
         })
+        .value()
     },
     stats() {
       let app = this
-      return setting.map(stat => {
-        return {
-          color: stat[4],
-          count: app.prob[ stat[2] ],
-          label: stat[1]
-        }
-      })
+      return app.problem.getStats()
     }
   },
   methods: {
