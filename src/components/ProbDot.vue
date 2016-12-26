@@ -1,8 +1,10 @@
 <template>
 <router-link
   :to="`/problem/${item.getNum()}`"
-  :class="`ui ${item.getColor()} circular label`"
-  id="probdot">{{ probNum }}</router-link>
+  :class="`ui ${item.getColor()} label`"
+  id="probdot">
+  <i class="coffee icon" v-if="item.getTrans().length > 0"></i>{{ probNum }}
+</router-link>
 </template>
 
 <script>

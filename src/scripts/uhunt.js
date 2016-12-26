@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import $ from 'jquery'
+import yaml from 'js-yaml'
 import moment from 'moment'
 
 /*
@@ -71,6 +72,7 @@ class Problem {
   getSubsProbId() { return _.map(this.subs, sub => sub.getProbId()) }
   getSubsVer()    { return _.map(this.subs, sub => sub.getVer()) }
   getColor()      { return this.info[4] || 'basic' }
+  getTrans()      { return this.trans || [] }
   getStats() {
     const p = this
     return _state_info.map(stat => {
@@ -83,11 +85,16 @@ class Problem {
   }
 }
 
-const domain = 'http://uhunt.felix-halim.net/api'
-const endpoint = (ep) => $.getJSON(domain + ep)
+const _domain = 'http://uhunt.felix-halim.net/api'
+const endpoint = (ep) => $.getJSON(_domain + ep)
+
+const _getYaml = path_to_file => $
+  .get(path_to_file)
+  .then(data => yaml.load(data))
 
 module.exports = {
   uva: endpoint,
+  getYaml: _getYaml,
   Submission: Submission,
   Problem: Problem
 }

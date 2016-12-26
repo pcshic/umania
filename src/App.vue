@@ -26,10 +26,14 @@
 <script>
 import _ from 'lodash'
 import $ from 'jquery'
+import yaml from 'js-yaml'
 import uHunt from './scripts/uhunt'
 
 window._ = _
 window.$ = window.jQuery = $
+
+window.uhunt = uHunt
+window.yaml  = yaml
 
 require('semantic-ui-css/semantic.css')
 require('semantic-ui-css/semantic.js')
@@ -45,52 +49,80 @@ export default {
       },
       asset: {
         problem:    [],
-        submission: []
+        submission: [],
+        translate:  {}
       }
     }
   },
   created() {
     let app = this
+    const _uva_data = '/static/uva.data'
     // user data
     if (localStorage.username !== 'undefined')
       app.username = localStorage.username
     // get problems
     uHunt.uva('/p')
       .then(data => { app.asset.problem = data })
+    // get translate data
+    uHunt.getYaml(`${_uva_data}/translate/translate.yml`)
+      .then(data => { app.asset.translate = data })
   },
   computed: {
     store() {
       const app   = this
       const asset = app.asset
       /*
-        Combine data
+        Set up Problem data
+          Wrap Problem instance
+      */
+      let data = _.map(
+        asset.problem,
+        (data, i) => new uHunt.Problem(i, data))
+      /*
+        Combine data: submission data
           problem & submission data
       */
-      const data = _
-        // problem data
-        //   1. we index by UVa problem ID
-        .chain(
-          _.chain(asset.problem)
-            // 1.1. wrap Submission instance
-            .map((data, i) => new uHunt.Problem(i, data))
-            .keyBy(prob => prob.getId()) // key by problem id
-            .value())
-        // submission data
-        //   2. _.mergeWith will merge with identical key
+      data = _
+        .chain(data)
+        // 1. indexed by UVa problem ID
+        .keyBy(prob => prob.getId())
+        // 2. _.mergeWith will merge data with identical key
         .mergeWith(
+          // 2.1. wrap Submission instance & sort
           _.chain(asset.submission)
-            // 2.1. wrap Submission instance
             .map(data => new uHunt.Submission(data))
-            .groupBy(sub => sub.getProbId()) // group by problem id
+            .groupBy(sub => sub.getProbId())
             .mapValues(subs => subs.sort((a, b) => b.getId() - a.getId()))
             .value(),
           // 2.2. merge result
-          (target, source) => target.registerSubmissions(source)
-        )
+          (target, source) => target.registerSubmissions(source))
         // 3. We don't need keys
         .values()
         // 4. Final result
         .value()
+      /*
+        Combine data: translate data
+      */
+      data = _
+        .chain(data)
+        .keyBy(prob => prob.getNum())
+        .mergeWith(
+          _.chain(asset.translate)
+            .flatMap((judge, key) =>
+              _.map(judge.trans, (link, i) => {
+                return {
+                  num: _.isArray(judge.trans) ? link : i,
+                  type: key,
+                  link: judge.site + link
+                }
+              })
+            )
+            .groupBy(trans => trans.num)
+            .value(),
+          (target, source) => _.assign(target, { trans: source }) )
+        .values()
+        .value()
+      window.console.log(data)
       /*
         category
       */
