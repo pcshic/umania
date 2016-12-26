@@ -56,7 +56,7 @@ export default {
   },
   created() {
     let app = this
-    const _uva_data = '/static/uva.data'
+    const _uva_data = './static/uva.data'
     // user data
     if (localStorage.username !== 'undefined')
       app.username = localStorage.username
