@@ -1,0 +1,46 @@
+"basic-01-basic-cpp":
+  title: "基礎 C++ 技巧"
+  section:
+  - file: "arithmetic"
+    title: "算術運算子"
+    exercises:
+    - uva: 10071
+      title: "Back to High School Physics"
+      description: "這題只要能夠讀懂題意就不難寫。如果不知道怎樣讀取多筆測資請先參考迴圈部分 (EOF 版)。"
+    - uva: 10300
+      title: "Ecological Premium"
+      description: "一樣能讀懂題意就不難寫。"
+    - uva: 11547
+      title: "Automatic Answer"
+      description: "計算 $(n\\times{567}\\div{9}+7492)\\times{235}\\div{47}-498$"
+  - file: "comparison-and-logical"
+    title: "比較和邏輯運算子"
+    exercises:
+    - uva: 10055
+      title: "Hashmat the brave warrior"
+      description: "取絕對值有兩種做法，一種是用 \\lstinline!if! 判斷；另一種是呼叫函數 \\lstinline!abs()! 就好了。\\lstinline!abs()! 函數被定義在 \\lstinline!<cstdlib>! 中，雖然沒有 \\lstinline!#include! 在 Visual C++ 依然能編譯過，但是上傳時因為編譯器的原因會導致\\index{編譯錯誤}{\\textbf{編譯錯誤}} (Compilation Error, CE)。\\\\另外要注意這一題的整數型態需用 \\lstinline!long long!，用 \\lstinline!int! 會造成「\\index{溢位}{溢位現象}」，這個原因會在後面說明。"
+    - uva: 11172
+      title: "Relational Operators"
+      description: "能夠理解題意就不難解決此道問題。"
+    - uva: 11942
+      title: "Lumberjack Sequencing"
+      description: "依序給你一些鬍子的長度，問你這些鬍子是不是由長到短，或是由短到長排列。"
+  - file: "bitwise"
+    title: "位元運算子"
+    exercises:
+    - uva: 10469
+      title: "To Carry or not to Carry"
+      description: "這題算是位元運算的基本應用。"
+"basic-02-program-struct":
+  title: "程式架構解析"
+  section:
+  - file: "array"
+    title: "陣列"
+    exercises:
+    - uva: 482
+      title: "Permutation Arrays"
+  - file: "string-manipulation"
+    title: "字串處理"
+    exercises:
+    - uva: 10304
+      title: "All in All"

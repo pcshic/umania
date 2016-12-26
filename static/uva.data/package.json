@@ -1,0 +1,10 @@
+{
+  "name": "uva.data",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "glob": "^6.0.4",
+    "sprintf-js": "^1.0.3",
+    "yamljs": "^0.2.4"
+  }
+}
