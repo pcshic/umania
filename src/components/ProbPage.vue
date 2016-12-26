@@ -6,6 +6,19 @@
       <div class="sub header" v-if="problem">{{ problem.getHeader() }}</div>
     </div>
   </header>
+  <h3 v-if="trans.length > 0" class="ui header">
+    <i class="coffee icon"></i>
+    <div class="content">
+      翻譯
+      <div class="sub header">Translates</div>
+    </div>
+  </h3>
+  <article v-if="trans.length > 0">
+    <a class="ui primary button"
+      target="_blank"
+      v-for="tran in trans"
+      :href="tran.link">{{ tran.type }}</a>
+  </article>
   <h3 v-if="userid" class="ui header">
     <i class="user icon"></i>
     <div class="content">
@@ -21,21 +34,13 @@
           <div class="value">{{ sub.status }}</div>
         </div>
         <div class="ui list">
-          <div class="item" v-if="sub.rank > 0">
+          <div v-if="sub.rank > 0" class="item">
             <i class="star icon"></i>
             <div class="content">{{ sub.rank }}</div>
           </div>
-          <div class="item">
-            <i class="hourglass full icon"></i>
-            <div class="content">{{ sub.runtime }} ms</div>
-          </div>
-          <div class="item">
-            <i class="code icon"></i>
-            <div class="content">{{ sub.lang }}</div>
-          </div>
-          <div class="item">
-            <i class="time icon"></i>
-            <div class="content">{{ sub.time }}</div>
+          <div v-for="other in sub.others" class="item">
+            <i :class="`${other[0]} icon`"></i>
+            <div class="content">{{ other[1] }}</div>
           </div>
         </div>
       </section>
@@ -65,8 +70,6 @@ import _ from 'lodash'
 import moment from 'moment'
 import uHunt from '../scripts/uhunt'
 
-window.Moment = moment
-
 export default {
   name: 'prob-name',
   props: [ 'store', 'userid' ],
@@ -89,21 +92,24 @@ export default {
           return {
             status:  sub.getStatus(),
             color:   sub.getColor(),
-            runtime: sub.getRuntime(),
-            time:    sub.getTime().format('YYYY/MM/DD HH:mm:ss'),
-            lang:    sub.getLang(),
-            rank:    sub.getRank()
+            rank:    sub.getRank(),
+            others: [
+              ['hourglass full', sub.getRuntime() + ' ms'                    ],
+              ['code',           sub.getLang()                               ],
+              ['time',           sub.getTime().format('YYYY/MM/DD HH:mm:ss') ]
+            ]
           }
         })
         .value()
     },
     stats() {
-      let app = this
+      const app = this
       return app.problem.getStats()
+    },
+    trans() {
+      const app = this
+      return app.problem.getTrans()
     }
-  },
-  methods: {
-    moment: moment
   }
 }
 </script>
