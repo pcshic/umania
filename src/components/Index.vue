@@ -1,7 +1,7 @@
 <template>
 <section id="index" class="ui stackable doubling two column grid">
   <article v-for="(items, vol) in volumes" class="column">
-    <h2 class="ui top attached header">Volume {{ vol }}</h2>
+    <header class="ui top attached segment"><h2 class="header">Volume {{ vol }}</h2></header>
     <div class="ui bottom attached segment circular labels">
       <prob-dot v-for="item in items" :item="item"></prob-dot>
     </div>

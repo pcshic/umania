@@ -3,7 +3,7 @@
   <header class="ui huge header">
     <div class="content">
       UVa {{ $route.params.num }}
-      <div class="sub header" v-if="problem">{{ problem.getHeader() }}</div>
+      <div class="sub header" v-if="problem">{{ setting.util.getHeader(problem) }}</div>
     </div>
   </header>
   <h3 v-if="trans.length > 0" class="ui header">
@@ -85,7 +85,7 @@ export default {
     },
     subs() {
       const app = this
-      const id  = app.problem.getId()
+      const id  = uHunt.util.getId(app.problem)
       return _
         .chain(app.problem.getSubs())
         .map(sub => {

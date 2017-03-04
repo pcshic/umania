@@ -16,7 +16,7 @@ export default {
   props: [ 'item' ],
   computed: {
     probNum() {
-      return _.padStart(this.item.getNum() % 100, 2, '0')
+      return _.padStart(uHunt.util.getNum(this.item) % 100, 2, '0')
     }
   }
 }
